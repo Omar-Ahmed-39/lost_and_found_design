@@ -5,7 +5,8 @@ import 'package:lostandfound/core/theme/app_theme.dart';
 import 'package:lostandfound/home/home.dart';
 
 class DonePage extends StatelessWidget {
-  const DonePage({super.key});
+  final String text;
+  const DonePage({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class DonePage extends StatelessWidget {
         children: [
       Image.asset(MyAppImage.done),
       SizedBox(height: 20,),
-      Text("تم استلام البلاغ للمراجعة",style: MyTextStyle.meduimtitle(),),
+      Text(text,style: MyTextStyle.meduimtitle(),),
          SizedBox(height: 20,),
       Container(
         width: double.infinity,

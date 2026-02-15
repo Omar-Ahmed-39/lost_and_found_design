@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lostandfound/home/home.dart';
 import 'package:lostandfound/notification/notification.dart';
 import 'package:lostandfound/profile/profile.dart';
+import 'package:lostandfound/report/report.dart';
 import 'package:lostandfound/search/search.dart';
 class MyNavigationBottomBar extends StatelessWidget {
   final int currentIndex;
@@ -91,8 +92,10 @@ class MyNavigationBottomBar extends StatelessWidget {
 
             Positioned(
               bottom: 80 - 20,
-              child: GestureDetector(
-                onTap: onFabTap,
+              child: InkWell(
+                onTap:() {
+                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => ReportPage()));
+                },
                 child: Transform.rotate(
                   angle: 0.785398,
                   child: Container(

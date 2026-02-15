@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lostandfound/core/shared/appbar.dart';
 import 'package:lostandfound/core/shared/form.dart';
+import 'package:lostandfound/home/done.dart';
 
 class ClaimPage extends StatelessWidget {
   const ClaimPage({super.key});
@@ -19,6 +20,9 @@ class ClaimPage extends StatelessWidget {
           MyInputField(hint: "اكتب وصفك", title: "وصف علامة مميزة"),
           SizedBox(height: 35,),
           Mybutton(text: "رفع",onTap: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                           MaterialPageRoute(
+                             builder: (context) =>DonePage(text: "تم استلام المطالبة للمراجعة",) ),(route) => false,);
             
           },)
         ],),
