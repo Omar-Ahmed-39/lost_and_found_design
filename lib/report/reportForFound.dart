@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lostandfound/core/shared/appbar.dart';
 import 'package:lostandfound/core/shared/dropdownlist.dart';
 import 'package:lostandfound/core/shared/form.dart';
+import 'package:lostandfound/core/theme/app_theme.dart';
 import 'package:lostandfound/home/done.dart';
 
 class ReportFoundPage extends StatefulWidget {
@@ -53,8 +54,7 @@ class _ReportFoundPageState extends State<ReportFoundPage> {
          
           SizedBox(height: 15,),
           MyInputField(hint: "اكتب اللون/الماركة", title: "اللون/الماركة"), 
-           SizedBox(height: 15,),
-          MyInputField(hint: "قم برفع الصورة", title: "صورة الغرض"),  
+          
           SizedBox(height: 15,),
           MyInputField(hint: "قم بوصف الغرض", title: "وصف الغرض"),  
           SizedBox(height: 15,),
@@ -66,6 +66,33 @@ class _ReportFoundPageState extends State<ReportFoundPage> {
            hint: "اختر من القاءمة", items: items1, onChanged:  (value) {
               selectedCategory1 = value!;
             }, ),
+              SizedBox(height: 15,),
+             Text("اضف صورة", textAlign: TextAlign.right,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                    ),),
+               SizedBox(height: 15,),
+               Container(
+                height: 150,
+                margin: EdgeInsets.all(2),
+ decoration: BoxDecoration(
+          color:  MyAppColor.card,
+          borderRadius: BorderRadius.circular(18),
+          border: BoxBorder.all(width: 0.5,color: Colors.black)
+          
+        ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    Icon(Icons.camera_alt_outlined,size: 30,),
+                    Text('ارفع صورة',)
+                  ],),
+                ),
+               ),
+
+
          
 
           SizedBox(height: 35,),
