@@ -4,6 +4,7 @@ import 'package:lostandfound/auth/signin.dart';
 import 'package:lostandfound/auth/signup.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 import 'package:lostandfound/home/home.dart';
+import 'package:lostandfound/home/splash_screen.dart';
 
 void main() {
   runApp(Myapp());
@@ -23,7 +24,7 @@ class _MyappState extends State<Myapp> {
       theme: ThemeData( 
         scaffoldBackgroundColor:MyAppColor.bg_page, 
       ),
-      home: Sign(),
+      home: SplashScreen(),
       routes:  {
         "SigninPage":(context)=>SigninPage(),
         "SignupPage":(context)=>SignupPage(),

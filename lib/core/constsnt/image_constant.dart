@@ -5,6 +5,7 @@ class MyAppImage{
     static String appbarBackImage="assets/Images/appbarback.png" ;
     static String profileImage="assets/Images/snker.jpg" ;
     static String done="assets/Images/done.png" ;
+     static String logoHadramout="assets/Images/logoHadramout.png" ;
 
 
 }
