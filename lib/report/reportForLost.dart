@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:lostandfound/core/function/imagepick.dart';
 import 'package:lostandfound/core/shared/appbar.dart';
 import 'package:lostandfound/core/shared/dropdownlist.dart';
 import 'package:lostandfound/core/shared/form.dart';
 import 'package:lostandfound/home/done.dart';
+import 'package:lostandfound/report/widget/image_picker_card.dart';
 
 class ReportLostPage extends StatefulWidget {
 
@@ -14,6 +18,8 @@ class ReportLostPage extends StatefulWidget {
 
 class _ReportLostPageState extends State<ReportLostPage> {
 String? selectedCategory;
+  File? file;
+
 
   List<DropdownMenuItem<String>> items= [
                     DropdownMenuItem(value: 'الكترونيات', child: Text('الكترونيات')),
@@ -54,8 +60,7 @@ String? selectedCategory;
          
           SizedBox(height: 15,),
           MyInputField(hint: "اكتب اللون/الماركة", title: "اللون/الماركة"), 
-           SizedBox(height: 15,),
-          MyInputField(hint: "قم برفع الصورة", title: "صورة الغرض"),  
+          
           SizedBox(height: 15,),
           MyInputField(hint: "قم بوصف الغرض", title: "وصف الغرض"),  
           SizedBox(height: 15,),
@@ -69,7 +74,14 @@ String? selectedCategory;
               selectedCategory1 = value!;
             },),
          
-
+ ImagePickerCard(
+              title: "اضف صورة",
+              file: file,
+              onTap: () async {
+                file = await MyImagePicker();
+                setState(() {});
+              },
+            ),
           SizedBox(height: 35,),
           Mybutton(text: "ارسال",onTap: () { 
              Navigator.of(context).pushAndRemoveUntil(
