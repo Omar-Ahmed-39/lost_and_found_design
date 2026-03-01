@@ -27,62 +27,102 @@ class Mybutton extends StatelessWidget {
 }
 class MyInputField extends StatelessWidget {
   final String hint;
+  final bool isMultiline;
+  final int? maxLines;
   final bool obscure;
+  final bool ispassword;
   final String title;
+  final TextEditingController? controller;
+  final String? Function(String?)? val;
+  final void Function()? onTap;
+
+
 
 
   const MyInputField({
+    this.isMultiline = false,
+    this.maxLines,
     required this.hint,
-    this.obscure = false, required this.title,
+     this.obscure=false , required this.title, this.val, this.controller, this.ispassword=false, this.onTap,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Align(
-        alignment: Alignment.centerRight,
+Widget build(BuildContext context) {
+  final bool canBeMultiline = isMultiline && !obscure; // ✅ ممنوع multiline لو obscure true
+  final int? effectiveMaxLines = canBeMultiline ? (maxLines ?? 5) : 1;
 
-          child: Text(
-                    title,
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-        ),
-                 const SizedBox(height: 10),
-        TextField(
-          obscureText: obscure,
+  return Column(
+    children: [
+      Align(
+        alignment: Alignment.centerRight,
+        child: Text(
+          title,
           textAlign: TextAlign.right,
-          decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: const TextStyle(color: Colors.grey),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 18,
-              vertical: 15,
+          style: TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      const SizedBox(height: 10),
+      TextFormField(
+        controller: controller,
+        validator: val,
+        obscureText: obscure,
+        textAlign: TextAlign.right,
+
+        // ✅ هنا الحل
+        maxLines: effectiveMaxLines,
+
+        decoration: InputDecoration(
+          prefixIcon: ispassword
+              ? IconButton(
+                  icon: Icon(
+                    obscure ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.grey,
+                  ),
+                  onPressed: onTap,
+                )
+              : null,
+          hintText: hint,
+          hintStyle: const TextStyle(color: Colors.grey),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 18,
+            vertical: 15,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: const BorderSide(
+              color: Color(0xFFBDBDBD),
+              width: 1.2,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
-              borderSide: const BorderSide(
-                color: Color(0xFFBDBDBD),
-                width: 1.2,
-              ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: const BorderSide(
+              color: Colors.red,
+              width: 1.2,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
-              borderSide: const BorderSide(
-                color: Color(0xFF9E9E9E),
-                width: 1.2,
-              ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: const BorderSide(
+              color: Colors.red,
+              width: 1.2,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: BorderSide(
+              color: MyAppColor.primarybutton,
+              width: 1.2,
             ),
           ),
         ),
-         
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
 }
 class MySubtitleSgin extends StatelessWidget {
  final void Function()? onTap;

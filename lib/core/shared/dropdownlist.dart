@@ -6,13 +6,17 @@ class MyDropdownList extends StatelessWidget {
   final String hint;
   final List<DropdownMenuItem<String>> items;
   final void Function(String?)? onChanged;
+  // 1. إضافة متغير الـ validator
+  final String? Function(String?)? validator;
 
-  MyDropdownList({
+  const MyDropdownList({
     super.key,
     required this.selectedCategory,
     required this.text,
     required this.hint,
-    required this.items, this.onChanged,
+    required this.items,
+    this.onChanged,
+    this.validator, // 2. إضافته في الـ constructor
   });
 
   @override
@@ -24,7 +28,7 @@ class MyDropdownList extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.right,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.w600,
             ),
@@ -34,8 +38,10 @@ class MyDropdownList extends StatelessWidget {
         Directionality(
           textDirection: TextDirection.rtl,
           child: DropdownButtonFormField<String>(
-            initialValue: selectedCategory,
+            // ملاحظة: يفضل استخدام value بدلاً من initialValue عند التعامل مع FormField
+            value: selectedCategory, 
             isExpanded: true,
+            validator: validator, // 3. ربط الـ validator هنا
             decoration: InputDecoration(
               hintText: hint,
               contentPadding: const EdgeInsets.symmetric(
@@ -45,10 +51,15 @@ class MyDropdownList extends StatelessWidget {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14),
               ),
+              // تأكد من إضافة حدود الخطأ لتظهر بشكل جميل
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: const BorderSide(color: Colors.red),
+              ),
             ),
-            icon: Icon(Icons.keyboard_arrow_down),
+            icon: const Icon(Icons.keyboard_arrow_down),
             items: items,
-            onChanged:onChanged
+            onChanged: onChanged,
           ),
         ),
       ],
