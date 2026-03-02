@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
 import 'package:lostandfound/core/shared/appbar.dart';
 import 'package:lostandfound/core/shared/navigation_bottom_bar.dart';
-import 'package:lostandfound/home/details.dart';
-import 'package:lostandfound/home/widget/card.dart';
+import 'package:lostandfound/features/home/details.dart';
+import 'package:lostandfound/features/home/widget/card.dart';
 
 
 class Homepage extends StatefulWidget {

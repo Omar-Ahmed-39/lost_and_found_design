@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lostandfound/home/home.dart';
-import 'package:lostandfound/notification/notification.dart';
-import 'package:lostandfound/profile/profile.dart';
-import 'package:lostandfound/report/report.dart';
-import 'package:lostandfound/search/search.dart';
+import 'package:lostandfound/features/home/home.dart';
+import 'package:lostandfound/features/notification/notification.dart';
+import 'package:lostandfound/features/profile/profile.dart';
+import 'package:lostandfound/features/report/report.dart';
+import 'package:lostandfound/features/search/search.dart';
 class MyNavigationBottomBar extends StatelessWidget {
   final int currentIndex;
   final VoidCallback? onFabTap;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lostandfound/core/shared/appbar.dart';
 import 'package:lostandfound/core/shared/form.dart';
-import 'package:lostandfound/home/done.dart';
+import 'package:lostandfound/features/home/done.dart';
 
 class ClaimPage extends StatelessWidget {
   const ClaimPage({super.key});

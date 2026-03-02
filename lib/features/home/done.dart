@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
 import 'package:lostandfound/core/shared/form.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
-import 'package:lostandfound/home/home.dart';
+import 'package:lostandfound/features/home/home.dart';
 
 class DonePage extends StatelessWidget {
   final String text;

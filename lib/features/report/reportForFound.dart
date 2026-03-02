@@ -5,8 +5,8 @@ import 'package:lostandfound/core/shared/appbar.dart';
 import 'package:lostandfound/core/shared/dropdownlist.dart';
 import 'package:lostandfound/core/shared/form.dart';
 import 'package:lostandfound/core/shared/validator/validator.dart';
-import 'package:lostandfound/home/done.dart';
-import 'package:lostandfound/report/widget/image_picker_card.dart';
+import 'package:lostandfound/features/home/done.dart';
+import 'package:lostandfound/features/report/widget/image_picker_card.dart';
 
 class ReportFoundPage extends StatefulWidget {
   const ReportFoundPage({super.key});

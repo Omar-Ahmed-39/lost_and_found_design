@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lostandfound/core/shared/appbar.dart';
-import 'package:lostandfound/report/reportForFound.dart';
-import 'package:lostandfound/report/reportForLost.dart';
-import 'package:lostandfound/report/widget/reportCard.dart';
+import 'package:lostandfound/features/report/reportForFound.dart';
+import 'package:lostandfound/features/report/reportForLost.dart';
+import 'package:lostandfound/features/report/widget/reportCard.dart';
 
 class ReportPage extends StatelessWidget {
   const ReportPage({super.key});

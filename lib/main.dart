@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lostandfound/auth/sign.dart';
-import 'package:lostandfound/auth/signin.dart';
-import 'package:lostandfound/auth/signup.dart';
+import 'package:lostandfound/features/auth/sign.dart';
+import 'package:lostandfound/features/auth/signin.dart';
+import 'package:lostandfound/features/auth/signup.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
-import 'package:lostandfound/home/home.dart';
-import 'package:lostandfound/home/splash_screen.dart';
+import 'package:lostandfound/features/home/home.dart';
+import 'package:lostandfound/features/home/splash_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

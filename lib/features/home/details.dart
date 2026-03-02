@@ -3,8 +3,8 @@ import 'package:lostandfound/core/shared/appbar.dart';
 import 'package:lostandfound/core/shared/form.dart';
 import 'package:lostandfound/core/shared/navigation_bottom_bar.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
-import 'package:lostandfound/home/claim.dart';
-import 'package:lostandfound/home/done.dart';
+import 'package:lostandfound/features/home/claim.dart';
+import 'package:lostandfound/features/home/done.dart';
 
 class DetailsPage extends StatelessWidget {
   final String title;

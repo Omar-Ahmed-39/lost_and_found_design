@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lostandfound/auth/sign.dart';
+import 'package:lostandfound/features/auth/sign.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
 
 class SplashScreen extends StatefulWidget {
