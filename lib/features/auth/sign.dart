@@ -1,7 +1,11 @@
 
 import 'package:flutter/material.dart' ;
+import 'package:lostandfound/core/api/end_points.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
+import 'package:lostandfound/core/database/cache/cache_helper.dart';
+import 'package:lostandfound/core/error/exception.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
+import 'package:lostandfound/model/signin_model.dart';
 
 class Sign extends StatefulWidget {
   const Sign({super.key});
@@ -11,6 +15,11 @@ class Sign extends StatefulWidget {
 }
 
 class _SignState extends State<Sign> {
+  final email = TextEditingController();
+  final password = TextEditingController();
+  
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

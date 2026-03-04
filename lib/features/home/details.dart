@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lostandfound/core/constsnt/image_constant.dart';
 import 'package:lostandfound/core/shared/appbar.dart';
 import 'package:lostandfound/core/shared/form.dart';
 import 'package:lostandfound/core/shared/navigation_bottom_bar.dart';
@@ -27,7 +28,8 @@ class DetailsPage extends StatelessWidget {
           ClipRRect(
             borderRadius:BorderRadius.all(Radius.circular(19)) ,
             child: Stack(children: [Container(width: double.infinity,
-             child: Image.asset(image,fit: BoxFit.cover,)),
+             child: Image.network(image,fit: BoxFit.cover,errorBuilder: (context, error, stackTrace) =>
+                   Image.asset(MyAppImage.imagebroken,fit: BoxFit.cover) ,)),
               Positioned(
               top: 10,
               right: 10,

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:lostandfound/core/constsnt/image_constant.dart';
 
 class OfferCard extends StatelessWidget {
   final String title;
   final String date;
   final String status;
   final Color statusColor;
-  final String imagePath;
+  final String imageUrl;
 
   const OfferCard({
     required this.title,
     required this.date,
     required this.status,
     required this.statusColor,
-    required this.imagePath,
+    required this.imageUrl,
   });
 
   @override
@@ -34,9 +35,11 @@ class OfferCard extends StatelessWidget {
         children: [
           // الصورة
           Positioned.fill(
-            child: Image.asset(
-              imagePath,
+            child: Image.network(
+              imageUrl,
               fit: BoxFit.cover,
+              errorBuilder:  (context, error, stackTrace) =>
+                   Image.asset(MyAppImage.imagebroken,fit: BoxFit.cover,)
             ),
           ),
 
