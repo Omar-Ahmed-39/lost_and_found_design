@@ -6,6 +6,7 @@ import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 import 'package:lostandfound/features/home/home.dart';
 import 'package:lostandfound/features/home/splash_screen.dart';
+import 'package:lostandfound/features/search/search.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +28,7 @@ class _MyappState extends State<Myapp> {
       theme: ThemeData( 
         scaffoldBackgroundColor:MyAppColor.bg_page, 
       ),
-      home: SplashScreen(),
+      home: SearchPage(),
       routes:  {
         "SigninPage":(context)=>SigninPage(),
         "SignupPage":(context)=>SignupPage(),
