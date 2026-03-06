@@ -7,6 +7,8 @@ class MyAppImage{
     static String done="assets/Images/done.png" ;
      static String logoHadramout="assets/Images/logoHadramout.png" ;
      static String imagebroken="assets/Images/imagebroken.png";
+     static String searchIcon="assets/Images/search_icon.png";
+
 
 
 }

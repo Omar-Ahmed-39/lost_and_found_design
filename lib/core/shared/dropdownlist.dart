@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lostandfound/core/theme/app_theme.dart';
 
 class MyDropdownList extends StatelessWidget {
   final String? selectedCategory;
@@ -28,10 +29,7 @@ class MyDropdownList extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.right,
-            style: const TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w600,
-            ),
+            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
           ),
         ),
         const SizedBox(height: 10),
@@ -39,10 +37,17 @@ class MyDropdownList extends StatelessWidget {
           textDirection: TextDirection.rtl,
           child: DropdownButtonFormField<String>(
             // ملاحظة: يفضل استخدام value بدلاً من initialValue عند التعامل مع FormField
-            value: selectedCategory, 
+            value: selectedCategory,
             isExpanded: true,
             validator: validator, // 3. ربط الـ validator هنا
             decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: BorderSide(
+                  color: MyAppColor.primarybutton, // اللون عند الاختيار
+                  width: 2,
+                ),
+              ),
               hintText: hint,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
@@ -57,6 +62,7 @@ class MyDropdownList extends StatelessWidget {
                 borderSide: const BorderSide(color: Colors.red),
               ),
             ),
+
             icon: const Icon(Icons.keyboard_arrow_down),
             items: items,
             onChanged: onChanged,
