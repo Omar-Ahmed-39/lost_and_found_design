@@ -70,7 +70,6 @@ class _SearchPageState extends State<SearchPage> {
                 });
               },
             ),
-            Image.asset(MyAppImage.searchIcon,width: 250,height: 250,)
           ],
         ),
       ),

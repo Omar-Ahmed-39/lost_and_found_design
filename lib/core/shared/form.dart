@@ -5,14 +5,15 @@ import 'package:lostandfound/core/theme/app_theme.dart';
 class Mybutton extends StatelessWidget {
   final void Function()? onTap;
  final String text;
-  const Mybutton({super.key, this.onTap, required this.text});
+ final Color? color;
+  const Mybutton({super.key, this.onTap, required this.text, this.color});
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
               height: 60,
               shape:RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(14)),
-              color: MyAppColor.primarybutton,
+              color:color?? MyAppColor.primarybutton,
                 onPressed:onTap,
                 child:  Text(
                       text,

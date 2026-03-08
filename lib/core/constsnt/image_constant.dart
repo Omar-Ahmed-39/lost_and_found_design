@@ -8,6 +8,8 @@ class MyAppImage{
      static String logoHadramout="assets/Images/logoHadramout.png" ;
      static String imagebroken="assets/Images/imagebroken.png";
      static String searchIcon="assets/Images/search_icon.png";
+     static String sanker="assets/Images/snker.jpg";
+
 
 
 

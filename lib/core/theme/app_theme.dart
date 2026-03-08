@@ -7,6 +7,15 @@ class MyAppColor{
   static Color bg_found=Color(0xCCDFF7E3);
   static Color card= Color(0xCCE7E7E7);
   static Color title= Color(0xCC000000);
+  static Color primaryBlue = Color(0xFF5EA3DB);
+    static Color lightBlue = Color(0xFFEAF4FE);
+    static Color softPink = Color(0xFFF9E7E7);
+    static Color gold = Color(0xFFD8A84E);
+    static Color bgColor = Color(0xFFF7F7F7);
+    static Color cardColorr = Colors.white;
+    static Color textDark = Color(0xFF222222);
+    static Color textGrey = Color(0xFF777777);
+    static Color danger = Color(0xFFE45C5C);
 
 }
 class MyTextStyle {
