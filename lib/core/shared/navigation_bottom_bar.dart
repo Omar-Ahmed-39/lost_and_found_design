@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:lostandfound/features/home/home.dart';
-import 'package:lostandfound/features/notification/notification.dart';
-import 'package:lostandfound/features/profile/profile.dart';
 import 'package:lostandfound/features/report/report.dart';
-import 'package:lostandfound/features/search/search.dart';
+
 class MyNavigationBottomBar extends StatelessWidget {
   final int currentIndex;
-  final VoidCallback? onFabTap;
+  final ValueChanged<int> onItemSelected;
+ 
 
   const MyNavigationBottomBar({
     super.key,
     required this.currentIndex,
-    this.onFabTap,
+    required this.onItemSelected,
   });
 
   @override
@@ -40,7 +38,6 @@ class MyNavigationBottomBar extends StatelessWidget {
                 ],
               ),
             ),
-
             ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(22),
@@ -53,49 +50,42 @@ class MyNavigationBottomBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     BottomNavItem(
-                      itemIndex: 0,
+                      itemIndex: 3,
                       currentIndex: currentIndex,
                       icon: Icons.person_outline,
                       label: "ملفي",
-                      onTap: () => Navigator.pushAndRemoveUntil(context, 
-                      MaterialPageRoute(builder: (context) => ProfilePage(),), (route) => false,),
+                      onTap: () => onItemSelected(3),
                     ),
-                    BottomNavItem(
-                      itemIndex: 1,
-                      currentIndex: currentIndex,
-                      icon: Icons.notifications_none,
-                      label: "الإشعارات",
-                      onTap: () => Navigator.pushAndRemoveUntil(context, 
-                      MaterialPageRoute(builder: (context) => NotificationPage(),), (route) => false,),
-                    ),
-                    const SizedBox(width: 60),
                     BottomNavItem(
                       itemIndex: 2,
                       currentIndex: currentIndex,
+                      icon: Icons.notifications_none,
+                      label: "الإشعارات",
+                      onTap: () => onItemSelected(2),
+                    ),
+                    const SizedBox(width: 60),
+                    BottomNavItem(
+                      itemIndex: 1,
+                      currentIndex: currentIndex,
                       icon: Icons.search,
                       label: "البحث",
-                      onTap: () => Navigator.pushAndRemoveUntil(context, 
-                      MaterialPageRoute(builder: (context) => SearchPage(),), (route) => false,),
+                      onTap: () => onItemSelected(1),
                     ),
                     BottomNavItem(
-                      itemIndex: 3,
+                      itemIndex: 0,
                       currentIndex: currentIndex,
                       icon: Icons.home_outlined,
                       label: "الرئيسية",
-                      onTap: () => Navigator.pushAndRemoveUntil(context, 
-                      MaterialPageRoute(builder: (context) => Homepage(),), (route) => false,),
+                      onTap: () => onItemSelected(0),
                     ),
                   ],
                 ),
               ),
             ),
-
             Positioned(
               bottom: 80 - 20,
               child: InkWell(
-                onTap:() {
-                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => ReportPage()));
-                },
+                onTap:() =>  Navigator.of(context).push(MaterialPageRoute(builder: (context) => ReportPage(),)),
                 child: Transform.rotate(
                   angle: 0.785398,
                   child: Container(
@@ -127,12 +117,6 @@ class MyNavigationBottomBar extends StatelessWidget {
   }
 }
 
-
-
-
-
-
-
 class BottomNavItem extends StatelessWidget {
   final int itemIndex;
   final int currentIndex;
@@ -156,47 +140,45 @@ class BottomNavItem extends StatelessWidget {
     final bool isActive = currentIndex == itemIndex;
 
     return InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          // بدل HitTestBehavior.opaque
-          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 160),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: isActive ? activeColor.withOpacity(0.25) : Colors.transparent,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Icon(
-                  icon,
-                  size: 28,
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 160),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: isActive ? activeColor.withOpacity(0.25) : Colors.transparent,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Icon(
+                icon,
+                size: 28,
+                color: isActive ? activeColor : Colors.black54,
+              ),
+            ),
+            const SizedBox(height: 2),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 160),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: isActive ? activeColor.withOpacity(0.25) : Colors.transparent,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12,
                   color: isActive ? activeColor : Colors.black54,
                 ),
               ),
-              const SizedBox(height: 2),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 160),
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: isActive ? activeColor.withOpacity(0.25) : Colors.transparent,
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: isActive ? activeColor : Colors.black54,
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      
+      ),
     );
   }
 }

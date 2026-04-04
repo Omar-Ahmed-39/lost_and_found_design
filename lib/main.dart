@@ -5,6 +5,7 @@ import 'package:lostandfound/features/auth/signup.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 import 'package:lostandfound/features/home/home.dart';
+import 'package:lostandfound/features/home/home_screen.dart';
 import 'package:lostandfound/features/home/splash_screen.dart';
 import 'package:lostandfound/features/search/search.dart';
 
@@ -28,11 +29,12 @@ class _MyappState extends State<Myapp> {
       theme: ThemeData( 
         scaffoldBackgroundColor:MyAppColor.bg_page, 
       ),
-      home: SearchPage(),
+      home: HomeScreen(),
       routes:  {
         "SigninPage":(context)=>SigninPage(),
         "SignupPage":(context)=>SignupPage(),
         "HomePage":(context)=>Homepage(),
+
 
 
         

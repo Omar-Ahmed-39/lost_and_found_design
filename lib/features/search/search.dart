@@ -35,10 +35,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppbar(),
-      bottomNavigationBar: MyNavigationBottomBar(currentIndex: currentIndex),
-      body: Container(
+    return  Container(
         margin: EdgeInsets.all(20),
         child: Column(
           children: [
@@ -72,8 +69,8 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ],
         ),
-      ),
-    );
+      );
+    
   }
 
   Future<void> myFilterBottemsheet(BuildContext context) {

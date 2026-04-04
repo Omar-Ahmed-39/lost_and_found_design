@@ -2,13 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:lostandfound/core/api/api_consumer.dart';
 import 'package:lostandfound/core/api/dio_consumer.dart';
-import 'package:lostandfound/core/constsnt/image_constant.dart';
-import 'package:lostandfound/core/shared/appbar.dart';
-import 'package:lostandfound/core/shared/navigation_bottom_bar.dart';
 import 'package:lostandfound/features/home/details.dart';
 import 'package:lostandfound/features/home/widget/card.dart';
 import 'package:lostandfound/model/home_model.dart';
-
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -18,17 +14,16 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-   late ApiConsumer api;
+  late ApiConsumer api;
   late Future<List<Post>> postsFuture;
-    int currentIndex = 3;
-    late String url;
+  late String url;
 
-   @override
+  @override
   void initState() {
     super.initState();
-    // تهيئة الـ API والـ Future في الـ initState لضمان عدم تكرار الطلب عند الـ Build
     api = DioConsumer(dio: Dio());
-    postsFuture = getPosts(); 
+    postsFuture = getPosts();
+    url = 'https://picsum.photos/400/400';
   }
 
   Future<List<Post>> getPosts() async {
@@ -43,78 +38,74 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-    extendBodyBehindAppBar: true,
-    extendBody: true,
-appBar: MyAppbar(),
- bottomNavigationBar: MyNavigationBottomBar( currentIndex: currentIndex),
-  
-      body: Container(child: 
-      Column(children: [
-       
-         Expanded(
-              child: Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 14,vertical: 20),
-                child:  FutureBuilder<List<Post>>(
-                  future: postsFuture,
-          builder: (context, snapshot) {
-            // 1. حالة التحميل
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
+    return Column(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 20),
+            child: FutureBuilder<List<Post>>(
+              future: postsFuture,
+              builder: (context, snapshot) {
+                // تحميل
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-            // 2. حالة الخطأ
-            if (snapshot.hasError) {
-              return Center(
-                child: Text("حدث خطأ ما: ${snapshot.error}"),
-              );
-            }
-
-            // 3. حالة عدم وجود بيانات
-            if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text("لا توجد منشورات حالياً"));
-            }
-            url='https://picsum.photos/400/400';
-             // 4. حالة نجاح وصول البيانات
-            final posts = snapshot.data!;
-                  return GridView.builder(
-                     itemCount: posts.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // 2 في الصف
-                      crossAxisSpacing: 14,
-                      mainAxisSpacing: 14,
-                      childAspectRatio: 0.92, // قريب من شكل الكرت بالصورة
-                    ),
-                    itemBuilder: (context, index) {
-                      final post =  posts[index];
-                      return InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) =>DetailsPage(title:  post.content, date: post.imageUrl,
-                               status: post.content, statusColor: Colors.green, image: url) ));
-                        },
-                        child: OfferCard(
-                          title:  post.content,
-                          date:  post.content,
-                          status:  post.content,
-                          statusColor: Colors.green,
-                          imageUrl: url,
-                        ),
-                      );
-                    },
+                // خطأ
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text("حدث خطأ ما: ${snapshot.error}"),
                   );
-               }),
-              ),
+                }
+
+                // لا يوجد بيانات
+                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Center(child: Text("لا توجد منشورات حالياً"));
+                }
+
+                final posts = snapshot.data!;
+
+                return GridView.builder(
+                  itemCount: posts.length,
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 14,
+                    mainAxisSpacing: 14,
+                    childAspectRatio: 0.92,
+                  ),
+                  itemBuilder: (context, index) {
+                    final post = posts[index];
+
+                    return InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => DetailsPage(
+                              title: post.content,
+                              date: post.imageUrl,
+                              status: post.content,
+                              statusColor: Colors.green,
+                              image: url,
+                            ),
+                          ),
+                        );
+                      },
+                      child: OfferCard(
+                        title: post.content,
+                        date: post.content,
+                        status: post.content,
+                        statusColor: Colors.green,
+                        imageUrl: url,
+                      ),
+                    );
+                  },
+                );
+              },
             ),
-          
-      
-        const SizedBox(width: 6),],)
+          ),
         ),
-      );
-    
+      ],
+    );
   }
 }
-
-
-

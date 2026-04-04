@@ -13,10 +13,9 @@ class _NotificationPageState extends State<NotificationPage> {
  int currentIndex=1;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppbar(),
-      bottomNavigationBar: MyNavigationBottomBar(currentIndex: currentIndex),
-      body: Text("notification"),
-    );
+    return 
+     
+    Text("notification");
+    
   }
 }

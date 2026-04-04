@@ -18,12 +18,9 @@ class _ProfilePageState extends State<ProfilePage> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      extendBody: true,
-      appBar: MyAppbar(),
-      bottomNavigationBar: MyNavigationBottomBar(currentIndex: currentIndex),
-      body: Container(
+    return 
+    
+       Container(
         margin: EdgeInsets.all(10),
         child: SingleChildScrollView(
           child: Column(
@@ -143,8 +140,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
         ),
-      ),
-    );
+      );
+    
   }
 }
 
