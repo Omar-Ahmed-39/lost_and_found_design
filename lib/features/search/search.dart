@@ -18,7 +18,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final int currentIndex = 2;
   String? selectedCategory;
   List<String> activeFilters = [];
 
@@ -35,41 +34,43 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-        margin: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: FilterButton(
-                    isClick: isclickfilter,
-                    onTap: () {
-                      myFilterBottemsheet(context);
-                    },
+    return  SafeArea(
+      child: Container(
+          margin: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: FilterButton(
+                      isClick: isclickfilter,
+                      onTap: () {
+                        myFilterBottemsheet(context);
+                      },
+                    ),
                   ),
-                ),
-
-                Expanded(child: MySearchFilde()),
-              ],
-            ),
-            const SizedBox(height: 15),
-
-            SearchActiveFilters(
-              filters: activeFilters,
-              onRemove: (filter) {
-                setState(() {
-                  activeFilters.remove(filter);
-                  if(activeFilters.isEmpty){
-                    isclickfilter=false;
-                  }
-                });
-              },
-            ),
-          ],
+      
+                  Expanded(child: MySearchFilde()),
+                ],
+              ),
+              const SizedBox(height: 15),
+      
+              SearchActiveFilters(
+                filters: activeFilters,
+                onRemove: (filter) {
+                  setState(() {
+                    activeFilters.remove(filter);
+                    if(activeFilters.isEmpty){
+                      isclickfilter=false;
+                    }
+                  });
+                },
+              ),
+            ],
+          ),
         ),
-      );
+    );
     
   }
 

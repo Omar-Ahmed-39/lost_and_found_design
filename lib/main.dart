@@ -29,7 +29,7 @@ class _MyappState extends State<Myapp> {
       theme: ThemeData( 
         scaffoldBackgroundColor:MyAppColor.bg_page, 
       ),
-      home: HomeScreen(),
+      home: SplashScreen(),
       routes:  {
         "SigninPage":(context)=>SigninPage(),
         "SignupPage":(context)=>SignupPage(),

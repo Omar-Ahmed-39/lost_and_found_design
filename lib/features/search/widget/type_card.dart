@@ -25,14 +25,8 @@ class MyTypeCard extends StatelessWidget {
       onTap: ontap,
       child: Container(
         decoration: BoxDecoration(
-          color: MyAppColor.card,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 10,
-              offset: Offset(0, 6),
-              color: Color(0x14000000),
-            ),
-          ],
+          color:Colors.grey[200],
+         
           border: isselected
               ? Border.all(color: MyAppColor.primarybutton)
               : null,
