@@ -5,6 +5,7 @@ import 'package:lostandfound/core/constsnt/image_constant.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/error/exception.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
+import 'package:lostandfound/features/auth/widget/card_offer.dart';
 import 'package:lostandfound/model/signin_model.dart';
 
 class Sign extends StatefulWidget {
@@ -15,10 +16,6 @@ class Sign extends StatefulWidget {
 }
 
 class _SignState extends State<Sign> {
-  final email = TextEditingController();
-  final password = TextEditingController();
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +35,7 @@ class _SignState extends State<Sign> {
                     children: [
                       
                       Expanded(
-                        child: _ActionCard(
+                        child: ActionCard(
                           title: 'إنشاء حساب جديد',
                           imagePath: MyAppImage.signupImage,
                           onTap: () {
@@ -49,7 +46,7 @@ class _SignState extends State<Sign> {
                       ),
                       const SizedBox(width: 14),
                       Expanded(
-                        child: _ActionCard(
+                        child: ActionCard(
                           title: 'تسجيل الدخول',
                           imagePath: MyAppImage.signinImage,
                           onTap: () {
@@ -68,59 +65,3 @@ class _SignState extends State<Sign> {
   }
 }
 
-
-class _ActionCard extends StatelessWidget {
-  final String title;
-  final String imagePath;
-  final VoidCallback onTap;
-
-  const _ActionCard({
-    required this.title,
-    required this.imagePath,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      splashColor: Colors.black.withOpacity(0.3),
-      borderRadius: BorderRadius.circular(18),
-      onTap: onTap,
-      child: Container(
-        height: 190,
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color:  MyAppColor.card,
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 10,
-              offset: Offset(0, 6),
-              color: Color(0x14000000),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // الصورة
-            Expanded(
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.contain,
-              ),
-            ),
-            const SizedBox(height: 10),
-
-            // النص
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: MyTextStyle.subtitel()
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

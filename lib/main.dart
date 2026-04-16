@@ -1,4 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lostandfound/core/api/dio_consumer.dart';
+import 'package:lostandfound/features/auth/cubit/auth_cubit.dart';
 import 'package:lostandfound/features/auth/sign.dart';
 import 'package:lostandfound/features/auth/signin.dart';
 import 'package:lostandfound/features/auth/signup.dart';
@@ -24,7 +28,9 @@ class Myapp extends StatefulWidget {
 class _MyappState extends State<Myapp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return BlocProvider(
+      create: (context) => AuthCubit(DioConsumer(dio: Dio())),
+      child:MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData( 
         scaffoldBackgroundColor:MyAppColor.bg_page, 
@@ -39,6 +45,7 @@ class _MyappState extends State<Myapp> {
 
         
        },
+    ),
     );
   }
 }

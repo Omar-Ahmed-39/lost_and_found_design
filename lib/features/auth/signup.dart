@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lostandfound/core/shared/form.dart';
 import 'package:lostandfound/core/shared/validator/validator.dart';
+import 'package:lostandfound/features/auth/cubit/auth_cubit.dart';
+import 'package:lostandfound/features/home/home_screen.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -36,16 +39,6 @@ class _SignupPageState extends State<SignupPage> {
     passwordController.dispose();
     phoneController.dispose();
     super.dispose();
-  }
-
-  void handleSignup() {
-    if (formstate.currentState!.validate()) {
-      // TODO: هنا تحط API signup أو حفظ بيانات
-      // مثال: Navigator.pop(context); // يرجع لتسجيل الدخول
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('تم التحقق من البيانات ✅')),
-      );
-    }
   }
 
   @override
@@ -84,7 +77,6 @@ class _SignupPageState extends State<SignupPage> {
                 hint: "اكتب البريد",
                 title: "البريد الالكتروني",
                 controller: emailController,
-                
                 val: (val) => MyValidators.validateEmail(val),
               ),
 
@@ -111,7 +103,6 @@ class _SignupPageState extends State<SignupPage> {
                 title: "رقم الهاتف",
                 controller: phoneController,
                 val: (val) => MyValidators.validatePhone(val),
-                // keyboardType: TextInputType.phone, // إذا MyInputField يدعمها
               ),
 
               const SizedBox(height: 20),
@@ -119,16 +110,50 @@ class _SignupPageState extends State<SignupPage> {
               MySubtitleSgin(
                 underlinetext: "تسجيل الدخول",
                 text: "لديك حساب بالفعل؟",
-                // لو الودجت عندك يدعم onTap ضيفه هنا:
-                // onTap: () => Navigator.pop(context),
               ),
 
               const SizedBox(height: 28),
 
-              Mybutton(
-                text: "انشاء",
-                onTap: () {
-                  handleSignup();
+              BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is SingupErorr) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(state.message)),
+                    );
+                  }
+
+                  if (state is SingupSuccess) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ),
+                      (route) => false,
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  if (state is AuthInitial) {
+                    return Mybutton(
+                      text: "انشاء",
+                      onTap: () {
+                        if (formstate.currentState!.validate()) {
+                          context.read<AuthCubit>().signUpDio(
+                            nameController.text,
+                            emailController.text,
+                            passwordController.text,
+                            phoneController.text,
+                          );
+                        }
+                      },
+                    );
+                  } else if (state is SingupLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  return const SizedBox();
                 },
               ),
 
