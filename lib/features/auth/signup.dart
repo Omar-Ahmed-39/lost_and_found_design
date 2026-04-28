@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:lostandfound/core/shared/form.dart';
 import 'package:lostandfound/core/shared/validator/validator.dart';
-import 'package:lostandfound/features/auth/cubit/auth_cubit.dart';
-import 'package:lostandfound/features/home/home_screen.dart';
+import 'package:lostandfound/features/auth/controller/singup_controller.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -13,41 +12,16 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  late GlobalKey<FormState> formstate;
-
-  late TextEditingController nameController;
-  late TextEditingController emailController;
-  late TextEditingController passwordController;
-  late TextEditingController phoneController;
-
-  bool obscure = true;
-
-  @override
-  void initState() {
-    formstate = GlobalKey<FormState>();
-    nameController = TextEditingController();
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-    phoneController = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    phoneController.dispose();
-    super.dispose();
-  }
+  SignupController controller = Get.put(SignupController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+
       body: SafeArea(
         child: Form(
-          key: formstate,
+          key: controller.formstate,
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 22),
             children: [
@@ -67,7 +41,7 @@ class _SignupPageState extends State<SignupPage> {
               MyInputField(
                 hint: "اكتب الاسم",
                 title: "الاسم كامل",
-                controller: nameController,
+                controller: controller.nameController,
                 val: (val) => MyValidators.validateRequired(val),
               ),
 
@@ -76,23 +50,25 @@ class _SignupPageState extends State<SignupPage> {
               MyInputField(
                 hint: "اكتب البريد",
                 title: "البريد الالكتروني",
-                controller: emailController,
+                controller: controller.emailController,
                 val: (val) => MyValidators.validateEmail(val),
               ),
 
               const SizedBox(height: 20),
 
-              MyInputField(
-                hint: "اكتب كلمة المرور",
-                title: "كلمة المرور",
-                controller: passwordController,
-                val: (val) => MyValidators.validatePassword(val),
-                ispassword: true,
-                obscure: obscure,
-                onTap: () {
-                  setState(() {
-                    obscure = !obscure;
-                  });
+              GetBuilder<SignupController>(
+                builder: (controller) {
+                  return MyInputField(
+                    hint: "اكتب كلمة المرور",
+                    title: "كلمة المرور",
+                    controller: controller.passwordController,
+                    val: (val) => MyValidators.validatePassword(val),
+                    ispassword: true,
+                    obscure: controller.obscure,
+                    onTap: () {
+                      controller.changeObscure();
+                    },
+                  );
                 },
               ),
 
@@ -101,7 +77,7 @@ class _SignupPageState extends State<SignupPage> {
               MyInputField(
                 hint: "اكتب الرقم",
                 title: "رقم الهاتف",
-                controller: phoneController,
+                controller: controller.phoneController,
                 val: (val) => MyValidators.validatePhone(val),
               ),
 
@@ -114,46 +90,20 @@ class _SignupPageState extends State<SignupPage> {
 
               const SizedBox(height: 28),
 
-              BlocConsumer<AuthCubit, AuthState>(
-                listener: (context, state) {
-                  if (state is SingupErorr) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(state.message)),
-                    );
-                  }
-
-                  if (state is SingupSuccess) {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ),
-                      (route) => false,
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  if (state is AuthInitial) {
+              GetBuilder<SignupController>(
+                builder: (controller) {
+                  if (controller.isloading == false) {
                     return Mybutton(
                       text: "انشاء",
                       onTap: () {
-                        if (formstate.currentState!.validate()) {
-                          context.read<AuthCubit>().signUpDio(
-                            nameController.text,
-                            emailController.text,
-                            passwordController.text,
-                            phoneController.text,
-                          );
-                        }
+                        controller.signupDio();
                       },
                     );
-                  } else if (state is SingupLoading) {
+                  } else {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
-
-                  return const SizedBox();
                 },
               ),
 
