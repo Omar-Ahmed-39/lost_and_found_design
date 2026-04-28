@@ -9,6 +9,8 @@ class MyAppImage{
      static String imagebroken="assets/Images/imagebroken.png";
      static String searchIcon="assets/Images/search_icon.png";
      static String sanker="assets/Images/snker.jpg";
+          static String bag="assets/Images/bag.jpg";
+
 
 
 

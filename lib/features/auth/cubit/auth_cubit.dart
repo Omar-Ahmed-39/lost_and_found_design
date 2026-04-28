@@ -12,7 +12,9 @@ part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit( this.api) : super(AuthInitial(),);
+   bool obs=true;
   final ApiConsumer api;
+  
   
   Future signDio( String email,String password)async{
   emit(SinginLoading());

@@ -10,6 +10,7 @@ import 'package:lostandfound/core/theme/app_theme.dart';
 import 'package:lostandfound/features/home/cubit/home_cubit.dart';
 import 'package:lostandfound/features/home/home.dart';
 import 'package:lostandfound/features/splash/splash_screen.dart';
+import 'package:lostandfound/test1.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +44,7 @@ class _MyappState extends State<Myapp> {
         theme: ThemeData(
           scaffoldBackgroundColor: MyAppColor.bg_page,
         ),
-        home: SplashScreen(),
+        home: ProductDetailsPage(),
         routes: {
           "SigninPage": (context) => const SigninPage(),
           "SignupPage": (context) => const SignupPage(),
