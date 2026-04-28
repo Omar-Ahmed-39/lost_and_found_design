@@ -6,7 +6,6 @@ import 'package:lostandfound/features/auth/signin.dart';
 import 'package:lostandfound/features/auth/signup.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
-import 'package:lostandfound/features/home/cubit/home_cubit.dart';
 import 'package:lostandfound/features/home/home.dart';
 import 'package:lostandfound/features/home/home_screen.dart';
 import 'package:lostandfound/features/splash/splash_screen.dart';
@@ -39,7 +38,7 @@ class _MyappState extends State<Myapp> {
         ),
         getPages: [
       
-      GetPage(name: "/", page:()=> SigninPage(), ),
+      GetPage(name: "/", page:()=> HomeScreen(), ),
       GetPage(name: "/HomeScreen", page:()=> HomeScreen(),),
        GetPage(name: "/SignupPage", page:()=> SignupPage(),),
      

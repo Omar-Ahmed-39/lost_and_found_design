@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lostandfound/features/home/controller/home_screen_controller.dart';
 import 'package:lostandfound/features/report/report.dart';
 
 class MyNavigationBottomBar extends StatelessWidget {
-  final int currentIndex;
-  final ValueChanged<int> onItemSelected;
- 
-
-  const MyNavigationBottomBar({
-    super.key,
-    required this.currentIndex,
-    required this.onItemSelected,
-  });
+  const MyNavigationBottomBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // الوصول للكنترولر الموجود في الذاكرة
+    final controller = Get.find<NavigationController>();
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 2),
       child: SizedBox(
@@ -22,9 +19,11 @@ class MyNavigationBottomBar extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           clipBehavior: Clip.none,
           children: [
+            // خلفية الـ Bottom Bar مع الظل
             Container(
               height: 80,
               decoration: BoxDecoration(
+                color: const Color(0xFFF6F6F6),
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(22),
                   topRight: Radius.circular(22),
@@ -38,56 +37,44 @@ class MyNavigationBottomBar extends StatelessWidget {
                 ],
               ),
             ),
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(22),
-                topRight: Radius.circular(22),
-              ),
-              child: Container(
-                height: 80,
-                color: const Color(0xFFF6F6F6),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    BottomNavItem(
-                      itemIndex: 3,
-                      currentIndex: currentIndex,
-                      icon: Icons.person_outline,
-                      label: "ملفي",
-                      onTap: () => onItemSelected(3),
-                    ),
-                    BottomNavItem(
-                      itemIndex: 2,
-                      currentIndex: currentIndex,
-                      icon: Icons.notifications_none,
-                      label: "الإشعارات",
-                      onTap: () => onItemSelected(2),
-                    ),
-                    const SizedBox(width: 60),
-                    BottomNavItem(
-                      itemIndex: 1,
-                      currentIndex: currentIndex,
-                      icon: Icons.search,
-                      label: "البحث",
-                      onTap: () => onItemSelected(1),
-                    ),
-                    BottomNavItem(
-                      itemIndex: 0,
-                      currentIndex: currentIndex,
-                      icon: Icons.home_outlined,
-                      label: "الرئيسية",
-                      onTap: () => onItemSelected(0),
-                    ),
-                  ],
+            // الأيقونات والتنقل
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                BottomNavItem(
+                  itemIndex: 3,
+                  icon: Icons.person_outline,
+                  label: "ملفي",
+                  onTap: () => controller.changeIndex(3),
                 ),
-              ),
+                BottomNavItem(
+                  itemIndex: 2,
+                  icon: Icons.notifications_none,
+                  label: "الإشعارات",
+                  onTap: () => controller.changeIndex(2),
+                ),
+                const SizedBox(width: 60), // مساحة للزر الأوسط
+                BottomNavItem(
+                  itemIndex: 1,
+                  icon: Icons.search,
+                  label: "البحث",
+                  onTap: () => controller.changeIndex(1),
+                ),
+                BottomNavItem(
+                  itemIndex: 0,
+                  icon: Icons.home_outlined,
+                  label: "الرئيسية",
+                  onTap: () => controller.changeIndex(0),
+                ),
+              ],
             ),
+            // الزر الأوسط (إضافة بلاغ)
             Positioned(
-              bottom: 80 - 20,
+              bottom: 80 - 28, // تعديل بسيط ليتناسب مع الارتفاع
               child: InkWell(
-                onTap:() =>  Navigator.of(context).push(MaterialPageRoute(builder: (context) => ReportPage(),)),
+                onTap: () => Get.to(() => const ReportPage()),
                 child: Transform.rotate(
-                  angle: 0.785398,
+                  angle: 0.785398, // 45 degree
                   child: Container(
                     width: 56,
                     height: 56,
@@ -116,10 +103,8 @@ class MyNavigationBottomBar extends StatelessWidget {
     );
   }
 }
-
 class BottomNavItem extends StatelessWidget {
   final int itemIndex;
-  final int currentIndex;
   final IconData icon;
   final String label;
   final VoidCallback onTap;
@@ -128,7 +113,6 @@ class BottomNavItem extends StatelessWidget {
   const BottomNavItem({
     super.key,
     required this.itemIndex,
-    required this.currentIndex,
     required this.icon,
     required this.label,
     required this.onTap,
@@ -137,48 +121,46 @@ class BottomNavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isActive = currentIndex == itemIndex;
+    // نستخدم GetBuilder هنا فقط للأجزاء التي تتغير ألوانها
+    return GetBuilder<NavigationController>(
+      builder: (controller) {
+        final bool isActive = controller.currentIndex == itemIndex;
 
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 160),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: isActive ? activeColor.withOpacity(0.25) : Colors.transparent,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Icon(
-                icon,
-                size: 28,
-                color: isActive ? activeColor : Colors.black54,
-              ),
-            ),
-            const SizedBox(height: 2),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 160),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: isActive ? activeColor.withOpacity(0.25) : Colors.transparent,
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: isActive ? activeColor : Colors.black54,
+        return InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 160),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: isActive ? activeColor.withOpacity(0.25) : Colors.transparent,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Icon(
+                    icon,
+                    size: 28,
+                    color: isActive ? activeColor : Colors.black54,
+                  ),
                 ),
-              ),
+                const SizedBox(height: 2),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                    color: isActive ? activeColor : Colors.black54,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
