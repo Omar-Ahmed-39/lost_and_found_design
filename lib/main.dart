@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lostandfound/core/api/dio_consumer.dart';
+import 'package:lostandfound/core/local/local.dart';
+import 'package:lostandfound/core/local/local_controller.dart';
 import 'package:lostandfound/features/auth/signin.dart';
 import 'package:lostandfound/features/auth/signup.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
@@ -30,21 +32,28 @@ class Myapp extends StatefulWidget {
 class _MyappState extends State<Myapp> {
   @override
   Widget build(BuildContext context) {
+    MyLocalController controller=Get.put(MyLocalController());
 
-    return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          scaffoldBackgroundColor: MyAppColor.bg_page,
-        ),
-        getPages: [
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+           locale:controller.initialLang ,
+           translations:MyLocal(),
       
-      GetPage(name: "/", page:()=> HomeScreen(), ),
-      GetPage(name: "/HomeScreen", page:()=> HomeScreen(),),
-       GetPage(name: "/SignupPage", page:()=> SignupPage(),),
-     
-
-     ],
-      );
+          theme: ThemeData(
+            scaffoldBackgroundColor: MyAppColor.bg_page,
+          ),
+          getPages: [
+        
+        GetPage(name: "/", page:()=> HomeScreen(), ),
+        GetPage(name: "/HomeScreen", page:()=> HomeScreen(),),
+         GetPage(name: "/SignupPage", page:()=> SignupPage(),),
+       
+      
+       ],
+        ),
+    );
     
   }
 }

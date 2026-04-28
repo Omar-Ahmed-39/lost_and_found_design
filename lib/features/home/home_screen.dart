@@ -14,6 +14,7 @@ class HomeScreen extends StatelessWidget {
       builder: (controller) {
         return Scaffold(
           extendBodyBehindAppBar: true,
+          
           extendBody: true,
           appBar: MyAppbar(),
           bottomNavigationBar: const MyNavigationBottomBar(), 

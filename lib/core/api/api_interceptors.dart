@@ -8,7 +8,7 @@ class ApiInterceptor extends Interceptor{
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
 
     options.headers["accept-lan"]="ar";
-    options.headers["Authorization"]="Bearer ${CacheHelper().getData(key: ApiKey.token)??"null"}";
+    options.headers["Authorization"]="Bearer ${CacheHelper.getData(key: ApiKey.token)??"null"}";
     options.headers['Accept'] = 'application/json';
     
 

@@ -18,7 +18,7 @@ class CacheHelper {
 
 //! this method to put data in local database using key
 
-  Future<bool> saveData({required String key, required dynamic value}) async {
+ static Future<bool> saveData({required String key, required dynamic value}) async {
     if (value is bool) {
       return await sharedPreferences.setBool(key, value);
     }
@@ -35,28 +35,28 @@ class CacheHelper {
 
 //! this method to get data already saved in local database
 
-  dynamic getData({required String key}) {
+ static dynamic getData({required String key}) {
     return sharedPreferences.get(key);
   }
 
 //! remove data using specific key
 
-  Future<bool> removeData({required String key}) async {
+ static Future<bool> removeData({required String key}) async {
     return await sharedPreferences.remove(key);
   }
 
 //! this method to check if local database contains {key}
-  Future<bool> containsKey({required String key}) async {
+ static Future<bool> containsKey({required String key}) async {
     return sharedPreferences.containsKey(key);
   }
 
 //! clear all data in the local database
-  Future<bool> clearData() async {
+ static Future<bool> clearData() async {
     return await sharedPreferences.clear();
   }
 
 //! this method to put data in local database using key
-  Future<dynamic> put({
+ static Future<dynamic> put({
     required String key,
     required dynamic value,
   }) async {

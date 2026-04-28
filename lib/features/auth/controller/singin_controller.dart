@@ -32,7 +32,7 @@ class SinginController extends GetxController {
       data: {ApiKey.email: emailController.text.trim(), ApiKey.password: passwordController.text.trim()},
     );
     SignInModel user = SignInModel.fromJson(responce);
-    CacheHelper().saveData(key: "token", value: user.dataSignin.token);
+    CacheHelper.saveData(key: "token", value: user.dataSignin.token);
     Get.offAllNamed("/");
   } on ServerException catch (e) {
     isloading=false;
