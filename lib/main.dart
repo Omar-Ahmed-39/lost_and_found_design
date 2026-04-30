@@ -4,6 +4,7 @@ import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/local/local.dart';
 import 'package:lostandfound/core/local/local_controller.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
+import 'package:lostandfound/core/theme/controller/theme_controller.dart';
 import 'package:lostandfound/features/auth/signup.dart';
 import 'package:lostandfound/features/home/home_screen.dart';
 
@@ -20,16 +21,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MyLocalController controller = Get.put(MyLocalController());
+    ThemeController themeController=Get.put(ThemeController());
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       locale: controller.initialLang,
-      translations: MyLocal(),
-      theme: ThemeData(
-        scaffoldBackgroundColor: MyAppColor.bg_page,
-      ),
-
-      // --- الحل الجذري لتثبيت الاتجاه ---
+      translations: MyLocal(),  
+      theme:themeController.initialTheme ,
       builder: (context, child) {
         return Directionality(
           

@@ -46,6 +46,8 @@ class MyLocal extends Translations {
       // notification folder
       "no notifications currently": "لا توجد إشعارات حالياً",
       // profile folder
+           "appearance": "المظهر",
+"change appearance": "تغيير المظهر",
       "edit profile": "تعديل الملف الشخصي",
       "update profile": "تحديث الملف الشخصي",
       "change password": "تغيير كلمة المرور",
@@ -91,6 +93,7 @@ class MyLocal extends Translations {
       "lost": "مفقود",
       "found": "موجود",
       "apply filter": "تطبيق الفلتر",
+      
     },
 
   "en": {
@@ -137,6 +140,8 @@ class MyLocal extends Translations {
       "no notifications currently": "No notifications currently",
 
       // profile folder
+      "appearance": "appearance",
+"change appearance": "change appearance",
       "edit profile": "Edit Profile",
       "update profile": "Update Profile",
       "change password": "Change Password",

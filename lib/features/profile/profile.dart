@@ -6,6 +6,7 @@ import 'package:lostandfound/core/shared/appbar.dart';
 import 'package:lostandfound/core/shared/form.dart';
 import 'package:lostandfound/core/shared/navigation_bottom_bar.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
+import 'package:lostandfound/core/theme/controller/theme_controller.dart';
 import 'package:lostandfound/features/profile/widget/section_card.dart';
 import 'package:lostandfound/main.dart';
 
@@ -18,6 +19,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   MyLocalController controller = Get.put(MyLocalController());
+      ThemeController themeController=Get.put(ThemeController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +132,16 @@ class _ProfilePageState extends State<ProfilePage> {
                     iconColor: MyAppColor.primaryBlue,
                     onTap: () {
                       controller.changeLang();
+                    },
+                  ),
+                   ProfileOptionTile(
+                    icon: Icons.language_rounded,
+                    title: "appearance".tr,
+                    subtitle: "change appearance".tr,
+                    iconBg: MyAppColor.lightBlue,
+                    iconColor: MyAppColor.primaryBlue,
+                    onTap: () {
+                      themeController.changeTheme();
                     },
                   ),
                 ],
