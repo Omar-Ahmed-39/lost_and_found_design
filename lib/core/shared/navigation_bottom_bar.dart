@@ -37,6 +37,7 @@ class MyNavigationBottomBar extends StatelessWidget {
                 ],
               ),
             ),
+
             // الأيقونات والتنقل
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -44,37 +45,38 @@ class MyNavigationBottomBar extends StatelessWidget {
                 BottomNavItem(
                   itemIndex: 3,
                   icon: Icons.person_outline,
-                  label: "ملفي",
+                  label: "profile".tr,
                   onTap: () => controller.changeIndex(3),
                 ),
                 BottomNavItem(
                   itemIndex: 2,
                   icon: Icons.notifications_none,
-                  label: "الإشعارات",
+                  label: "notifications".tr,
                   onTap: () => controller.changeIndex(2),
                 ),
-                const SizedBox(width: 60), // مساحة للزر الأوسط
+                const SizedBox(width: 60),
                 BottomNavItem(
                   itemIndex: 1,
                   icon: Icons.search,
-                  label: "البحث",
+                  label: "search".tr,
                   onTap: () => controller.changeIndex(1),
                 ),
                 BottomNavItem(
                   itemIndex: 0,
                   icon: Icons.home_outlined,
-                  label: "الرئيسية",
+                  label: "home".tr,
                   onTap: () => controller.changeIndex(0),
                 ),
               ],
             ),
-            // الزر الأوسط (إضافة بلاغ)
+
+            // الزر الأوسط إضافة بلاغ
             Positioned(
-              bottom: 80 - 28, // تعديل بسيط ليتناسب مع الارتفاع
+              bottom: 80 - 28,
               child: InkWell(
                 onTap: () => Get.to(() => const ReportPage()),
                 child: Transform.rotate(
-                  angle: 0.785398, // 45 degree
+                  angle: 0.785398,
                   child: Container(
                     width: 56,
                     height: 56,
@@ -91,7 +93,11 @@ class MyNavigationBottomBar extends StatelessWidget {
                     ),
                     child: Transform.rotate(
                       angle: -0.785398,
-                      child: const Icon(Icons.add, color: Colors.white, size: 28),
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 28,
+                      ),
                     ),
                   ),
                 ),
@@ -103,6 +109,7 @@ class MyNavigationBottomBar extends StatelessWidget {
     );
   }
 }
+
 class BottomNavItem extends StatelessWidget {
   final int itemIndex;
   final IconData icon;
@@ -136,9 +143,14 @@ class BottomNavItem extends StatelessWidget {
               children: [
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 160),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
-                    color: isActive ? activeColor.withOpacity(0.25) : Colors.transparent,
+                    color: isActive
+                        ? activeColor.withOpacity(0.25)
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Icon(
@@ -152,7 +164,8 @@ class BottomNavItem extends StatelessWidget {
                   label,
                   style: TextStyle(
                     fontSize: 12,
-                    fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                    fontWeight:
+                        isActive ? FontWeight.bold : FontWeight.normal,
                     color: isActive ? activeColor : Colors.black54,
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
 import 'package:lostandfound/core/shared/form.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
@@ -23,7 +24,7 @@ class DonePage extends StatelessWidget {
       Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Mybutton(text: "تم",onTap: () {
+        child: Mybutton(text: "done".tr,onTap: () {
          Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                               builder: (context) =>Homepage() ),(route) => false,); 

@@ -48,8 +48,8 @@ class Homepage extends StatelessWidget {
                 color: Colors.grey,
               ),
               const SizedBox(height: 12),
-              const Text(
-                "لا توجد منشورات حالياً",
+               Text(
+                "there are not post at the moment".tr,
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey,

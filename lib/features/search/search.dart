@@ -46,7 +46,6 @@ class SearchPage extends StatelessWidget {
     );
   }
 
-  // استخدام Get.bottomSheet بدلاً من showModalBottomSheet
   void _showFilterBottomSheet(SearchPageController controller) {
     Get.bottomSheet(
       Container(
@@ -55,7 +54,7 @@ class SearchPage extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
-        child: GetBuilder<SearchPageController>( // لإعادة بناء محتوى البوتوم شيت فقط
+        child: GetBuilder<SearchPageController>(
           builder: (controller) {
             return Column(
               mainAxisSize: MainAxisSize.min,
@@ -63,7 +62,8 @@ class SearchPage extends StatelessWidget {
               children: [
                 Center(
                   child: Container(
-                    width: 40, height: 5,
+                    width: 40,
+                    height: 5,
                     decoration: BoxDecoration(
                       color: Colors.grey[400],
                       borderRadius: BorderRadius.circular(10),
@@ -71,44 +71,67 @@ class SearchPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Center(
-                  child: Text("فلترة البحث", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+
+                Center(
+                  child: Text(
+                    "search filter".tr,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
+
                 const SizedBox(height: 12),
-                const Text("اختر النوع", textAlign: TextAlign.right, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+
+                Text(
+                  "choose type".tr,
+                  textAlign: TextAlign.right,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+
                 const SizedBox(height: 14),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     MyTypeCard(
                       color: Colors.red,
-                      text: "مفقود",
+                      text: "lost".tr,
                       icon: Icons.search,
                       isselected: controller.tempIsClickLost,
                       ontap: () => controller.toggleType("lost"),
                     ),
                     MyTypeCard(
                       color: Colors.green,
-                      text: "موجود",
+                      text: "found".tr,
                       icon: Icons.add_box_outlined,
                       isselected: controller.tempIsClickFound,
                       ontap: () => controller.toggleType("found"),
                     ),
                   ],
                 ),
+
                 const SizedBox(height: 17),
+
                 MyDropdownList(
                   selectedCategory: controller.tempSelectedCategory,
-                  text: "التصنيف",
-                  hint: "اختر من القائمة",
+                  text: "category".tr,
+                  hint: "choose from list".tr,
                   items: controller.dropdownItems,
                   onChanged: (value) => controller.updateTempCategory(value),
                 ),
+
                 const SizedBox(height: 22),
+
                 Mybutton(
-                  text: "تطبيق الفلتر",
+                  text: "apply filter".tr,
                   onTap: () => controller.applyFilters(),
                 ),
+
                 const SizedBox(height: 8),
               ],
             );

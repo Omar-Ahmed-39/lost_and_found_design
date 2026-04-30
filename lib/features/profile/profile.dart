@@ -17,7 +17,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-      MyLocalController controller = Get.put(MyLocalController());
+  MyLocalController controller = Get.put(MyLocalController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,6 @@ class _ProfilePageState extends State<ProfilePage> {
       margin: EdgeInsets.all(10),
       child: SingleChildScrollView(
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(height: 170),
 
@@ -45,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
                 image: DecorationImage(
-                  image: AssetImage(MyAppImage.sanker), // غيّر المسار لصورتك
+                  image: AssetImage(MyAppImage.sanker),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -72,8 +71,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   ProfileOptionTile(
                     icon: Icons.person_outline_rounded,
-                    title: 'تعديل الملف الشخصي',
-                    subtitle: 'تحديث الملف الشخصي',
+                    title: "edit profile".tr,
+                    subtitle: "update profile".tr,
                     iconBg: MyAppColor.lightBlue,
                     iconColor: MyAppColor.primaryBlue,
                     onTap: () {},
@@ -81,18 +80,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   const Divider(height: 1),
                   ProfileOptionTile(
                     icon: Icons.lock_outline_rounded,
-                    title: 'تغيير كلمة المرور',
-                    subtitle: 'تحديث كلمة المرور لحسابك',
+                    title: "change password".tr,
+                    subtitle: "update your account password".tr,
                     iconBg: MyAppColor.lightBlue,
                     iconColor: MyAppColor.primaryBlue,
                     onTap: () {},
                   ),
-
                   const Divider(height: 1),
                   ProfileOptionTile(
                     icon: Icons.description_outlined,
-                    title: 'سياسة الاستخدام',
-                    subtitle: 'الاطلاع على الشروط والأحكام',
+                    title: "usage policy".tr,
+                    subtitle: "view terms and conditions".tr,
                     iconBg: const Color(0xFFFFF5E8),
                     iconColor: MyAppColor.gold,
                     onTap: () {},
@@ -100,8 +98,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   const Divider(height: 1),
                   ProfileOptionTile(
                     icon: Icons.help_outline_rounded,
-                    title: 'المساعدة والدعم',
-                    subtitle: 'التواصل مع فريق الدعم',
+                    title: "help and support".tr,
+                    subtitle: "contact support team".tr,
                     iconBg: const Color(0xFFFFF5E8),
                     iconColor: MyAppColor.gold,
                     onTap: () {},
@@ -109,8 +107,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   const Divider(height: 1),
                   ProfileOptionTile(
                     icon: Icons.info_outline_rounded,
-                    title: 'عن التطبيق',
-                    subtitle: 'معلومات الإصدار والتطبيق',
+                    title: "about app".tr,
+                    subtitle: "version and app information".tr,
                     iconBg: const Color(0xFFFFF5E8),
                     iconColor: MyAppColor.gold,
                     onTap: () {},
@@ -125,32 +123,34 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   ProfileOptionTile(
                     icon: Icons.language_rounded,
-                    title: "اللغة",
-                    subtitle: "تغيير اللغة",
-                   iconBg: MyAppColor.lightBlue,
+                    title: "language".tr,
+                    subtitle: "change language".tr,
+                    iconBg: MyAppColor.lightBlue,
                     iconColor: MyAppColor.primaryBlue,
-                    onTap: (){
-                     controller.changeLang();
+                    onTap: () {
+                      controller.changeLang();
                     },
                   ),
                 ],
               ),
             ),
-                        const SizedBox(height: 19),
 
+            const SizedBox(height: 19),
 
             // Logout Button
             SizedBox(
               width: double.infinity,
-
-              child: Mybutton(text: "تسجيل الخروج", onTap: () {}),
+              child: Mybutton(
+                text: "logout".tr,
+                onTap: () {},
+              ),
             ),
 
             const SizedBox(height: 12),
             SizedBox(
               width: double.infinity,
               child: Mybutton(
-                text: "حذف الحساب",
+                text: "delete account".tr,
                 color: MyAppColor.danger,
                 onTap: () {},
               ),
