@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
 
-  MyAppbar(){
+   MyAppbar(){
 
  return PreferredSize(
   preferredSize: const Size.fromHeight(110),
@@ -42,9 +43,9 @@ import 'package:lostandfound/core/constsnt/image_constant.dart';
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children:  [
                     Text(
-                      "أهلاً",
+                      "hi".tr,
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.grey,

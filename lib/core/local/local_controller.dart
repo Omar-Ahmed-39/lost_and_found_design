@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
-
 class MyLocalController extends GetxController{
-  Locale initialLang=CacheHelper.getData(key: "lang")== null? Locale('en', 'US'):Locale(CacheHelper.getData(key: "lang"));
+  Locale initialLang=CacheHelper.getData(key: "lang")== null?Get.deviceLocale!:Locale(CacheHelper.getData(key: "lang"));
   void changeLang( ){
     
     if (Get.locale?.languageCode == 'ar') {

@@ -27,8 +27,8 @@ class _SigninPageState extends State<SigninPage> {
             children: [
               const SizedBox(height: 40),
 
-              const Text(
-                'تسجيل الدخول',
+               Text(
+                "signin".tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 27, fontWeight: FontWeight.w600),
               ),
@@ -37,8 +37,8 @@ class _SigninPageState extends State<SigninPage> {
 
               MyInputField(
                 controller: controller.emailController,
-                hint: "اكتب البريد",
-                title: "البريد الالكتروني",
+                hint:  "write email".tr,
+                title: "email".tr,
                 val: (val) => MyValidators.validateEmail(val),
               ),
 
@@ -46,8 +46,8 @@ class _SigninPageState extends State<SigninPage> {
  GetBuilder<SinginController>(
   builder: (controller) {
    return              MyInputField(
-                hint: "اكتب كلمة المرور",
-                title: "كلمة المرور",
+                hint:"write password".tr,
+                title: "password".tr,
                 controller: controller.passwordController,
                 val: (val) => MyValidators.validatePassword(val),
                 ispassword: true,
@@ -65,8 +65,8 @@ class _SigninPageState extends State<SigninPage> {
                   Get.toNamed("/SignupPage");
                 },
                 child: MySubtitleSgin(
-                  underlinetext: "انشاء حساب",
-                  text: "ليس لديك حساب؟",
+                  underlinetext: "create new account".tr,
+                  text: "do not you have account?".tr,
                 ),
               ),
 
@@ -75,7 +75,7 @@ class _SigninPageState extends State<SigninPage> {
                 builder: (controller) {
                   if (controller.isloading == false) {
                     return Mybutton(
-                      text: "تسجيل",
+                      text: "signin".tr,
                       onTap: () {
                         controller.signDio();
                       },

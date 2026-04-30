@@ -27,8 +27,8 @@ class _SignupPageState extends State<SignupPage> {
             children: [
               const SizedBox(height: 40),
 
-              const Text(
-                "انشاء حساب",
+               Text(
+                "create new account".tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 27,
@@ -39,8 +39,8 @@ class _SignupPageState extends State<SignupPage> {
               const SizedBox(height: 40),
 
               MyInputField(
-                hint: "اكتب الاسم",
-                title: "الاسم كامل",
+                hint: "write name".tr,
+                title: "full name".tr,
                 controller: controller.nameController,
                 val: (val) => MyValidators.validateRequired(val),
               ),
@@ -48,8 +48,8 @@ class _SignupPageState extends State<SignupPage> {
               const SizedBox(height: 20),
 
               MyInputField(
-                hint: "اكتب البريد",
-                title: "البريد الالكتروني",
+                hint: "write email".tr,
+                title:  "email".tr,
                 controller: controller.emailController,
                 val: (val) => MyValidators.validateEmail(val),
               ),
@@ -59,8 +59,8 @@ class _SignupPageState extends State<SignupPage> {
               GetBuilder<SignupController>(
                 builder: (controller) {
                   return MyInputField(
-                    hint: "اكتب كلمة المرور",
-                    title: "كلمة المرور",
+                    hint:"write password".tr,
+                title: "password".tr,
                     controller: controller.passwordController,
                     val: (val) => MyValidators.validatePassword(val),
                     ispassword: true,
@@ -75,8 +75,8 @@ class _SignupPageState extends State<SignupPage> {
               const SizedBox(height: 18),
 
               MyInputField(
-                hint: "اكتب الرقم",
-                title: "رقم الهاتف",
+                hint:"write number".tr,
+                title: "phone number".tr,
                 controller: controller.phoneController,
                 val: (val) => MyValidators.validatePhone(val),
               ),
@@ -84,8 +84,8 @@ class _SignupPageState extends State<SignupPage> {
               const SizedBox(height: 20),
 
               MySubtitleSgin(
-                underlinetext: "تسجيل الدخول",
-                text: "لديك حساب بالفعل؟",
+                underlinetext: "signin".tr,
+                text: "You already have an account?".tr,
               ),
 
               const SizedBox(height: 28),
@@ -94,7 +94,7 @@ class _SignupPageState extends State<SignupPage> {
                 builder: (controller) {
                   if (controller.isloading == false) {
                     return Mybutton(
-                      text: "انشاء",
+                      text: "create".tr,
                       onTap: () {
                         controller.signupDio();
                       },

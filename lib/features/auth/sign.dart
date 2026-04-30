@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart' ;
+import 'package:get/get.dart';
 import 'package:lostandfound/core/api/end_points.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
@@ -26,7 +27,7 @@ class _SignState extends State<Sign> {
         margin: EdgeInsets.all(15),
         child: Column(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("اهلا وسهلا بك",style: MyTextStyle.title(),),
+          Text("welcome".tr,style: MyTextStyle.title(),),
           SizedBox(height: 60,),
             const SizedBox(height: 28),
 
@@ -36,7 +37,7 @@ class _SignState extends State<Sign> {
                       
                       Expanded(
                         child: ActionCard(
-                          title: 'إنشاء حساب جديد',
+                          title: "create new account".tr,
                           imagePath: MyAppImage.signupImage,
                           onTap: () {
                              Navigator.of(context).pushNamed("SignupPage");
@@ -47,7 +48,7 @@ class _SignState extends State<Sign> {
                       const SizedBox(width: 14),
                       Expanded(
                         child: ActionCard(
-                          title: 'تسجيل الدخول',
+                          title: "signin".tr,
                           imagePath: MyAppImage.signinImage,
                           onTap: () {
                             Navigator.of(context).pushNamed("SigninPage");
