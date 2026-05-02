@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
 
-   MyAppbar(){
+   PreferredSize MyAppbar(){
 
  return PreferredSize(
   preferredSize: const Size.fromHeight(110),
@@ -81,7 +81,7 @@ import 'package:lostandfound/core/constsnt/image_constant.dart';
         flexibleSpace: Container(
           decoration:  BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(MyAppImage.appbarBackImage),
+              image: AssetImage(Get.isDarkMode?MyAppImage.appbardarkImage: MyAppImage.appbarBackImage),
               fit: BoxFit.cover,
             ),
           ),

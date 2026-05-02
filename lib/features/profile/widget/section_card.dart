@@ -9,7 +9,7 @@ class SectionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color:Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(22),
         boxShadow: [
           BoxShadow(
@@ -48,8 +48,8 @@ class ProfileOptionTile extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: Ink(
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration:  BoxDecoration(
+          color:Theme.of(context).cardColor,
           borderRadius: borderRadius,
         ),
         child: InkWell(
@@ -78,10 +78,10 @@ class ProfileOptionTile extends StatelessWidget {
                       Text(
                         title,
                         textAlign: TextAlign.right,
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontSize: 15.5,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF222222),
+                          color:Theme.of(context).hintColor ,
                         ),
                       ),
                       const SizedBox(height: 4),

@@ -7,6 +7,7 @@ import 'package:lostandfound/core/shared/form.dart';
 import 'package:lostandfound/core/shared/navigation_bottom_bar.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 import 'package:lostandfound/core/theme/controller/theme_controller.dart';
+import 'package:lostandfound/features/home/controller/home_screen_controller.dart';
 import 'package:lostandfound/features/profile/widget/section_card.dart';
 import 'package:lostandfound/main.dart';
 
@@ -20,6 +21,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   MyLocalController controller = Get.put(MyLocalController());
       ThemeController themeController=Get.put(ThemeController());
+      NavigationController navigationController=Get.put(NavigationController());
+
 
 
   @override
@@ -59,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
-                color: MyAppColor.textDark,
+                color: Theme.of(context).hintColor,
               ),
             ),
             const SizedBox(height: 6),
@@ -142,6 +145,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     iconColor: MyAppColor.primaryBlue,
                     onTap: () {
                       themeController.changeTheme();
+                      navigationController.update();
                     },
                   ),
                 ],

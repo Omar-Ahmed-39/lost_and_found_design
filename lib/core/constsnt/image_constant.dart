@@ -10,6 +10,8 @@ class MyAppImage{
      static String searchIcon="assets/Images/search_icon.png";
      static String sanker="assets/Images/snker.jpg";
           static String bag="assets/Images/bag.jpg";
+          static String appbardarkImage="assets/Images/appbardark.png";
+
 
 
 

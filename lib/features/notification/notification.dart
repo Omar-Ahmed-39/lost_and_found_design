@@ -18,7 +18,7 @@ class _NotificationPageState extends State<NotificationPage> {
         width: MediaQuery.of(context).size.width * 0.85,
         padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(25),
           boxShadow: [
             BoxShadow(
@@ -48,10 +48,10 @@ class _NotificationPageState extends State<NotificationPage> {
             Text(
               "no notifications currently".tr,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style:  TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color:Theme.of(context).hintColor,
               ),
             ),
           ],

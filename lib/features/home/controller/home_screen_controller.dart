@@ -19,4 +19,5 @@ class NavigationController extends GetxController {
     currentIndex = index;
     update(); 
   }
+  
 }
