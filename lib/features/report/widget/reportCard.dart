@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 
 class MyReportCard extends StatelessWidget {
@@ -21,7 +22,7 @@ class MyReportCard extends StatelessWidget {
       onTap: ontap,
       child: Container(
         decoration: BoxDecoration(
-          color: MyAppColor.card,
+          color:  Get.theme.cardColor,
           boxShadow:  [  BoxShadow(
             blurRadius: 10,
             offset: Offset(0, 6),

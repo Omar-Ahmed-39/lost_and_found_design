@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 
 class MyTypeCard extends StatelessWidget {
@@ -25,7 +26,7 @@ class MyTypeCard extends StatelessWidget {
       onTap: ontap,
       child: Container(
         decoration: BoxDecoration(
-          color:Colors.grey[200],
+          color:Get.theme.cardColor,
          
           border: isselected
               ? Border.all(color: MyAppColor.primarybutton)

@@ -50,8 +50,8 @@ class SearchPage extends StatelessWidget {
     Get.bottomSheet(
       Container(
         padding: const EdgeInsets.all(20),
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration:  BoxDecoration(
+          color:Get.theme.scaffoldBackgroundColor,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: GetBuilder<SearchPageController>(
@@ -65,7 +65,7 @@ class SearchPage extends StatelessWidget {
                     width: 40,
                     height: 5,
                     decoration: BoxDecoration(
-                      color: Colors.grey[400],
+                      color:Get.theme.cardColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),

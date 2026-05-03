@@ -53,6 +53,13 @@ class MyDropdownList extends StatelessWidget {
                 horizontal: 16,
                 vertical: 14,
               ),
+              enabledBorder: OutlineInputBorder(
+  borderRadius: BorderRadius.circular(14),
+  borderSide: const BorderSide(
+    color: Colors.grey,
+    width: 1.2,
+  ),
+),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14),
               ),

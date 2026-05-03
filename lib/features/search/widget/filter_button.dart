@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 
 class FilterButton extends StatelessWidget {
@@ -14,7 +15,7 @@ class FilterButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(13),
         decoration: BoxDecoration(
-          color: MyAppColor.card,
+          color: Get.theme.cardColor,
           borderRadius: BorderRadius.circular(5),
         ),
         child: !isClick

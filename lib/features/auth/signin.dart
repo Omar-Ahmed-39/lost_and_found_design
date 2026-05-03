@@ -17,7 +17,6 @@ class _SigninPageState extends State<SigninPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
 
       body: SafeArea(
         child: Form(

@@ -79,43 +79,39 @@ class _ProfilePageState extends State<ProfilePage> {
                     icon: Icons.person_outline_rounded,
                     title: "edit profile".tr,
                     subtitle: "update profile".tr,
-                    iconBg: MyAppColor.lightBlue,
+                    iconBg: Get.theme.colorScheme.primary,
                     iconColor: MyAppColor.primaryBlue,
                     onTap: () {},
                   ),
-                  const Divider(height: 1),
                   ProfileOptionTile(
                     icon: Icons.lock_outline_rounded,
                     title: "change password".tr,
                     subtitle: "update your account password".tr,
-                    iconBg: MyAppColor.lightBlue,
+                    iconBg: Get.theme.colorScheme.primary,
                     iconColor: MyAppColor.primaryBlue,
                     onTap: () {},
                   ),
-                  const Divider(height: 1),
                   ProfileOptionTile(
                     icon: Icons.description_outlined,
                     title: "usage policy".tr,
                     subtitle: "view terms and conditions".tr,
-                    iconBg: const Color(0xFFFFF5E8),
+                    iconBg: Get.theme.colorScheme.onPrimaryContainer,
                     iconColor: MyAppColor.gold,
                     onTap: () {},
                   ),
-                  const Divider(height: 1),
                   ProfileOptionTile(
                     icon: Icons.help_outline_rounded,
                     title: "help and support".tr,
                     subtitle: "contact support team".tr,
-                    iconBg: const Color(0xFFFFF5E8),
+                    iconBg: Get.theme.colorScheme.onPrimaryContainer,
                     iconColor: MyAppColor.gold,
                     onTap: () {},
                   ),
-                  const Divider(height: 1),
                   ProfileOptionTile(
                     icon: Icons.info_outline_rounded,
                     title: "about app".tr,
                     subtitle: "version and app information".tr,
-                    iconBg: const Color(0xFFFFF5E8),
+                    iconBg: Get.theme.colorScheme.onPrimaryContainer,
                     iconColor: MyAppColor.gold,
                     onTap: () {},
                   ),
@@ -131,7 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     icon: Icons.language_rounded,
                     title: "language".tr,
                     subtitle: "change language".tr,
-                    iconBg: MyAppColor.lightBlue,
+                    iconBg: Get.theme.colorScheme.primary,
                     iconColor: MyAppColor.primaryBlue,
                     onTap: () {
                       controller.changeLang();
@@ -141,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     icon: Icons.language_rounded,
                     title: "appearance".tr,
                     subtitle: "change appearance".tr,
-                    iconBg: MyAppColor.lightBlue,
+                    iconBg: Get.theme.colorScheme.primary,
                     iconColor: MyAppColor.primaryBlue,
                     onTap: () {
                       themeController.changeTheme();
@@ -158,6 +154,8 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(
               width: double.infinity,
               child: Mybutton(
+                color: MyAppColor.primarybutton,
+
                 text: "logout".tr,
                 onTap: () {},
               ),
@@ -168,7 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
               width: double.infinity,
               child: Mybutton(
                 text: "delete account".tr,
-                color: MyAppColor.danger,
+                color:MyAppColor.danger,
                 onTap: () {},
               ),
             ),

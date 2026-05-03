@@ -21,6 +21,7 @@ class MyLocal extends Translations {
       "phone number": "رقم الهاتف",
       "You already have an account?": "لديك حساب بالفعل؟",
       //Home folder
+      "hi": "مرحبا",
       "ownership proof": "اثبات ملكية",
       "upload proof hint": "ارفع الاثبات",
       "upload proof": "رفع اثبات",
@@ -46,8 +47,8 @@ class MyLocal extends Translations {
       // notification folder
       "no notifications currently": "لا توجد إشعارات حالياً",
       // profile folder
-           "appearance": "المظهر",
-"change appearance": "تغيير المظهر",
+      "appearance": "المظهر",
+      "change appearance": "تغيير المظهر",
       "edit profile": "تعديل الملف الشخصي",
       "update profile": "تحديث الملف الشخصي",
       "change password": "تغيير كلمة المرور",
@@ -93,10 +94,9 @@ class MyLocal extends Translations {
       "lost": "مفقود",
       "found": "موجود",
       "apply filter": "تطبيق الفلتر",
-      
     },
 
-  "en": {
+    "en": {
       // auth folder
       "welcome": "Welcome",
       "create": "Create",
@@ -114,6 +114,7 @@ class MyLocal extends Translations {
       "You already have an account?": "Already have an account?",
 
       // Home folder
+      "hi": "hi",
       "ownership proof": "Ownership Proof",
       "upload proof hint": "Upload proof hint",
       "upload proof": "Upload Proof",
@@ -127,21 +128,22 @@ class MyLocal extends Translations {
       "location": "Location",
       "location will be determined later": "Location will be determined later",
       "item description": "Item Description",
-      "item registered description": "This item was registered on. Please review the details and contact if you are the owner.",
+      "item registered description":
+          "This item was registered on. Please review the details and contact if you are the owner.",
       "claim": "Claim",
       "done": "Done", // أضفنا هذا المفتاح
       "profile": "Profile",
       "notifications": "Notifications",
       "search": "Search",
       "home": "Home",
-      "there are not post at the moment": "There are no posts at the moment", // أضفنا هذا المفتاح
-
+      "there are not post at the moment":
+          "There are no posts at the moment", // أضفنا هذا المفتاح
       // notification folder
       "no notifications currently": "No notifications currently",
 
       // profile folder
       "appearance": "appearance",
-"change appearance": "change appearance",
+      "change appearance": "change appearance",
       "edit profile": "Edit Profile",
       "update profile": "Update Profile",
       "change password": "Change Password",

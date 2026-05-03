@@ -51,7 +51,7 @@ class _NotificationPageState extends State<NotificationPage> {
               style:  TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color:Theme.of(context).hintColor,
+                color:Get.theme.hintColor,
               ),
             ),
           ],

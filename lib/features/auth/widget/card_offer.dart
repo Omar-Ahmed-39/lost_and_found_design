@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 
 class ActionCard extends StatelessWidget {
@@ -22,7 +23,7 @@ class ActionCard extends StatelessWidget {
         height: 190,
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color:  MyAppColor.card,
+          color: Get.theme.cardColor,
           borderRadius: BorderRadius.circular(18),
           boxShadow: const [
             BoxShadow(

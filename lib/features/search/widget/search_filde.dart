@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MySearchFilde extends StatelessWidget {
   const MySearchFilde({
@@ -17,7 +18,7 @@ class MySearchFilde extends StatelessWidget {
           borderRadius: BorderRadius.circular(5), // الاستدارة
           borderSide: BorderSide.none,
         ), // يخلي البوردر شفاف,
-        fillColor: Colors.grey[200],
+        fillColor:Get.theme.cardColor,
         filled: true,
         suffixIcon: Icon(Icons.search),
       ),

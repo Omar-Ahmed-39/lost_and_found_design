@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 
 class ImagePickerCard extends StatelessWidget {
@@ -37,7 +38,7 @@ class ImagePickerCard extends StatelessWidget {
             height: height,
             margin: const EdgeInsets.all(2),
             decoration: BoxDecoration(
-              color: MyAppColor.card,
+              color:Get.theme.cardColor,
               borderRadius: BorderRadius.circular(radius),
               border: Border.all(width: 0.5, color: Colors.black),
             ),
