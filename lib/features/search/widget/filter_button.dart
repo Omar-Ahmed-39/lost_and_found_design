@@ -19,11 +19,11 @@ class FilterButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         child: !isClick
-            ? Icon(Icons.filter_alt_outlined,color: MyAppColor.primarybutton, size: 40)
+            ? Icon(Icons.filter_alt_outlined,color: AppTheme.primarybutton, size: 40)
             : Icon(
                 Icons.filter_alt_rounded,
                 size: 40,
-                color: MyAppColor.primarybutton,
+                color: AppTheme.primarybutton,
               ),
       ),
     );

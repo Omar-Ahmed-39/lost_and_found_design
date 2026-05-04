@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 6),
             Text(
               'alibnsomida826@gmail.com',
-              style: TextStyle(fontSize: 14, color: MyAppColor.textGrey),
+              style: TextStyle(fontSize: 14, color: AppTheme.textGrey),
             ),
             const SizedBox(height: 15),
 
@@ -80,7 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: "edit profile".tr,
                     subtitle: "update profile".tr,
                     iconBg: Get.theme.colorScheme.primary,
-                    iconColor: MyAppColor.primaryBlue,
+                    iconColor: AppTheme.primaryBlue,
                     onTap: () {},
                   ),
                   ProfileOptionTile(
@@ -88,7 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: "change password".tr,
                     subtitle: "update your account password".tr,
                     iconBg: Get.theme.colorScheme.primary,
-                    iconColor: MyAppColor.primaryBlue,
+                    iconColor: AppTheme.primaryBlue,
                     onTap: () {},
                   ),
                   ProfileOptionTile(
@@ -96,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: "usage policy".tr,
                     subtitle: "view terms and conditions".tr,
                     iconBg: Get.theme.colorScheme.onPrimaryContainer,
-                    iconColor: MyAppColor.gold,
+                    iconColor: AppTheme.gold,
                     onTap: () {},
                   ),
                   ProfileOptionTile(
@@ -104,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: "help and support".tr,
                     subtitle: "contact support team".tr,
                     iconBg: Get.theme.colorScheme.onPrimaryContainer,
-                    iconColor: MyAppColor.gold,
+                    iconColor: AppTheme.gold,
                     onTap: () {},
                   ),
                   ProfileOptionTile(
@@ -112,7 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: "about app".tr,
                     subtitle: "version and app information".tr,
                     iconBg: Get.theme.colorScheme.onPrimaryContainer,
-                    iconColor: MyAppColor.gold,
+                    iconColor: AppTheme.gold,
                     onTap: () {},
                   ),
                 ],
@@ -128,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: "language".tr,
                     subtitle: "change language".tr,
                     iconBg: Get.theme.colorScheme.primary,
-                    iconColor: MyAppColor.primaryBlue,
+                    iconColor: AppTheme.primaryBlue,
                     onTap: () {
                       controller.changeLang();
                     },
@@ -138,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: "appearance".tr,
                     subtitle: "change appearance".tr,
                     iconBg: Get.theme.colorScheme.primary,
-                    iconColor: MyAppColor.primaryBlue,
+                    iconColor: AppTheme.primaryBlue,
                     onTap: () {
                       themeController.changeTheme();
                       navigationController.update();
@@ -154,7 +154,7 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(
               width: double.infinity,
               child: Mybutton(
-                color: MyAppColor.primarybutton,
+                color: AppTheme.primarybutton,
 
                 text: "logout".tr,
                 onTap: () {},
@@ -166,7 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
               width: double.infinity,
               child: Mybutton(
                 text: "delete account".tr,
-                color:MyAppColor.danger,
+                color:AppTheme.danger,
                 onTap: () {},
               ),
             ),

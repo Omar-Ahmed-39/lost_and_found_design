@@ -13,7 +13,7 @@ class Mybutton extends StatelessWidget {
     return MaterialButton(
               height: 60,
               shape:RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(14)),
-              color:color?? MyAppColor.primarybutton,
+              color:color?? AppTheme.primarybutton,
                 onPressed:onTap,
                 child:  Text(
                       text,
@@ -115,7 +115,7 @@ Widget build(BuildContext context) {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),
             borderSide: BorderSide(
-              color: MyAppColor.primarybutton,
+              color: AppTheme.primarybutton,
               width: 1.2,
             ),
           ),

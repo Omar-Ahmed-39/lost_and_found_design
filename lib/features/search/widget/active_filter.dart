@@ -40,7 +40,7 @@ class SearchActiveFilters extends StatelessWidget {
                   color: Colors.blue.withOpacity(0.12),
                   borderRadius: BorderRadius.circular(14),
                   border: Border.all(
-                    color: MyAppColor.primarybutton,
+                    color: AppTheme.primarybutton,
                     width: 1.8,
                   ),
                 ),
@@ -50,7 +50,7 @@ class SearchActiveFilters extends StatelessWidget {
                     Icon(
                       Icons.close,
                       size: 18,
-                      color: MyAppColor.primarybutton,
+                      color: AppTheme.primarybutton,
                     ),
                     const SizedBox(width: 8),
                     Text(
@@ -58,7 +58,7 @@ class SearchActiveFilters extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w600,
-                        color: MyAppColor.primarybutton,
+                        color: AppTheme.primarybutton,
                       ),
                     ),
                   ],

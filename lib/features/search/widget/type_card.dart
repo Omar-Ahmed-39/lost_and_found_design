@@ -29,7 +29,7 @@ class MyTypeCard extends StatelessWidget {
           color:Get.theme.cardColor,
          
           border: isselected
-              ? Border.all(color: MyAppColor.primarybutton)
+              ? Border.all(color: AppTheme.primarybutton)
               : null,
           borderRadius: BorderRadius.circular(18),
         ),
