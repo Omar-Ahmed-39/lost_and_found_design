@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
+import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/local/local_controller.dart';
 import 'package:lostandfound/core/shared/appbar.dart';
 import 'package:lostandfound/core/shared/form.dart';
@@ -157,7 +158,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 color: AppTheme.primarybutton,
 
                 text: "logout".tr,
-                onTap: () {},
+                onTap: () {
+                  CacheHelper.clearData();
+                  Get.offAllNamed("/");
+                },
               ),
             ),
 

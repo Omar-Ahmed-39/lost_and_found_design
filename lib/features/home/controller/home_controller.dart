@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/core/api/api_consumer.dart';
 import 'package:lostandfound/core/api/dio_consumer.dart';
+import 'package:lostandfound/core/api/end_points.dart';
 import 'package:lostandfound/core/error/exception.dart';
+import 'package:lostandfound/features/home/model/report_model.dart';
 import 'package:lostandfound/model/home_model.dart';
 
 enum HomeState {
@@ -18,47 +20,48 @@ class HomeController extends GetxController {
 
   HomeState state = HomeState.initial;
 
-  List<Post> posts = [];
+  List<ItemData> items = [];
 
-  String url = 'https://picsum.photos/400/400';
-
-  String errorMessage = '';
 
   @override
   void onInit() {
     super.onInit();
-    getPosts();
+    getItems();
   }
 
-  Future<void> getPosts() async {
+  Future<void> getItems() async {
     state = HomeState.loading;
-    errorMessage = '';
     update();
 
     try {
-      final response = await api.get("posts");
+      final response = await api.get(EndPoint.reports);
 
-      final List<dynamic> data = response["data"] ?? [];
+      final itemsResponse = ItemsResponse.fromJson(response);
 
-      posts = data.map((item) => Post.fromJson(item)).toList();
+      if (itemsResponse.succeeded) {
+        items = itemsResponse.data;
 
-      if (posts.isEmpty) {
-        state = HomeState.empty;
+        if (items.isEmpty) {
+          state = HomeState.empty;
+        } else {
+          state = HomeState.success;
+        }
       } else {
-        state = HomeState.success;
+        
+
+        state = HomeState.error;
       }
 
       update();
     } on ServerException catch (e) {
-      errorMessage = e.erorrModel.erorrmessage;
       state = HomeState.error;
       update();
 
       Get.snackbar(
-        "خطأ",
-        errorMessage,
+        e.erorrModel.title,
+        e.erorrModel.erorrmessage,
         animationDuration: const Duration(seconds: 3),
       );
-    } 
+    }
   }
 }

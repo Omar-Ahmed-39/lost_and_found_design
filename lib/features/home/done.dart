@@ -4,6 +4,7 @@ import 'package:lostandfound/core/constsnt/image_constant.dart';
 import 'package:lostandfound/core/shared/form.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 import 'package:lostandfound/features/home/home.dart';
+import 'package:lostandfound/features/home/home_screen.dart';
 
 class DonePage extends StatelessWidget {
   final String text;
@@ -19,15 +20,13 @@ class DonePage extends StatelessWidget {
         children: [
       Image.asset(MyAppImage.done),
       SizedBox(height: 20,),
-      Text(text,style: MyTextStyle.meduimtitle(),),
+      Text(text,style: MyTextStyle.meduimtitle(color: Get.theme.hintColor),),
          SizedBox(height: 20,),
       Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Mybutton(text: "done".tr,onTap: () {
-         Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) =>Homepage() ),(route) => false,); 
+        Get.offAll(()=>HomeScreen());
         },),
       ),
     ],),),

@@ -70,7 +70,7 @@ class Homepage extends StatelessWidget {
                 size: 70,
                 color: Colors.blueAccent,),
                 onPressed: () {
-                   controller.getPosts();
+                   controller.getItems();
                 }
               ),
             
@@ -80,7 +80,7 @@ class Homepage extends StatelessWidget {
 
       case HomeState.success:
         return GridView.builder(
-          itemCount: controller.posts.length,
+          itemCount: controller.items.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 14,
@@ -88,26 +88,26 @@ class Homepage extends StatelessWidget {
             childAspectRatio: 0.92,
           ),
           itemBuilder: (context, index) {
-            final post = controller.posts[index];
+            final items = controller.items[index];
 
             return InkWell(
               onTap: () {
                 Get.to(
                   () => DetailsPage(
-                    title: post.content,
-                    date: post.imageUrl,
-                    status: post.content,
-                    statusColor: Colors.green,
-                    image: controller.url,
+                    title: items.itemName,
+                    date: items.dateReported.toString(),
+                    status: items.reportType,
+                    statusColor: items.reportType==1?Colors.redAccent:Colors.greenAccent,
+                    image: items.imagePath,
                   ),
                 );
               },
               child: OfferCard(
-                title: post.content,
-                date: post.content,
-                status: post.content,
-                statusColor: Colors.green,
-                imageUrl: controller.url,
+           title: items.itemName,
+                    date: items.dateReported.toString(),
+                    status: items.reportType,
+                    statusColor: items.reportType==1?Colors.redAccent:Colors.greenAccent,
+                    imageUrl: items.imagePath, 
               ),
             );
           },

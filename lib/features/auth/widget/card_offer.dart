@@ -49,7 +49,7 @@ class ActionCard extends StatelessWidget {
             Text(
               title,
               textAlign: TextAlign.center,
-              style: MyTextStyle.subtitel()
+              style: MyTextStyle.subtitel(color: Get.theme.hintColor)
             ),
           ],
         ),

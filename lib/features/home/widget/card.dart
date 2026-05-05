@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
 
 class OfferCard extends StatelessWidget {
   final String title;
   final String date;
-  final String status;
+  final int status;
   final Color statusColor;
   final String imageUrl;
 
@@ -74,7 +75,7 @@ class OfferCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Text(
-                status,
+                status==1?"lost".tr:"found".tr,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(

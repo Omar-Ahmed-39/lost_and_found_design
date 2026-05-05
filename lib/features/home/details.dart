@@ -7,7 +7,7 @@ import 'package:lostandfound/features/home/claim.dart';
 class DetailsPage extends StatelessWidget {
   final String title;
   final String date;
-  final String status;
+  final int status;
   final Color statusColor;
   final String image;
 
@@ -98,7 +98,7 @@ class DetailsPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(
-                            status,
+                            status==1?"lost".tr:"found".tr,
                             style: TextStyle(
                               color: statusColor,
                               fontWeight: FontWeight.bold,
@@ -110,7 +110,7 @@ class DetailsPage extends StatelessWidget {
                     const SizedBox(height: 25),
 
                     // شبكة المعلومات المنظمة بناءً على بياناتك
-                    _buildDetailItem(Icons.info_outline, "status".tr, status),
+                    _buildDetailItem(Icons.info_outline, "status".tr, status==1?"lost".tr:"found".tr),
                     _buildDetailItem(Icons.calendar_month_outlined, "date".tr, date),
                     _buildDetailItem(
                       Icons.location_on_outlined,

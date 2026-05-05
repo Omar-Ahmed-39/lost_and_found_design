@@ -6,7 +6,7 @@ import 'package:lostandfound/core/api/dio_consumer.dart';
 import 'package:lostandfound/core/api/end_points.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/error/exception.dart';
-import 'package:lostandfound/model/signin_model.dart';
+import 'package:lostandfound/features/auth/model/signin_model.dart';
 
 class SinginController extends GetxController {
  late GlobalKey<FormState> formstate;
@@ -33,11 +33,11 @@ class SinginController extends GetxController {
     );
     SignInModel user = SignInModel.fromJson(responce);
     CacheHelper.saveData(key: "token", value: user.dataSignin.token);
-    Get.offAllNamed("/");
+    Get.offAllNamed("/HomeScreen");
   } on ServerException catch (e) {
     isloading=false;
     update();
-    Get.snackbar("خطأ", e.erorrModel.erorrmessage,  animationDuration: Duration(seconds: 3)
+    Get.snackbar(e.erorrModel.title, e.erorrModel.erorrmessage,  animationDuration: Duration(seconds: 3)
 );
   }
 }

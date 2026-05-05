@@ -1,8 +1,11 @@
 class EndPoint {
-  static String baseUrl = "http://127.0.0.1:8000/api/";
-  static String signIn = "login";
+  static String baseUrl = "http://127.0.0.1:5000/api/v1/";
+  static String signIn = "auth/login";
   static String posts= "posts";
-  static String signUp = "user/signup";
+  static String signUp = "auth/register";
+  static String reports = "reports";
+
+  
   // static String getUserDataEndPoint(id) {
   //   return "user/get-user/$id";
   // }
@@ -14,6 +17,8 @@ class ApiKey {
   static String email = "email";
   static String password = "password";
   static String token = "token";
+  static String refreshToken = "refreshToken";
+
   static String data = "data";
 
   static String message = "message";

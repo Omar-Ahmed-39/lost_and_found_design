@@ -7,7 +7,7 @@ import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/error/exception.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 import 'package:lostandfound/features/auth/widget/card_offer.dart';
-import 'package:lostandfound/model/signin_model.dart';
+import 'package:lostandfound/features/auth/model/signin_model.dart';
 
 class Sign extends StatefulWidget {
   const Sign({super.key});
@@ -27,7 +27,7 @@ class _SignState extends State<Sign> {
         margin: EdgeInsets.all(15),
         child: Column(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("welcome".tr,style: MyTextStyle.title(),),
+          Text("welcome".tr,style: MyTextStyle.title(color: Get.theme.hintColor),),
           SizedBox(height: 60,),
             const SizedBox(height: 28),
 
@@ -51,7 +51,7 @@ class _SignState extends State<Sign> {
                           title: "signin".tr,
                           imagePath: MyAppImage.signinImage,
                           onTap: () {
-                            Navigator.of(context).pushNamed("SigninPage");
+                            Get.toNamed("/SigninPage");
                           },
                         ),
                       ),

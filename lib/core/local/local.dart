@@ -21,6 +21,8 @@ class MyLocal extends Translations {
       "phone number": "رقم الهاتف",
       "You already have an account?": "لديك حساب بالفعل؟",
       //Home folder
+      "lost":"مفقود",
+      "found":"موجود",
       "hi": "مرحبا",
       "ownership proof": "اثبات ملكية",
       "upload proof hint": "ارفع الاثبات",
@@ -115,6 +117,8 @@ class MyLocal extends Translations {
 
       // Home folder
       "hi": "hi",
+      "lost":"lost",
+      "found":"found",
       "ownership proof": "Ownership Proof",
       "upload proof hint": "Upload proof hint",
       "upload proof": "Upload Proof",
