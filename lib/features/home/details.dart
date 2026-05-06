@@ -64,9 +64,9 @@ class DetailsPage extends StatelessWidget {
             // محتوى التفاصيل
             SliverToBoxAdapter(
               child: Container(
-                padding: const EdgeInsets.all(24.0),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
+                padding:  EdgeInsets.all(24.0),
+                decoration:  BoxDecoration(
+                  color: Get.theme.cardColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
@@ -136,8 +136,19 @@ class DetailsPage extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
+                                        const SizedBox(height: 30),
 
-                    const SizedBox(height: 100),
+                    Container(
+                      width: double.infinity,
+                      child: Mybutton(
+                                text: "claim".tr,
+                                onTap: () {
+                                  Get.to(() => const ClaimPage());
+                                },
+                              ),
+                    ),
+
+                    const SizedBox(height: 10),
                   ],
                 ),
               ),
@@ -146,26 +157,7 @@ class DetailsPage extends StatelessWidget {
         ),
       ),
 
-      // زر مطالبة ثابت في الأسفل
-      bottomSheet: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-              offset: const Offset(0, -5),
-            )
-          ],
-        ),
-        child: Mybutton(
-          text: "claim".tr,
-          onTap: () {
-            Get.to(() => const ClaimPage());
-          },
-        ),
-      ),
+    
     );
   }
 
