@@ -40,7 +40,8 @@ class OfferCard extends StatelessWidget {
               imageUrl,
               fit: BoxFit.cover,
               errorBuilder:  (context, error, stackTrace) =>
-                   Image.asset(MyAppImage.imagebroken,fit: BoxFit.cover,)
+                   Container(color: Get.theme.cardColor,
+                   child: Icon(Icons.image_outlined,size: 40,),)
             ),
           ),
 
@@ -101,7 +102,7 @@ class OfferCard extends StatelessWidget {
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: const TextStyle(
-        color: Colors.white,
+        color:  Colors.white,
         fontSize: 15,
         fontWeight: FontWeight.w500,
       ),
@@ -109,47 +110,49 @@ class OfferCard extends StatelessWidget {
 
     const SizedBox(height: 6),
 
-    Row(
-      mainAxisSize: MainAxisSize.min, // ⭐ أهم سطر يمنع التمدد
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8, // أصغر
-            vertical: 4,   // أصغر
-          ),
-          decoration: BoxDecoration(
-            color: const Color(0x66FFFFFF),
-            borderRadius: BorderRadius.circular(10), // أنعم
-          ),
-          child: Text(
-            date,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 11, // ⭐ تصغير الخط
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+   Row(
+  children: [
+    Expanded(
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8,
+          vertical: 4,
         ),
-
-        const SizedBox(width: 6),
-
-        Container(
-          width: 26, // أصغر
-          height: 26,
-          decoration: BoxDecoration(
-            color: const Color(0x66FFFFFF),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Icon(
-            Icons.calendar_month,
+        decoration: BoxDecoration(
+          color: const Color(0x66FFFFFF),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Text(
+          date,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.right,
+          style: const TextStyle(
             color: Colors.white,
-            size: 14, // أصغر
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
           ),
         ),
-      ],
+      ),
     ),
+
+    const SizedBox(width: 6),
+
+    Container(
+      width: 26,
+      height: 26,
+      decoration: BoxDecoration(
+        color: const Color(0x66FFFFFF),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: const Icon(
+        Icons.calendar_month,
+        color: Colors.white,
+        size: 14,
+      ),
+    ),
+  ],
+),
   ],
 )
 

@@ -27,7 +27,7 @@ class DetailsPage extends StatelessWidget {
     final double appBarHeight = screenHeight * (2 / 5);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FA),
+      backgroundColor: Get.theme.cardColor,
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: CustomScrollView(
@@ -56,7 +56,8 @@ class DetailsPage extends StatelessWidget {
                   fit: BoxFit.cover,
                   // معالجة الخطأ في تحميل الصورة
                   errorBuilder: (context, error, stackTrace) =>
-                      Image.asset(MyAppImage.imagebroken, fit: BoxFit.cover),
+                     Container(color: Get.theme.cardColor,
+                   child: Icon(Icons.image_outlined,size: 80,),),
                 ),
               ),
             ),
