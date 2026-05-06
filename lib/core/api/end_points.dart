@@ -6,9 +6,22 @@ class EndPoint {
   static String reports = "reports";
 
   
-  // static String getUserDataEndPoint(id) {
-  //   return "user/get-user/$id";
-  // }
+  static String getReportsEndPoint({
+  String? search,
+  int? reportType,
+  required int pageNumber,
+  required int pageSize,
+}) {
+  return Uri(
+    path: "reports",
+    queryParameters: {
+      if (search?.isNotEmpty == true) 'search': search,
+      if (reportType != null) 'reportType': reportType.toString(),
+      'pageNumber': pageNumber.toString(),
+      'pageSize': pageSize.toString(),
+    },
+  ).toString();
+}
 }
 
 class ApiKey {
