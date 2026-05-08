@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lostandfound/core/Middleware/middlewares.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/local/local.dart';
 import 'package:lostandfound/core/local/local_controller.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: "/",
           page: () => const Sign(),
+           middlewares: [AuthMiddlewares()]
         ),
         GetPage(
           name: "/HomeScreen",
