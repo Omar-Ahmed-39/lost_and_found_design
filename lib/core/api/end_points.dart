@@ -9,6 +9,7 @@ class EndPoint {
   static String getReportsEndPoint({
   String? search,
   int? reportType,
+  int? categoryId,
   required int pageNumber,
   required int pageSize,
 }) {
@@ -17,6 +18,8 @@ class EndPoint {
     queryParameters: {
       if (search?.isNotEmpty == true) 'search': search,
       if (reportType != null) 'reportType': reportType.toString(),
+      if (categoryId != null) 'categoryId': categoryId.toString(),
+
       'pageNumber': pageNumber.toString(),
       'pageSize': pageSize.toString(),
     },

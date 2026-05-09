@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MySearchFilde extends StatelessWidget {
-  const MySearchFilde({
+  void Function(String)? submitted;
+   MySearchFilde({
     super.key,
+    this.submitted
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       textAlign: TextAlign.right,
+      onFieldSubmitted:submitted ,
     
       decoration: InputDecoration(
         hintText: "البحث",

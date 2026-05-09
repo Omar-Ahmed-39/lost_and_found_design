@@ -6,7 +6,7 @@ import 'package:lostandfound/core/api/dio_consumer.dart';
 import 'package:lostandfound/core/api/end_points.dart';
 import 'package:lostandfound/core/error/exception.dart';
 import 'package:lostandfound/features/home/model/report_model.dart';
-import 'package:lostandfound/model/home_model.dart';
+
 
 enum HomeState { initial, loading, success, empty, error }
 
@@ -50,11 +50,12 @@ class HomeController extends GetxController {
       if (itemsResponse.succeeded) {
         items = itemsResponse.data;
         state = items.isEmpty ? HomeState.empty : HomeState.success;
-      } else {
-        state = HomeState.error;
       }
-    } catch (e) {
+    }  on ServerException catch (e) {
+      
       state = HomeState.error;
+        Get.snackbar(e.erorrModel.title, e.erorrModel.erorrmessage,  animationDuration: Duration(seconds: 3)
+);
     }
     update();
   }
@@ -72,9 +73,9 @@ class HomeController extends GetxController {
       if (itemsResponse.succeeded && itemsResponse.data.isNotEmpty) {
         items.addAll(itemsResponse.data);
       }
-    } catch (e) {
-      debugPrint("Pagination Error: $e");
-    } finally {
+    }on ServerException catch (e) {
+  Get.snackbar(e.erorrModel.title, e.erorrModel.erorrmessage,  animationDuration: Duration(seconds: 3)
+);    } finally {
       isPaginating = false;
       update();
     }

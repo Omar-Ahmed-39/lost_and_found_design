@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/core/shared/dropdownlist.dart';
 import 'package:lostandfound/core/shared/form.dart';
+import 'package:lostandfound/features/home/details.dart';
+import 'package:lostandfound/features/home/widget/card.dart';
 import 'package:lostandfound/features/search/controller/search_controller.dart';
 import 'package:lostandfound/features/search/widget/active_filter.dart';
 import 'package:lostandfound/features/search/widget/filter_button.dart';
@@ -20,6 +22,7 @@ class SearchPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.all(20),
             child: Column(
+              mainAxisSize: MainAxisSize.min, // تم التعديل هنا لضمان عدم التمدد اللانهائي
               children: [
                 Row(
                   children: [
@@ -30,14 +33,40 @@ class SearchPage extends StatelessWidget {
                         onTap: () => _showFilterBottomSheet(controller),
                       ),
                     ),
-                    const Expanded(child: MySearchFilde()),
+                     Expanded(child: MySearchFilde(submitted: (val) {
+                       if(val.isNotEmpty){
+                        controller.searchfilde=val;
+                       controller.getItems();
+                       }
+                     },)),
                   ],
                 ),
+
                 const SizedBox(height: 15),
+
                 SearchActiveFilters(
                   filters: controller.activeFilters,
                   onRemove: (filter) => controller.removeFilter(filter),
                 ),
+
+                // تم تغيير Expanded إلى Flexible لحل مشكلة الـ unbounded height
+                Flexible( 
+                  child: RefreshIndicator(
+                    onRefresh: () => controller.getItems(),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 0,top: 5),
+                      child: _buildBody(controller),
+                    ),
+                  ),
+                ),
+
+                if (controller.isPaginating)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Center(
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -50,9 +79,11 @@ class SearchPage extends StatelessWidget {
     Get.bottomSheet(
       Container(
         padding: const EdgeInsets.all(20),
-        decoration:  BoxDecoration(
-          color:Get.theme.scaffoldBackgroundColor,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        decoration: BoxDecoration(
+          color: Get.theme.scaffoldBackgroundColor,
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(20),
+          ),
         ),
         child: GetBuilder<SearchPageController>(
           builder: (controller) {
@@ -65,11 +96,12 @@ class SearchPage extends StatelessWidget {
                     width: 40,
                     height: 5,
                     decoration: BoxDecoration(
-                      color:Get.theme.cardColor,
+                      color: Get.theme.cardColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 10),
 
                 Center(
@@ -129,7 +161,16 @@ class SearchPage extends StatelessWidget {
 
                 Mybutton(
                   text: "apply filter".tr,
-                  onTap: () => controller.applyFilters(),
+                  onTap: () {
+                    if (controller.tempIsClickFound ||
+                        controller.tempIsClickLost ||
+                        controller.tempSelectedCategory != null) {
+                      controller.applyFilters();
+                      Get.back();
+                    } else {
+                      Get.back();
+                    }
+                  },
                 ),
 
                 const SizedBox(height: 8),
@@ -141,4 +182,146 @@ class SearchPage extends StatelessWidget {
       isScrollControlled: true,
     );
   }
+}
+
+Widget _buildBody(SearchPageController controller) {
+  switch (controller.state) {
+    case HomeState.initial:
+      return ListView(
+        shrinkWrap: true, // تم الإضافة هنا
+        physics: const AlwaysScrollableScrollPhysics(),
+        children: const [
+          SizedBox(height: 200),
+        ],
+      );
+
+    case HomeState.loading:
+      return ListView(
+        shrinkWrap: true, // تم الإضافة هنا
+        physics: const AlwaysScrollableScrollPhysics(),
+        children: const [
+          SizedBox(height: 200),
+          Center(
+            child: CircularProgressIndicator(),
+          ),
+        ],
+      );
+
+    case HomeState.empty:
+      return ListView(
+        shrinkWrap: true, // تم الإضافة هنا
+        physics: const AlwaysScrollableScrollPhysics(),
+        children: [
+          const SizedBox(height: 200),
+          _buildEmptyState(),
+        ],
+      );
+
+    case HomeState.error:
+      return ListView(
+        shrinkWrap: true, // تم الإضافة هنا
+        physics: const AlwaysScrollableScrollPhysics(),
+        children: [
+          const SizedBox(height: 200),
+          _buildErrorState(controller),
+        ],
+      );
+
+    case HomeState.success:
+      return Scrollbar(
+        controller: controller.scrollController,
+        interactive: true,
+        thickness: 4,
+        radius: const Radius.circular(10),
+        child: GridView.builder(
+          shrinkWrap: true, // مهم جداً لحل مشكلة الأبعاد
+          controller: controller.scrollController,
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemCount: controller.items.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 14,
+            mainAxisSpacing: 14,
+            childAspectRatio: 0.92,
+          ),
+          itemBuilder: (context, index) {
+            final item = controller.items[index];
+
+            return InkWell(
+              onTap: () {
+                Get.to(
+                  () => DetailsPage(
+                    title: item.itemName,
+                    date: item.dateReported.toString(),
+                    status: item.reportType,
+                    statusColor: item.reportType == 1
+                        ? Colors.redAccent
+                        : Colors.greenAccent,
+                    image: item.imagePath,
+                  ),
+                );
+              },
+              child: OfferCard(
+                title: item.itemName,
+                date: item.dateReported.toString(),
+                status: item.reportType,
+                statusColor: item.reportType == 1
+                    ? Colors.redAccent
+                    : Colors.greenAccent,
+                imageUrl: item.imagePath,
+              ),
+            );
+          },
+        ),
+      );
+  }
+}
+
+// الدوال الفرعية _buildEmptyState و _buildErrorState تبقى كما هي دون تغيير
+Widget _buildEmptyState() {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(
+          Icons.inbox_outlined,
+          size: 70,
+          color: Colors.grey,
+        ),
+        const SizedBox(height: 12),
+        Text(
+          "there are not post at the moment".tr,
+          style: const TextStyle(
+            fontSize: 16,
+            color: Colors.grey,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildErrorState(SearchPageController controller) {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          icon: const Icon(
+            Icons.restart_alt_outlined,
+            size: 70,
+            color: Colors.blueAccent,
+          ),
+          onPressed: () {
+            controller.getItems();
+          },
+        ),
+        const SizedBox(height: 10),
+        Text(
+          "Click to retry".tr,
+          style: const TextStyle(color: Colors.grey),
+        ),
+      ],
+    ),
+  );
 }

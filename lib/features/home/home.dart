@@ -149,7 +149,7 @@ class Homepage extends StatelessWidget {
             },
           ),
           const SizedBox(height: 10),
-          const Text("Click to retry", style: TextStyle(color: Colors.grey)),
+           Text("Click to retry".tr, style: TextStyle(color: Colors.grey)),
         ],
       ),
     );

@@ -5,7 +5,7 @@ import 'package:lostandfound/core/database/cache/cache_helper.dart';
 class AuthMiddlewares extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
-    if (CacheHelper.getData(key: "id")!=null){
+    if (CacheHelper.getData(key: "token")!=null){
 
       return RouteSettings(name:"/HomeScreen" );
     }

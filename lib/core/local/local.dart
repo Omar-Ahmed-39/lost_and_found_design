@@ -21,6 +21,7 @@ class MyLocal extends Translations {
       "phone number": "رقم الهاتف",
       "You already have an account?": "لديك حساب بالفعل؟",
       //Home folder
+      "Click to retry":"اعد المحاولة",
       "lost":"مفقود",
       "found":"موجود",
       "hi": "مرحبا",
@@ -116,6 +117,7 @@ class MyLocal extends Translations {
       "You already have an account?": "Already have an account?",
 
       // Home folder
+      "Click to retry":"Click to retry",
       "hi": "hi",
       "lost":"lost",
       "found":"found",
