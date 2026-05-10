@@ -119,6 +119,11 @@ class SearchPageController extends GetxController {
       tempIsClickFound = false;
       tempSelectedCategory = null;
     }
+    if(reportTypeId==null && selectedCategoryId==null){
+      items=[];
+      update();
+      return;
+    }
     getItems();
     update();
   }

@@ -3,14 +3,18 @@ import 'package:get/get.dart';
 
 class MySearchFilde extends StatelessWidget {
   void Function(String)? submitted;
+  void Function(String)? onChanged;
+
    MySearchFilde({
     super.key,
-    this.submitted
+    this.submitted,
+    this.onChanged
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       textAlign: TextAlign.right,
       onFieldSubmitted:submitted ,
     

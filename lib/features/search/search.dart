@@ -22,7 +22,8 @@ class SearchPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.all(20),
             child: Column(
-              mainAxisSize: MainAxisSize.min, // تم التعديل هنا لضمان عدم التمدد اللانهائي
+              mainAxisSize:
+                  MainAxisSize.min, // تم التعديل هنا لضمان عدم التمدد اللانهائي
               children: [
                 Row(
                   children: [
@@ -33,12 +34,20 @@ class SearchPage extends StatelessWidget {
                         onTap: () => _showFilterBottomSheet(controller),
                       ),
                     ),
-                     Expanded(child: MySearchFilde(submitted: (val) {
-                       if(val.isNotEmpty){
-                        controller.searchfilde=val;
-                       controller.getItems();
-                       }
-                     },)),
+                    Expanded(
+                      child: MySearchFilde(
+                        onChanged: (val) {
+                          controller.searchfilde = val;
+                        },
+                        submitted: (val) {
+                          final text = val.trim();
+
+                          if (text.isNotEmpty) {
+                            controller.getItems();
+                          }
+                        },
+                      ),
+                    ),
                   ],
                 ),
 
@@ -50,11 +59,11 @@ class SearchPage extends StatelessWidget {
                 ),
 
                 // تم تغيير Expanded إلى Flexible لحل مشكلة الـ unbounded height
-                Flexible( 
+                Flexible(
                   child: RefreshIndicator(
                     onRefresh: () => controller.getItems(),
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 0,top: 5),
+                      padding: const EdgeInsets.only(bottom: 0, top: 5),
                       child: _buildBody(controller),
                     ),
                   ),
@@ -81,9 +90,7 @@ class SearchPage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Get.theme.scaffoldBackgroundColor,
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(20),
-          ),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: GetBuilder<SearchPageController>(
           builder: (controller) {
@@ -190,9 +197,7 @@ Widget _buildBody(SearchPageController controller) {
       return ListView(
         shrinkWrap: true, // تم الإضافة هنا
         physics: const AlwaysScrollableScrollPhysics(),
-        children: const [
-          SizedBox(height: 200),
-        ],
+        children: const [SizedBox(height: 200)],
       );
 
     case HomeState.loading:
@@ -201,9 +206,7 @@ Widget _buildBody(SearchPageController controller) {
         physics: const AlwaysScrollableScrollPhysics(),
         children: const [
           SizedBox(height: 200),
-          Center(
-            child: CircularProgressIndicator(),
-          ),
+          Center(child: CircularProgressIndicator()),
         ],
       );
 
@@ -211,20 +214,14 @@ Widget _buildBody(SearchPageController controller) {
       return ListView(
         shrinkWrap: true, // تم الإضافة هنا
         physics: const AlwaysScrollableScrollPhysics(),
-        children: [
-          const SizedBox(height: 200),
-          _buildEmptyState(),
-        ],
+        children: [const SizedBox(height: 200), _buildEmptyState()],
       );
 
     case HomeState.error:
       return ListView(
         shrinkWrap: true, // تم الإضافة هنا
         physics: const AlwaysScrollableScrollPhysics(),
-        children: [
-          const SizedBox(height: 200),
-          _buildErrorState(controller),
-        ],
+        children: [const SizedBox(height: 200), _buildErrorState(controller)],
       );
 
     case HomeState.success:
@@ -234,6 +231,7 @@ Widget _buildBody(SearchPageController controller) {
         thickness: 4,
         radius: const Radius.circular(10),
         child: GridView.builder(
+          padding: EdgeInsets.zero,
           shrinkWrap: true, // مهم جداً لحل مشكلة الأبعاد
           controller: controller.scrollController,
           physics: const AlwaysScrollableScrollPhysics(),
@@ -283,18 +281,11 @@ Widget _buildEmptyState() {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(
-          Icons.inbox_outlined,
-          size: 70,
-          color: Colors.grey,
-        ),
+        const Icon(Icons.inbox_outlined, size: 70, color: Colors.grey),
         const SizedBox(height: 12),
         Text(
           "there are not post at the moment".tr,
-          style: const TextStyle(
-            fontSize: 16,
-            color: Colors.grey,
-          ),
+          style: const TextStyle(fontSize: 16, color: Colors.grey),
         ),
       ],
     ),
@@ -317,10 +308,7 @@ Widget _buildErrorState(SearchPageController controller) {
           },
         ),
         const SizedBox(height: 10),
-        Text(
-          "Click to retry".tr,
-          style: const TextStyle(color: Colors.grey),
-        ),
+        Text("Click to retry".tr, style: const TextStyle(color: Colors.grey)),
       ],
     ),
   );
