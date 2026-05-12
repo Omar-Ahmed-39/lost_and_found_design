@@ -21,12 +21,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-    
-      NavigationController navigationController=Get.put(NavigationController());
-      ProfileController profileController=Get.put(ProfileController());
-
-
-
+          ProfileController profileController=Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +138,6 @@ Get.find<MyLocalController>().changeLang();                    },
                     iconColor: AppTheme.primaryBlue,
                     onTap: () {
                       Get.find<ThemeController>().changeTheme();
-                      navigationController.update();
                     },
                   ),
                 ],
