@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
 import 'package:lostandfound/core/shared/form.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
-import 'package:lostandfound/features/home/home.dart';
-import 'package:lostandfound/features/home/home_screen.dart';
+import 'package:lostandfound/features/home/view/home.dart';
+import 'package:lostandfound/features/home/view/home_screen.dart';
 
 class DonePage extends StatelessWidget {
   final String text;

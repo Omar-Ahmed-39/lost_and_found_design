@@ -1,8 +1,12 @@
 class EndPoint {
   static String baseUrl = "http://127.0.0.1:5000/api/v1/";
   static String signIn = "auth/login";
-  static String posts= "posts";
+  static String claims= "claims";
   static String signUp = "auth/register";
+  static String logout = "auth/loguot";
+  static String changePassword = "auth/change-password";
+
+
   static String reports = "reports";
 
   

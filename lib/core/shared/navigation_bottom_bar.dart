@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/features/home/controller/home_screen_controller.dart';
-import 'package:lostandfound/features/report/report.dart';
+import 'package:lostandfound/features/report/view/report.dart';
 
 class MyNavigationBottomBar extends StatelessWidget {
   const MyNavigationBottomBar({super.key});

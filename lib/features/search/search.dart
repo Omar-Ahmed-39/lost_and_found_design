@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/core/shared/dropdownlist.dart';
 import 'package:lostandfound/core/shared/form.dart';
-import 'package:lostandfound/features/home/details.dart';
-import 'package:lostandfound/features/home/widget/card.dart';
+import 'package:lostandfound/features/home/view/details.dart';
+import 'package:lostandfound/features/home/view/widget/card.dart';
 import 'package:lostandfound/features/search/controller/search_controller.dart';
 import 'package:lostandfound/features/search/widget/active_filter.dart';
 import 'package:lostandfound/features/search/widget/filter_button.dart';
@@ -249,6 +249,7 @@ Widget _buildBody(SearchPageController controller) {
               onTap: () {
                 Get.to(
                   () => DetailsPage(
+                    reportId: item.id,
                     title: item.itemName,
                     date: item.dateReported.toString(),
                     status: item.reportType,

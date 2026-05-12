@@ -9,7 +9,8 @@ import 'package:lostandfound/core/shared/navigation_bottom_bar.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 import 'package:lostandfound/core/theme/controller/theme_controller.dart';
 import 'package:lostandfound/features/home/controller/home_screen_controller.dart';
-import 'package:lostandfound/features/profile/widget/section_card.dart';
+import 'package:lostandfound/features/profile/controller/profile_controller.dart';
+import 'package:lostandfound/features/profile/view/widget/section_card.dart';
 import 'package:lostandfound/main.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -20,9 +21,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  MyLocalController controller = Get.put(MyLocalController());
-      ThemeController themeController=Get.put(ThemeController());
+    
       NavigationController navigationController=Get.put(NavigationController());
+      ProfileController profileController=Get.put(ProfileController());
+
 
 
 
@@ -131,8 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     iconBg: Get.theme.colorScheme.primary,
                     iconColor: AppTheme.primaryBlue,
                     onTap: () {
-                      controller.changeLang();
-                    },
+Get.find<MyLocalController>().changeLang();                    },
                   ),
                    ProfileOptionTile(
                     icon: Icons.language_rounded,
@@ -141,7 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     iconBg: Get.theme.colorScheme.primary,
                     iconColor: AppTheme.primaryBlue,
                     onTap: () {
-                      themeController.changeTheme();
+                      Get.find<ThemeController>().changeTheme();
                       navigationController.update();
                     },
                   ),
@@ -159,8 +160,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
                 text: "logout".tr,
                 onTap: () {
-                  CacheHelper.clearData();
-                  Get.offAllNamed("/");
+
+                  profileController.logout();
                 },
               ),
             ),

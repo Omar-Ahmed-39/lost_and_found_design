@@ -2,23 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
 import 'package:lostandfound/core/shared/form.dart';
-import 'package:lostandfound/features/home/claim.dart';
+import 'package:lostandfound/features/home/controller/details_controller.dart';
+import 'package:lostandfound/features/home/view/done.dart';
 
 class DetailsPage extends StatelessWidget {
   final String title;
+  final int reportId;
+
   final String date;
   final int status;
   final Color statusColor;
   final String image;
 
-  const DetailsPage({
+   DetailsPage({
     super.key,
     required this.title,
     required this.date,
     required this.status,
     required this.statusColor,
-    required this.image,
+    required this.image, required this.reportId,
   });
+    DetailsController detailsController=Get.put(DetailsController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +149,8 @@ class DetailsPage extends StatelessWidget {
                       child: Mybutton(
                                 text: "claim".tr,
                                 onTap: () {
-                                  Get.to(() => const ClaimPage());
+                                  detailsController.claim(reportId);
+                                  
                                 },
                               ),
                     ),

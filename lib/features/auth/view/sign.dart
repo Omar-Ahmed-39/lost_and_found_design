@@ -6,7 +6,7 @@ import 'package:lostandfound/core/constsnt/image_constant.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/error/exception.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
-import 'package:lostandfound/features/auth/widget/card_offer.dart';
+import 'package:lostandfound/features/auth/view/widget/card_offer.dart';
 import 'package:lostandfound/features/auth/model/signin_model.dart';
 
 class Sign extends StatefulWidget {
