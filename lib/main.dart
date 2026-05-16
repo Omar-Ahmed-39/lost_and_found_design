@@ -8,6 +8,7 @@ import 'package:lostandfound/core/binding/binding.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/local/local.dart';
 import 'package:lostandfound/core/local/local_controller.dart';
+import 'package:lostandfound/core/services/get_it_services.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 import 'package:lostandfound/core/theme/controller/theme_controller.dart';
 import 'package:lostandfound/features/auth/view/sign.dart';
@@ -17,7 +18,8 @@ import 'package:lostandfound/features/home/view/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // تأكد من تهيئة الكاش قبل تشغيل التطبيق
+  setupLocator();
+
   await CacheHelper().init();
 
   runApp(const MyApp());

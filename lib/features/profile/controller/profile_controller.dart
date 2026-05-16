@@ -6,9 +6,10 @@ import 'package:lostandfound/core/api/end_points.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/error/exception.dart';
 import 'package:lostandfound/core/local/local_controller.dart';
+import 'package:lostandfound/core/services/get_it_services.dart';
 
 class ProfileController extends GetxController {
-  ApiConsumer api = DioConsumer(dio: Dio());
+  ApiConsumer api =getIt<ApiConsumer>();
   Future<void> logout() async {
     try {
       await api.post(EndPoint.logout);

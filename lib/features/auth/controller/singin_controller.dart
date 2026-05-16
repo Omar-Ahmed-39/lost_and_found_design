@@ -6,6 +6,7 @@ import 'package:lostandfound/core/api/dio_consumer.dart';
 import 'package:lostandfound/core/api/end_points.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/error/exception.dart';
+import 'package:lostandfound/core/services/get_it_services.dart';
 import 'package:lostandfound/features/auth/model/signin_model.dart';
 
 class SinginController extends GetxController {
@@ -17,7 +18,7 @@ class SinginController extends GetxController {
   bool isloading = false;
   SignInModel? user;
 
-  ApiConsumer api = DioConsumer(dio: Dio());
+  ApiConsumer api =getIt<ApiConsumer>();
   void changeObscure(){
     obscure=!obscure;
     update();

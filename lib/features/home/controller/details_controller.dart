@@ -4,10 +4,11 @@ import 'package:lostandfound/core/api/api_consumer.dart';
 import 'package:lostandfound/core/api/dio_consumer.dart';
 import 'package:lostandfound/core/api/end_points.dart';
 import 'package:lostandfound/core/error/exception.dart';
+import 'package:lostandfound/core/services/get_it_services.dart';
 import 'package:lostandfound/features/home/view/done.dart';
 
 class DetailsController extends GetxController {
-    ApiConsumer api = DioConsumer(dio: Dio());
+  ApiConsumer api =getIt<ApiConsumer>();
 
   Future<void> claim(int reportId  ) async {
     try {

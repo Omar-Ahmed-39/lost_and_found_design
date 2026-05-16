@@ -5,13 +5,14 @@ import 'package:lostandfound/core/api/api_consumer.dart';
 import 'package:lostandfound/core/api/dio_consumer.dart';
 import 'package:lostandfound/core/api/end_points.dart';
 import 'package:lostandfound/core/error/exception.dart';
+import 'package:lostandfound/core/services/get_it_services.dart';
 import 'package:lostandfound/features/home/model/report_model.dart';
 
 
 enum HomeState { initial, loading, success, empty, error }
 
 class HomeController extends GetxController {
-  ApiConsumer api = DioConsumer(dio: Dio());
+  ApiConsumer api =getIt<ApiConsumer>();
   HomeState state = HomeState.initial;
   List<ItemData> items = [];
 
