@@ -50,11 +50,21 @@ class MyLocal extends Translations {
       // notification folder
       "no notifications currently": "لا توجد إشعارات حالياً",
       // profile folder
+      "please_enter_new_password": "الرجاء إدخال كلمة المرور الجديدة",
+  "please_enter_current_password": "الرجاء إدخال كلمة المرور الحالية",
+  "password_too_short": "كلمة المرور قصيرة جدًا",
       "appearance": "المظهر",
       "change appearance": "تغيير المظهر",
       "edit profile": "تعديل الملف الشخصي",
       "update profile": "تحديث الملف الشخصي",
       "change password": "تغيير كلمة المرور",
+      "current Password":'كلمة المرور الحالية',
+      "new password": 'كلمة المرور الجديدة',
+      "change":"تغيير",
+      "succeess":"نجاح",
+      "change password is done":"نم تغيير كلمة المرور",
+
+     "enter current and new password" :'أدخل كلمة المرور الحالية والجديدة',
       "update your account password": "تحديث كلمة المرور لحسابك",
       "usage policy": "سياسة الاستخدام",
       "view terms and conditions": "الاطلاع على الشروط والأحكام",
@@ -97,6 +107,7 @@ class MyLocal extends Translations {
       "lost": "مفقود",
       "found": "موجود",
       "apply filter": "تطبيق الفلتر",
+      "error":"خطا"
     },
 
     "en": {
@@ -148,6 +159,15 @@ class MyLocal extends Translations {
       "no notifications currently": "No notifications currently",
 
       // profile folder
+      "error":"error",
+       "please_enter_new_password": "please enter new password",
+       "please_enter_current_password": "please enter current password",
+        "password_too_short": "password too short",
+      "current Password": "current Password",
+      "new password":  "new password",
+      "change":"change",
+      "succeess":"succeess",
+      "change password is done":"change password is done",
       "appearance": "appearance",
       "change appearance": "change appearance",
       "edit profile": "Edit Profile",

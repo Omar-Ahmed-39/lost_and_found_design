@@ -3,7 +3,9 @@ class EndPoint {
   static String signIn = "auth/login";
   static String claims= "claims";
   static String signUp = "auth/register";
-  static String logout = "auth/loguot";
+  static String logout = "auth/logout";
+  static String refreshToken = "auth/refresh";
+
   static String changePassword = "auth/change-password";
 
 
@@ -37,7 +39,7 @@ class ApiKey {
   static String email = "email";
   static String password = "password";
   static String token = "token";
-  static String refreshToken = "refreshToken";
+    static const String refreshToken = "refreshToken";
 
   static String data = "data";
 

@@ -15,6 +15,15 @@ class ErorrModel {
       
       
   }
-  
+  factory ErorrModel.fromJsonpassword(Map<String,dynamic> jsondata){
+    return ErorrModel(
+      status: jsondata["status"] ?? 0, 
+      erorrmessage: jsondata["errors"] ["NewPassword"][0]?? "",
+      title: jsondata["title"]??""
+      );
+      
+      
+      
+  } 
   
 }

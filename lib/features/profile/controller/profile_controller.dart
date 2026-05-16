@@ -24,23 +24,6 @@ class ProfileController extends GetxController {
     }
   }
 
-  Future<void> changePassword() async {
-    try {
-      await api.post(EndPoint.changePassword,
-      data: {
-         "currentPassword": "string",
-          "newPassword": "stringst"
-      });
-      
-    } on ServerException catch (e) {
-      Get.snackbar(
-        e.erorrModel.title,
-        e.erorrModel.erorrmessage,
-        animationDuration: Duration(seconds: 3),
-      );
-    }
-  }
-
   @override
   void onInit() {
         Get.lazyPut<MyLocalController>(() => MyLocalController());

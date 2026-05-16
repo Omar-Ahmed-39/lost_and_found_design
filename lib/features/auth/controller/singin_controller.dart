@@ -34,6 +34,8 @@ class SinginController extends GetxController {
     );
     SignInModel user = SignInModel.fromJson(responce);
     CacheHelper.saveData(key: "token", value: user.dataSignin.token);
+    CacheHelper.saveData(key: "refreshToken", value: user.dataSignin.refreshToken);
+
     Get.offAllNamed("/HomeScreen");
   } on ServerException catch (e) {
     isloading=false;

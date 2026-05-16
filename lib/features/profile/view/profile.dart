@@ -87,7 +87,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     subtitle: "update your account password".tr,
                     iconBg: Get.theme.colorScheme.primary,
                     iconColor: AppTheme.primaryBlue,
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed("/ChangePasswordPage");
+                    },
                   ),
                   ProfileOptionTile(
                     icon: Icons.description_outlined,

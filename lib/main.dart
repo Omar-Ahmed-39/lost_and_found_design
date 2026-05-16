@@ -15,6 +15,7 @@ import 'package:lostandfound/features/auth/view/sign.dart';
 import 'package:lostandfound/features/auth/view/signin.dart';
 import 'package:lostandfound/features/auth/view/signup.dart';
 import 'package:lostandfound/features/home/view/home_screen.dart';
+import 'package:lostandfound/features/profile/view/chang_password.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,6 +68,10 @@ class MyApp extends StatelessWidget {
          GetPage(
           name: "/SigninPage",
           page: () => const SigninPage(),
+        ),
+         GetPage(
+          name: "/ChangePasswordPage",
+          page: () =>  ChangePasswordPage(),
         ),
       ],
     );
