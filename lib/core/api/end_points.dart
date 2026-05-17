@@ -5,9 +5,9 @@ class EndPoint {
   static String signUp = "auth/register";
   static String logout = "auth/logout";
   static String refreshToken = "auth/refresh";
-
+  static String categories = "admin/categories";
   static String changePassword = "auth/change-password";
-
+  static String support = "feedbacks";
 
   static String reports = "reports";
 

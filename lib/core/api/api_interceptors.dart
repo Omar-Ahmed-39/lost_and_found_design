@@ -21,6 +21,8 @@ class ApiInterceptor extends Interceptor{
 @override
   Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
     // التحقق مما إذا كان الخطأ بسبب انتهاء صلاحية التوكن (401)
+
+    
     if (err.response?.statusCode == 401) {
       try {
         final oldToken = CacheHelper.getData(key: ApiKey.token);
@@ -30,7 +32,7 @@ class ApiInterceptor extends Interceptor{
         final refreshDio = Dio(); 
         
         final refreshResponse = await refreshDio.post(
-          EndPoint.refreshToken,
+          "${EndPoint.baseUrl}${EndPoint.refreshToken}",
           data: {
             "token": oldToken,
             "refreshToken": refreshToken,

@@ -21,6 +21,7 @@ class MyLocal extends Translations {
       "phone number": "رقم الهاتف",
       "You already have an account?": "لديك حساب بالفعل؟",
       //Home folder
+      "technical support":"الدعم الفني",
       "Click to retry":"اعد المحاولة",
       "lost":"مفقود",
       "found":"موجود",
@@ -50,6 +51,82 @@ class MyLocal extends Translations {
       // notification folder
       "no notifications currently": "لا توجد إشعارات حالياً",
       // profile folder
+      "terms and conditions": "الشروط والأحكام",
+"terms_subtitle": "يرجى قراءة هذه الشروط بعناية قبل استخدام التطبيق",
+
+"terms_intro_title": "مقدمة",
+"terms_intro_body": "تم تصميم هذا التطبيق لمساعدة الطلاب والموظفين والزوار في جامعة حضرموت على الإبلاغ عن المفقودات والموجودات بطريقة منظمة وسهلة.",
+
+"terms_account_title": "حساب المستخدم",
+"terms_account_body": "يتحمل المستخدم مسؤولية الحفاظ على سرية بيانات حسابه، ويجب عليه إدخال معلومات صحيحة عند استخدام التطبيق.",
+
+"terms_reports_title": "البلاغات والمنشورات",
+"terms_reports_body": "يمكن للمستخدمين إرسال بلاغات عن الأشياء المفقودة أو الموجودة. يجب أن يحتوي البلاغ على معلومات واضحة وصحيحة، وألا يتضمن محتوى كاذبًا أو مضللًا أو غير لائق.",
+
+"terms_accuracy_title": "دقة المعلومات",
+"terms_accuracy_body": "يساعد التطبيق في ربط المستخدمين الذين فقدوا أشياءهم بالمستخدمين الذين عثروا عليها، ومع ذلك يتحمل المستخدم مسؤولية التأكد من التفاصيل قبل استلام أو تسليم أي غرض.",
+
+"terms_privacy_title": "الخصوصية",
+"terms_privacy_body": "تُستخدم بيانات المستخدم فقط لأغراض التطبيق مثل إدارة الحسابات والبلاغات والتواصل وتحسين الخدمة. وينبغي عدم مشاركة المعلومات الشخصية علنًا إلا عند الحاجة.",
+
+"terms_prohibited_title": "الاستخدام الممنوع",
+"terms_prohibited_body": "يُمنع إساءة استخدام التطبيق، أو نشر بلاغات وهمية، أو انتحال شخصية الآخرين، أو استخدام ألفاظ مسيئة، أو استخدام الخدمة لأغراض لا تتعلق بالمفقودات والموجودات.",
+
+"terms_university_title": "البيئة الجامعية",
+"terms_university_body": "يهدف التطبيق إلى خدمة مجتمع جامعة حضرموت ودعم بيئة جامعية أكثر تعاونًا وتنظيمًا وأمانًا.",
+
+"terms_updates_title": "تحديث الشروط",
+"terms_updates_body": "قد يتم تحديث هذه الشروط من وقت لآخر لتحسين الخدمة أو بما يتوافق مع سياسات الجامعة. ويعني استمرار استخدام التطبيق الموافقة على أي تحديثات.",
+
+"terms_acceptance_title": "الموافقة",
+"terms_acceptance_body": "باستخدامك لهذا التطبيق، فإنك توافق على الالتزام بهذه الشروط والأحكام واستخدام الخدمة بمسؤولية.",
+
+"about app": "عن التطبيق",
+"lost and found app": "تطبيق المفقودات والموجودات",
+"hadhramout_university": "جامعة حضرموت",
+"app_name": "اسم التطبيق",
+"institution": "الجهة",
+"version": "الإصدار",
+"app_type": "نوع التطبيق",
+"university_service_app": "تطبيق خدمة جامعية",
+
+"about_app_title": "نبذة عن التطبيق",
+"about_app_body": "تطبيق المفقودات والموجودات هو تطبيق خدمي جامعي تم إنشاؤه لجامعة حضرموت بهدف مساعدة المستخدمين على الإبلاغ والبحث وإدارة بلاغات المفقودات والموجودات داخل البيئة الجامعية.",
+
+"app_goal_title": "هدف التطبيق",
+"app_goal_body": "يهدف التطبيق إلى تسهيل وتسريع وتنظيم عملية العثور على المفقودات، من خلال تمكين المستخدمين من نشر البلاغات وتصفح البلاغات المتاحة.",
+
+"main_features_title": "المميزات الرئيسية",
+"feature_report_lost": "إرسال بلاغات عن الأشياء المفقودة مع التفاصيل والصور.",
+"feature_report_found": "إرسال بلاغات عن الأشياء الموجودة للمساعدة في إعادتها لأصحابها.",
+"feature_search_reports": "البحث وتصفية البلاغات حسب النوع والتصنيف والكلمات المفتاحية.",
+"feature_categories": "تنظيم البلاغات باستخدام التصنيفات لتسهيل التصفح.",
+"feature_profile": "إدارة معلومات حساب المستخدم وتغيير كلمة المرور.",
+"feature_support": "التواصل مع الدعم الفني وإرسال الملاحظات أو المشاكل.",
+
+"target_users_title": "الفئة المستهدفة",
+"target_users_body": "يستهدف التطبيق الطلاب وموظفي الجامعة والزوار الذين يحتاجون إلى الإبلاغ أو البحث عن المفقودات والموجودات داخل جامعة حضرموت.",
+
+"app_scope_title": "نطاق التطبيق",
+"app_scope_body": "يركز التطبيق على خدمة المفقودات والموجودات داخل الجامعة. لا يضمن التطبيق استرجاع الأغراض، لكنه يوفر منصة موثوقة لتحسين التواصل بين المستخدمين.",
+
+"developer_note_title": "ملاحظة المطور",
+"developer_note_body": "تم تطوير هذا التطبيق لدعم التحول الرقمي وتحسين الخدمات الطلابية في جامعة حضرموت.",
+"send_your_problem_details": "أرسل تفاصيل المشكلة وسنقوم بمساعدتك",
+"problem title": "عنوان المشكلة",
+"problem description": "وصف المشكلة",
+"rating": "التقييم",
+"send": "إرسال",
+"loading": "جاري الإرسال...",
+"success": "نجاح",
+"error": "خطأ",
+"support_request_sent_successfully": "تم إرسال طلب الدعم بنجاح",
+"please_enter_subject": "يرجى إدخال عنوان المشكلة",
+"subject_too_short": "عنوان المشكلة قصير جدًا",
+"please_enter_problem_description": "يرجى إدخال وصف المشكلة",
+"description_too_short": "وصف المشكلة قصير جدًا",
+"please_select_rating": "يرجى اختيار التقييم",
+"your_rating": "تقييمك",
       "please_enter_new_password": "الرجاء إدخال كلمة المرور الجديدة",
   "please_enter_current_password": "الرجاء إدخال كلمة المرور الحالية",
   "password_too_short": "كلمة المرور قصيرة جدًا",
@@ -70,7 +147,6 @@ class MyLocal extends Translations {
       "view terms and conditions": "الاطلاع على الشروط والأحكام",
       "help and support": "المساعدة والدعم",
       "contact support team": "التواصل مع فريق الدعم",
-      "about app": "عن التطبيق",
       "version and app information": "معلومات الإصدار والتطبيق",
       "language": "اللغة",
       "change language": "تغيير اللغة",
@@ -100,14 +176,10 @@ class MyLocal extends Translations {
       "write time": "اكتب الوقت",
       "lost time": "وقت الفقد",
       "add image": "اضف صورة",
-      "send": "ارسال",
       //search folder
       "search filter": "فلترة البحث",
       "choose type": "اختر النوع",
-      "lost": "مفقود",
-      "found": "موجود",
       "apply filter": "تطبيق الفلتر",
-      "error":"خطا"
     },
 
     "en": {
@@ -128,6 +200,8 @@ class MyLocal extends Translations {
       "You already have an account?": "Already have an account?",
 
       // Home folder
+       "technical support":"technical support",
+
       "Click to retry":"Click to retry",
       "hi": "hi",
       "lost":"lost",
@@ -159,7 +233,82 @@ class MyLocal extends Translations {
       "no notifications currently": "No notifications currently",
 
       // profile folder
-      "error":"error",
+      "terms and conditions": "Terms and Conditions",
+"terms_subtitle": "Please read these terms carefully before using the application",
+
+"terms_intro_title": "Introduction",
+"terms_intro_body": "This application is designed to help students, staff, and visitors at Hadhramout University report lost and found items in an organized and easy way.",
+
+"terms_account_title": "User Account",
+"terms_account_body": "The user is responsible for maintaining the confidentiality of their account information and must provide accurate information when using the application.",
+
+"terms_reports_title": "Reports and Posts",
+"terms_reports_body": "Users can submit reports about lost or found items. The report must include clear and correct information and must not contain false, misleading, or inappropriate content.",
+
+"terms_accuracy_title": "Information Accuracy",
+"terms_accuracy_body": "The application helps connect users who lost items with users who found them. However, users are responsible for verifying the details before receiving or handing over any item.",
+
+"terms_privacy_title": "Privacy",
+"terms_privacy_body": "User data is used only for application purposes such as account management, reports, communication, and improving the service. Personal information should not be shared publicly unless necessary.",
+
+"terms_prohibited_title": "Prohibited Use",
+"terms_prohibited_body": "It is prohibited to misuse the application, publish fake reports, impersonate others, use offensive language, or use the service for purposes unrelated to lost and found items.",
+
+"terms_university_title": "University Environment",
+"terms_university_body": "The application is intended to serve the Hadhramout University community and support a safer and more cooperative campus environment.",
+
+"terms_updates_title": "Changes to Terms",
+"terms_updates_body": "These terms may be updated from time to time to improve the service or comply with university policies. Continued use of the application means acceptance of any updates.",
+
+"terms_acceptance_title": "Acceptance",
+"terms_acceptance_body": "By using this application, you agree to follow these terms and conditions and use the service responsibly.",
+
+"about app": "About App",
+"lost and found app": "Lost and Found App",
+"hadhramout_university": "Hadhramout University",
+"app_name": "Application Name",
+"institution": "Institution",
+"version": "Version",
+"app_type": "Application Type",
+"university_service_app": "University Service Application",
+
+"about_app_title": "About the Application",
+"about_app_body": "Lost and Found App is a university service application created for Hadhramout University to help users report, search, and manage lost and found items inside the university environment.",
+
+"app_goal_title": "Application Goal",
+"app_goal_body": "The main goal of the application is to make the process of finding lost items easier, faster, and more organized by allowing users to publish reports and browse available reports.",
+
+"main_features_title": "Main Features",
+"feature_report_lost": "Submit reports for lost items with details and images.",
+"feature_report_found": "Submit reports for found items to help return them to their owners.",
+"feature_search_reports": "Search and filter reports by type, category, and keywords.",
+"feature_categories": "Organize reports using categories for easier browsing.",
+"feature_profile": "Manage user account information and change password.",
+"feature_support": "Contact technical support and send feedback or issues.",
+
+"target_users_title": "Target Users",
+"target_users_body": "The application is intended for students, university staff, and visitors who need to report or search for lost and found items within Hadhramout University.",
+
+"app_scope_title": "Application Scope",
+"app_scope_body": "The application focuses on lost and found services inside the university. It does not guarantee item recovery, but it provides a reliable platform to improve communication between users.",
+
+"developer_note_title": "Developer Note",
+"developer_note_body": "This application was developed to support digital transformation and improve student services at Hadhramout University.",
+"send_your_problem_details": "Send your problem details and we will help you",
+"problem title": "Problem Title",
+"problem description": "Problem Description",
+"rating": "Rating",
+"send": "Send",
+"loading": "Loading...",
+"success": "Success",
+"error": "Error",
+"support_request_sent_successfully": "Support request sent successfully",
+"please_enter_subject": "Please enter the problem title",
+"subject_too_short": "Problem title is too short",
+"please_enter_problem_description": "Please enter the problem description",
+"description_too_short": "Problem description is too short",
+"please_select_rating": "Please select a rating",
+"your_rating": "Your rating",
        "please_enter_new_password": "please enter new password",
        "please_enter_current_password": "please enter current password",
         "password_too_short": "password too short",
@@ -178,7 +327,6 @@ class MyLocal extends Translations {
       "view terms and conditions": "View Terms and Conditions",
       "help and support": "Help and Support",
       "contact support team": "Contact Support Team",
-      "about app": "About App",
       "version and app information": "Version and App Information",
       "language": "Language",
       "change language": "Change Language",
@@ -209,13 +357,10 @@ class MyLocal extends Translations {
       "write time": "Enter time",
       "lost time": "Lost Time",
       "add image": "Add Image",
-      "send": "Send",
 
       // search folder
       "search filter": "Search Filter",
       "choose type": "Choose Type",
-      "lost": "Lost",
-      "found": "Found",
       "apply filter": "Apply Filter",
     },
   };

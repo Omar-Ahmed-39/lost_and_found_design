@@ -16,7 +16,7 @@ class DetailsController extends GetxController {
       data: {
          "reportId": reportId
       });
-      Get.to(() => const DonePage(text: '',));
+      Get.to(() =>  DonePage(text: "claim received for review".tr,));
       
     } on ServerException catch (e) {
       Get.snackbar(

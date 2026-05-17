@@ -10,6 +10,9 @@ import 'package:lostandfound/core/theme/app_theme.dart';
 import 'package:lostandfound/core/theme/controller/theme_controller.dart';
 import 'package:lostandfound/features/home/controller/home_screen_controller.dart';
 import 'package:lostandfound/features/profile/controller/profile_controller.dart';
+import 'package:lostandfound/features/profile/view/TermsAndConditionsPage.dart';
+import 'package:lostandfound/features/profile/view/about_app.dart';
+import 'package:lostandfound/features/profile/view/suport.dart';
 import 'package:lostandfound/features/profile/view/widget/section_card.dart';
 import 'package:lostandfound/main.dart';
 
@@ -97,7 +100,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     subtitle: "view terms and conditions".tr,
                     iconBg: Get.theme.colorScheme.onPrimaryContainer,
                     iconColor: AppTheme.gold,
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(() => const TermsAndConditionsPage());
+                    },
                   ),
                   ProfileOptionTile(
                     icon: Icons.help_outline_rounded,
@@ -105,7 +110,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     subtitle: "contact support team".tr,
                     iconBg: Get.theme.colorScheme.onPrimaryContainer,
                     iconColor: AppTheme.gold,
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(()=> SupportPage());
+                    },
                   ),
                   ProfileOptionTile(
                     icon: Icons.info_outline_rounded,
@@ -113,7 +120,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     subtitle: "version and app information".tr,
                     iconBg: Get.theme.colorScheme.onPrimaryContainer,
                     iconColor: AppTheme.gold,
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(() => const AboutAppPage());
+                    },
                   ),
                 ],
               ),
