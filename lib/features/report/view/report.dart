@@ -24,11 +24,9 @@ class ReportPage extends StatelessWidget {
                 icon: Icons.search,
                 text: "report lost item".tr,
                 ontap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ReportLostPage(),
-                    ),
-                  );
+                  
+                                    Get.to(()=>ReportLostPage());
+
                 },
               ),
             ),
@@ -41,11 +39,7 @@ class ReportPage extends StatelessWidget {
                 icon: Icons.add_box_outlined,
                 text: "report found item".tr,
                 ontap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ReportFoundPage(),
-                    ),
-                  );
+                  Get.to(()=>ReportFoundPage());
                 },
               ),
             ),

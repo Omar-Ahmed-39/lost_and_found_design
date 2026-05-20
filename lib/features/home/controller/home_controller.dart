@@ -37,30 +37,45 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<void> getItems() async {
-    currentPage = 1;
-    state = HomeState.loading;
-    update();
+ Future<void> getItems() async {
+  currentPage = 1;
+  state = HomeState.loading;
+  update();
 
-    try {
-      final response = await api.get(EndPoint.getReportsEndPoint(
-        pageNumber: currentPage,
-        pageSize: pageSize,
-      ));
+  try {
+    final response = await api.get(EndPoint.getReportsEndPoint(
+      pageNumber: currentPage,
+      pageSize: pageSize,
+    ));
+
+    if (response != null && response is Map<String, dynamic>) {
       final itemsResponse = ItemsResponse.fromJson(response);
+      
       if (itemsResponse.succeeded) {
         items = itemsResponse.data;
         state = items.isEmpty ? HomeState.empty : HomeState.success;
+      } else {
+        state = HomeState.error;
+        Get.snackbar("تنبيه", itemsResponse.message.isNotEmpty ? itemsResponse.message : "فشلت عملية جلب البيانات");
       }
-    }  on ServerException catch (e) {
-      
-      state = HomeState.error;
-        Get.snackbar(e.erorrModel.title, e.erorrModel.erorrmessage,  animationDuration: Duration(seconds: 3)
-);
+    } else {
+      state = HomeState.empty; 
     }
-    update();
-  }
 
+  } on ServerException catch (e) {
+    state = HomeState.error;
+    Get.snackbar(
+      e.erorrModel.title, 
+      e.erorrModel.erorrmessage , 
+      animationDuration: const Duration(seconds: 3)
+    );
+  } catch (e) {
+    state = HomeState.error;
+    Get.snackbar("خطأ غير متوقع", "حدث خلل أثناء معالجة البيانات");
+  }
+  
+  update();
+}
   Future<void> getMoreItems() async {
     isPaginating = true;
     update();
