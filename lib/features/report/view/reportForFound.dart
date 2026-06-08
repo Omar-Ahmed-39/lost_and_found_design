@@ -36,19 +36,18 @@ class ReportFoundPage extends StatelessWidget {
 
                 const SizedBox(height: 15),
 
-                // استخدام GetBuilder لتحديث القائمة المنسدلة الأولى فقط عند التغيير
-                GetBuilder<ReportFoundController>(
-                  builder: (controller) => MyDropdownList(
-                    validator: (val) => MyValidators.validateDropdown(val),
-                    selectedCategory: controller.selectedCategory,
-                    text: "category".tr,
-                    hint: "choose from list".tr,
-                    items: controller.items,
-                    onChanged: (value) {
-                      controller.changeCategory(value!);
-                    },
-                  ),
-                ),
+              GetBuilder<ReportFoundController>(
+  builder: (controller) => MyDropdownList<int>(
+    validator: (val) => MyValidators.validateDropdown(val as String?),
+    selectedCategory: controller.selectedCategoryId,
+    text: "category".tr,
+    hint: "choose from list".tr,
+    items: controller.categoryItems,
+    onChanged: (value) {
+      controller.changeCategory(value);
+    },
+  ),
+),
 
                 const SizedBox(height: 15),
 
@@ -90,19 +89,19 @@ class ReportFoundPage extends StatelessWidget {
 
                 const SizedBox(height: 15),
 
-                // استخدام GetBuilder لتحديث القائمة المنسدلة الثانية
-                GetBuilder<ReportFoundController>(
-                  builder: (controller) => MyDropdownList(
-                    validator: (val) => MyValidators.validateDropdown(val),
-                    selectedCategory: controller.selectedCategory1,
-                    text: "location".tr,
-                    hint: "choose from list".tr,
-                    items: controller.items1,
-                    onChanged: (value) {
-                      controller.changeLocation(value!);
-                    },
-                  ),
-                ),
+                // // استخدام GetBuilder لتحديث القائمة المنسدلة الثانية
+                // GetBuilder<ReportFoundController>(
+                //   builder: (controller) => MyDropdownList(
+                //     validator: (val) => MyValidators.validateDropdown(val),
+                //     selectedCategory: controller.selectedCategory1,
+                //     text: "location".tr,
+                //     hint: "choose from list".tr,
+                //     items: controller.items1,
+                //     onChanged: (value) {
+                //       controller.changeLocation(value!);
+                //     },
+                //   ),
+                // ),
 
                 const SizedBox(height: 15),
 

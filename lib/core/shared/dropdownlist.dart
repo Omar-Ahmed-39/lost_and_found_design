@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
 
-class MyDropdownList extends StatelessWidget {
-  final String? selectedCategory;
+class MyDropdownList<T> extends StatelessWidget {
+  final T? selectedCategory;
   final String text;
   final String hint;
-  final List<DropdownMenuItem<String>> items;
-  final void Function(String?)? onChanged;
-  // 1. إضافة متغير الـ validator
-  final String? Function(String?)? validator;
+  final List<DropdownMenuItem<T>> items;
+  final void Function(T?)? onChanged;
+  final String? Function(T?)? validator;
 
   const MyDropdownList({
     super.key,
@@ -17,7 +16,7 @@ class MyDropdownList extends StatelessWidget {
     required this.hint,
     required this.items,
     this.onChanged,
-    this.validator, // 2. إضافته في الـ constructor
+    this.validator,
   });
 
   @override
@@ -29,49 +28,69 @@ class MyDropdownList extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.right,
-            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+            style: const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
+
         const SizedBox(height: 10),
+
         Directionality(
           textDirection: TextDirection.rtl,
-          child: DropdownButtonFormField<String>(
-            // ملاحظة: يفضل استخدام value بدلاً من initialValue عند التعامل مع FormField
+          child: DropdownButtonFormField<T>(
             value: selectedCategory,
             isExpanded: true,
-            validator: validator, // 3. ربط الـ validator هنا
+            validator: validator,
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14),
                 borderSide: BorderSide(
-                  color: AppTheme.primarybutton, // اللون عند الاختيار
+                  color: AppTheme.primarybutton,
                   width: 2,
                 ),
               ),
+
               hintText: hint,
+
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 14,
               ),
+
               enabledBorder: OutlineInputBorder(
-  borderRadius: BorderRadius.circular(14),
-  borderSide: const BorderSide(
-    color: Colors.grey,
-    width: 1.2,
-  ),
-),
+                borderRadius: BorderRadius.circular(14),
+                borderSide: const BorderSide(
+                  color: Colors.grey,
+                  width: 1.2,
+                ),
+              ),
+
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14),
               ),
-              // تأكد من إضافة حدود الخطأ لتظهر بشكل جميل
+
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14),
-                borderSide: const BorderSide(color: Colors.red),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                ),
+              ),
+
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                  width: 2,
+                ),
               ),
             ),
 
             icon: const Icon(Icons.keyboard_arrow_down),
+
             items: items,
+
             onChanged: onChanged,
           ),
         ),
