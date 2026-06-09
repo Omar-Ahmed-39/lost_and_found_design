@@ -12,11 +12,14 @@ class ReportFoundPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // حقن وتجهيز الكنترولر في الصفحة
-    final ReportFoundController controller = Get.put(ReportFoundController());
+    // حقن الكنترولر
+    final ReportFoundController controller =
+        Get.put(ReportFoundController());
 
     return Scaffold(
-      appBar: MyAppbarWithoutdetails("report found item".tr),
+      appBar: MyAppbarWithoutdetails(
+        "report found item".tr,
+      ),
       body: Form(
         key: controller.formstate,
         child: Container(
@@ -27,102 +30,118 @@ class ReportFoundPage extends StatelessWidget {
               children: [
                 const SizedBox(height: 15),
 
+                /// Item Name
                 MyInputField(
                   hint: "write name".tr,
                   title: "item name".tr,
                   controller: controller.nameController,
-                  val: (val) => MyValidators.validateRequired(val),
+                  val: (val) =>
+                      MyValidators.validateRequired(val),
                 ),
 
                 const SizedBox(height: 15),
 
-              GetBuilder<ReportFoundController>(
-  builder: (controller) => MyDropdownList<int>(
-    validator: (val) => MyValidators.validateDropdown(val as String?),
-    selectedCategory: controller.selectedCategoryId,
-    text: "category".tr,
-    hint: "choose from list".tr,
-    items: controller.categoryItems,
-    onChanged: (value) {
-      controller.changeCategory(value);
-    },
-  ),
-),
+                /// Category Dropdown
+                GetBuilder<ReportFoundController>(
+                  builder: (controller) => MyDropdownList<int>(
+                    validator: (val) {
+                      if (val == null) {
+                        return "Please choose a category";
+                      }
+                      return null;
+                    },
+                    selectedCategory:
+                        controller.selectedCategoryId,
+                    text: "category".tr,
+                    hint: "choose from list".tr,
+                    items: controller.categoryItems,
+                    onChanged: controller.changeCategory,
+                  ),
+                ),
 
                 const SizedBox(height: 15),
 
+                /// Brand / Color
                 MyInputField(
                   hint: "write color brand".tr,
                   title: "color brand".tr,
                   controller: controller.brandController,
-                  val: (val) => MyValidators.validateRequired(val),
+                  val: (val) =>
+                      MyValidators.validateRequired(val),
                 ),
 
                 const SizedBox(height: 15),
 
+                /// Description
                 MyInputField(
                   isMultiline: true,
                   maxLines: 3,
                   hint: "describe item".tr,
                   title: "item description".tr,
                   controller: controller.descController,
-                  val: (val) => MyValidators.validateRequired(val),
+                  val: (val) =>
+                      MyValidators.validateRequired(val),
                 ),
 
                 const SizedBox(height: 15),
 
+                /// Lost Date
                 MyInputField(
                   hint: "write date".tr,
                   title: "lost date".tr,
                   controller: controller.dateController,
-                  val: (val) => MyValidators.validateRequired(val),
+                  val: (val) =>
+                      MyValidators.validateRequired(val),
                 ),
 
                 const SizedBox(height: 15),
 
+                /// Lost Time
                 MyInputField(
                   hint: "write time".tr,
                   title: "lost time".tr,
                   controller: controller.timeController,
-                  val: (val) => MyValidators.validateRequired(val),
+                  val: (val) =>
+                      MyValidators.validateRequired(val),
                 ),
 
                 const SizedBox(height: 15),
 
-                // // استخدام GetBuilder لتحديث القائمة المنسدلة الثانية
-                // GetBuilder<ReportFoundController>(
-                //   builder: (controller) => MyDropdownList(
-                //     validator: (val) => MyValidators.validateDropdown(val),
-                //     selectedCategory: controller.selectedCategory1,
-                //     text: "location".tr,
-                //     hint: "choose from list".tr,
-                //     items: controller.items1,
-                //     onChanged: (value) {
-                //       controller.changeLocation(value!);
-                //     },
-                //   ),
-                // ),
+                /// Location Dropdown
+                GetBuilder<ReportFoundController>(
+                  builder: (controller) => MyDropdownList<int>(
+                    validator: (val) {
+                      if (val == null) {
+                        return "Please choose a location";
+                      }
+                      return null;
+                    },
+                    selectedCategory:
+                        controller.selectedLocationId,
+                    text: "location".tr,
+                    hint: "choose from list".tr,
+                    items: controller.locationItems,
+                    onChanged: controller.changeLocation,
+                  ),
+                ),
 
                 const SizedBox(height: 15),
 
-                // استخدام GetBuilder لتحديث واجهة اختيار الصورة فور اختيارها
+                /// Image Picker
                 GetBuilder<ReportFoundController>(
                   builder: (controller) => ImagePickerCard(
                     title: "add image".tr,
                     file: controller.file,
-                    onTap: () {
-                      controller.pickImage();
-                    },
+                    onTap: controller.pickImage,
                   ),
                 ),
 
                 const SizedBox(height: 35),
 
+                /// Submit Button
                 Mybutton(
                   text: "send".tr,
-                  onTap: () {
-                    controller.handleSend();
-                  },
+                  onTap: controller.submitReport,
                 ),
               ],
             ),
@@ -132,3 +151,4 @@ class ReportFoundPage extends StatelessWidget {
     );
   }
 }
+

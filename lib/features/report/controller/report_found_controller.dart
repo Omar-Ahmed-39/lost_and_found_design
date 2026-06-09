@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,61 +10,55 @@ import 'package:lostandfound/core/function/imagepick.dart';
 import 'package:lostandfound/core/services/get_it_services.dart';
 import 'package:lostandfound/features/home/view/done.dart';
 import 'package:lostandfound/features/report/model/categories.dart';
+import 'package:lostandfound/features/report/model/locationModel.dart';
 
 class ReportFoundController extends GetxController {
   final ApiConsumer api = getIt<ApiConsumer>();
 
-  /// الاستجابة كاملة من الـ API
+  /// Categories Response
   CategoriesResponse? categoriesResponse;
 
-  /// الفئات فقط
+  /// Categories List
   List<Category> categories = [];
 
-  /// الفئة المختارة (نخزن الـ id)
+  /// Locations List
+  List<LocationModel> locations = [];
+
+  /// Selected Category Id
   int? selectedCategoryId;
 
-  /// الموقع المختار
-  String? selectedLocation;
+  /// Selected Location Id
+  int? selectedLocationId;
 
-  /// الصورة المختارة
+  /// Selected Image
   File? file;
 
-  /// مفتاح الفورم
+  /// Form Key
   final GlobalKey<FormState> formstate = GlobalKey<FormState>();
 
-  /// Controllers
+  /// Text Controllers
   late TextEditingController nameController;
   late TextEditingController brandController;
   late TextEditingController descController;
   late TextEditingController dateController;
   late TextEditingController timeController;
 
-  /// قائمة المواقع الثابتة
-  final List<DropdownMenuItem<String>> locationItems = [
-    DropdownMenuItem(
-      value: "campus yard",
-      child: Text("campus yard".tr),
-    ),
-    DropdownMenuItem(
-      value: "hall",
-      child: Text("hall".tr),
-    ),
-    DropdownMenuItem(
-      value: "prayer room",
-      child: Text("prayer room".tr),
-    ),
-    DropdownMenuItem(
-      value: "other",
-      child: Text("other".tr),
-    ),
-  ];
-
-  /// عناصر الفئات الديناميكية
+  /// Category Dropdown Items
   List<DropdownMenuItem<int>> get categoryItems {
     return categories.map((category) {
       return DropdownMenuItem<int>(
         value: category.id,
         child: Text(category.name),
+      );
+    }).toList();
+  }
+
+  /// Location Dropdown Items
+  List<DropdownMenuItem<int>> get locationItems {
+    return locations.map((location) {
+      return DropdownMenuItem<int>(
+        value: location.id,
+        child: Text(location.name),
       );
     }).toList();
   }
@@ -79,6 +74,7 @@ class ReportFoundController extends GetxController {
     timeController = TextEditingController();
 
     getCategories();
+    getLocations();
   }
 
   @override
@@ -92,7 +88,7 @@ class ReportFoundController extends GetxController {
     super.onClose();
   }
 
-  /// جلب الفئات
+  /// Get Categories
   Future<void> getCategories() async {
     try {
       final response = await api.get(EndPoint.categories);
@@ -115,36 +111,101 @@ class ReportFoundController extends GetxController {
     }
   }
 
-  /// تغيير الفئة
+  /// Get Locations
+  Future<void> getLocations() async {
+    try {
+      final response = await api.get(EndPoint.locations);
+
+      final locationsResponse = LocationsResponse.fromJson(response);
+
+      locations = locationsResponse.data;
+
+      update();
+    } on ServerException catch (e) {
+      Get.snackbar(
+        "Error",
+        e.erorrModel.erorrmessage,
+      );
+    } catch (e) {
+      Get.snackbar(
+        "Error",
+        e.toString(),
+      );
+    }
+  }
+
+  /// Change Category
   void changeCategory(int? value) {
     selectedCategoryId = value;
     update();
   }
 
-  /// تغيير الموقع
-  void changeLocation(String? value) {
-    selectedLocation = value;
+  /// Change Location
+  void changeLocation(int? value) {
+    selectedLocationId = value;
     update();
   }
 
-  /// اختيار صورة
+  /// Pick Image
   Future<void> pickImage() async {
     file = await MyImagePicker();
     update();
   }
 
-  /// إرسال التقرير
-  void handleSend() {
-    if (formstate.currentState!.validate()) {
-      /// هنا تستطيع إرسال البيانات إلى الـ API
-      print("Category Id: $selectedCategoryId");
-      print("Location: $selectedLocation");
+  /// Submit Form
+Future<void> submitReport() async {
+  if (!formstate.currentState!.validate()) {
+    return;
+  }
 
-      Get.offAll(
-        () => DonePage(
-          text: "report received for review".tr,
-        ),
-      );
-    }
+  try {
+    await api.post(
+      EndPoint.reports,
+      isFromData: true,
+      data: {
+        "ReportType": 1,
+        "ItemName": nameController.text.trim(),
+        "ConditionType": 1,
+        "DateReported": DateTime.now().toIso8601String(),
+
+        // Optional Fields
+        "Color": brandController.text.trim().isEmpty
+            ? null
+            : brandController.text.trim(),
+
+        "Description": descController.text.trim().isEmpty
+            ? null
+            : descController.text.trim(),
+
+        "LocationId": selectedLocationId,
+
+        "CategoryId": selectedCategoryId,
+
+        "Images": file != null
+            ? [
+                await uploadImageToAPI(file!),
+              ]
+            : [],
+      },
+    );
+
+    Get.offAll(
+      () => DonePage(
+        text: "report received for review".tr,
+      ),
+    );
+  } on ServerException catch (e) {
+    Get.snackbar(
+      "Error",
+      e.erorrModel.erorrmessage,
+    );
+  } catch (e) {
+    Get.snackbar(
+      "Error",
+      e.toString(),
+    );
   }
 }
+
+}
+

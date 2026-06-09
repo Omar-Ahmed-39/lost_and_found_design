@@ -8,6 +8,8 @@ class EndPoint {
   static String categories = "categories";
   static String changePassword = "auth/change-password";
   static String support = "feedbacks";
+  static String locations = "locations";
+
 
   static String reports = "reports";
 
