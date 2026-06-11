@@ -163,7 +163,7 @@ Future<void> submitReport() async {
       EndPoint.reports,
       isFromData: true,
       data: {
-        "ReportType": 0,
+        "ReportType": 2,
         "ItemName": nameController.text.trim(),
         "ConditionType": 1,
         "DateReported": DateTime.now().toIso8601String(),

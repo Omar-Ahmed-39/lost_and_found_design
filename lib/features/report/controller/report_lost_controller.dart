@@ -1,89 +1,191 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lostandfound/core/api/api_consumer.dart';
+import 'package:lostandfound/core/api/end_points.dart';
+import 'package:lostandfound/core/error/exception.dart';
 import 'package:lostandfound/core/function/imagepick.dart';
+import 'package:lostandfound/core/services/get_it_services.dart';
 import 'package:lostandfound/features/home/view/done.dart';
+import 'package:lostandfound/features/report/model/categories.dart';
+import 'package:lostandfound/features/report/model/locationModel.dart';
 
 class ReportLostController extends GetxController {
-  // مفتاح التحقق من النموذج
-  final GlobalKey<FormState> formstate = GlobalKey<FormState>();
+  final ApiConsumer api = getIt<ApiConsumer>();
 
-  // متغيرات حفظ الحالة والبيانات
-  String? selectedCategory;
-  String? selectedCategory1;
+  CategoriesResponse? categoriesResponse;
+
+  List<Category> categories = [];
+
+  List<LocationModel> locations = [];
+
+  int? selectedCategoryId;
+
+  int? selectedLocationId;
+
   File? file;
 
-  // تعريف متحكمات حقول النصوص
+  final GlobalKey<FormState> formstate = GlobalKey<FormState>();
+
   late TextEditingController nameController;
   late TextEditingController brandController;
   late TextEditingController descController;
   late TextEditingController dateController;
   late TextEditingController timeController;
 
-  // القائمة المنسدلة للتصنيفات
-  final List<DropdownMenuItem<String>> items = [
-    DropdownMenuItem(value: "electronics", child: Text("electronics".tr)),
-    DropdownMenuItem(value: "wallet", child: Text("wallet".tr)),
-    DropdownMenuItem(value: "keys", child: Text("keys".tr)),
-    DropdownMenuItem(value: "bag", child: Text("bag".tr)),
-    DropdownMenuItem(value: "other", child: Text("other".tr)),
-  ];
+  List<DropdownMenuItem<int>> get categoryItems {
+    return categories.map((category) {
+      return DropdownMenuItem<int>(
+        value: category.id,
+        child: Text(category.name),
+      );
+    }).toList();
+  }
 
-  // القائمة المنسدلة للمواقع
-  final List<DropdownMenuItem<String>> items1 = [
-    DropdownMenuItem(value: "campus yard", child: Text("campus yard".tr)),
-    DropdownMenuItem(value: "hall", child: Text("hall".tr)),
-    DropdownMenuItem(value: "prayer room", child: Text("prayer room".tr)),
-    DropdownMenuItem(value: "other", child: Text("other".tr)),
-  ];
+  List<DropdownMenuItem<int>> get locationItems {
+    return locations.map((location) {
+      return DropdownMenuItem<int>(
+        value: location.id,
+        child: Text(location.name),
+      );
+    }).toList();
+  }
 
   @override
   void onInit() {
-    // تهيئة حقول النصوص عند تشغيل الصفحة
+    super.onInit();
+
     nameController = TextEditingController();
     brandController = TextEditingController();
     descController = TextEditingController();
     dateController = TextEditingController();
     timeController = TextEditingController();
-    super.onInit();
+
+    getCategories();
+    getLocations();
   }
 
   @override
   void onClose() {
-    // إغلاق حقول النصوص لتفريغ الذاكرة فور مغادرة الصفحة
     nameController.dispose();
     brandController.dispose();
     descController.dispose();
     dateController.dispose();
     timeController.dispose();
+
     super.onClose();
   }
 
-  // تغيير قيمة التصنيف المحدد وتحديث الواجهة
-  void changeCategory(String value) {
-    selectedCategory = value;
+  Future<void> getCategories() async {
+    try {
+      final response = await api.get(EndPoint.categories);
+
+      categoriesResponse = CategoriesResponse.fromJson(response);
+
+      categories = categoriesResponse!.data;
+
+      update();
+    } on ServerException catch (e) {
+      Get.snackbar(
+        "Error",
+        e.erorrModel.erorrmessage,
+      );
+    } catch (e) {
+      Get.snackbar(
+        "Error",
+        e.toString(),
+      );
+    }
+  }
+
+  Future<void> getLocations() async {
+    try {
+      final response = await api.get(EndPoint.locations);
+
+      final locationsResponse = LocationsResponse.fromJson(response);
+
+      locations = locationsResponse.data;
+
+      update();
+    } on ServerException catch (e) {
+      Get.snackbar(
+        "Error",
+        e.erorrModel.erorrmessage,
+      );
+    } catch (e) {
+      Get.snackbar(
+        "Error",
+        e.toString(),
+      );
+    }
+  }
+
+  void changeCategory(int? value) {
+    selectedCategoryId = value;
     update();
   }
 
-  // تغيير قيمة الموقع المحدد وتحديث الواجهة
-  void changeLocation(String value) {
-    selectedCategory1 = value;
+  void changeLocation(int? value) {
+    selectedLocationId = value;
     update();
   }
 
-  // التقاط واختيار الصورة وتحديث الوجت الخاص بها
-  void pickImage() async {
+  Future<void> pickImage() async {
     file = await MyImagePicker();
     update();
   }
 
-  // التحقق من الحقول وإرسال البلاغ
-  void handleSend() {
-    if (formstate.currentState!.validate()) {
-      // الانتقال باستخدام GetX وحذف الصفحات السابقة من الـ Stack
-      Get.offAll(() => DonePage(
-            text: "report received for review".tr,
-          ));
+  Future<void> submitReport() async {
+    if (!formstate.currentState!.validate()) {
+      return;
+    }
+
+    try {
+      await api.post(
+        EndPoint.reports,
+        isFromData: true,
+        data: {
+          "ReportType": 1,
+          "ItemName": nameController.text.trim(),
+          "ConditionType": 1,
+          "DateReported": DateTime.now().toIso8601String(),
+
+          "Color": brandController.text.trim().isEmpty
+              ? null
+              : brandController.text.trim(),
+
+          "Description": descController.text.trim().isEmpty
+              ? null
+              : descController.text.trim(),
+
+          "LocationId": selectedLocationId,
+
+          "CategoryId": selectedCategoryId,
+
+          "Images": file != null
+              ? [
+                  await uploadImageToAPI(file!),
+                ]
+              : [],
+        },
+      );
+
+      Get.offAll(
+        () => DonePage(
+          text: "report received for review".tr,
+        ),
+      );
+    } on ServerException catch (e) {
+      Get.snackbar(
+        "Error",
+        e.erorrModel.erorrmessage,
+      );
+    } catch (e) {
+      Get.snackbar(
+        "Error",
+        e.toString(),
+      );
     }
   }
 }

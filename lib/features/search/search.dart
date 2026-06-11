@@ -249,6 +249,7 @@ Widget _buildBody(SearchPageController controller) {
               onTap: () {
                 Get.to(
                   () => DetailsPage(
+                    description: item.itemName,
                     reportId: item.id,
                     title: item.itemName,
                     date: item.dateReported.toString(),
