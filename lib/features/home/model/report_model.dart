@@ -40,6 +40,8 @@ class ItemsResponse {
 class ItemData {
   final int id;
   final String itemName;
+ // final String description;
+
   final String imagePath;
   final DateTime? dateReported;
   final int reportType;
@@ -50,6 +52,7 @@ class ItemData {
     required this.imagePath,
     required this.dateReported,
     required this.reportType,
+    // required this.description,
   });
 
   factory ItemData.fromJson(Map<String, dynamic> json) {
@@ -57,6 +60,7 @@ class ItemData {
       id: json['id'] ?? 0,
       itemName: json['itemName'] ?? '',
       imagePath: json['imagePath'] ?? '',
+    //  description:json[]
       dateReported: json['dateReported'] != null
           ? DateTime.parse(json['dateReported'])
           : null,

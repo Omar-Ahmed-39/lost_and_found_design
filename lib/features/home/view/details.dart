@@ -7,6 +7,8 @@ import 'package:lostandfound/features/home/view/done.dart';
 
 class DetailsPage extends StatelessWidget {
   final String title;
+  final String description;
+
   final int reportId;
 
   final String date;
@@ -20,7 +22,7 @@ class DetailsPage extends StatelessWidget {
     required this.date,
     required this.status,
     required this.statusColor,
-    required this.image, required this.reportId,
+    required this.image, required this.reportId, required this.description,
   });
     DetailsController detailsController=Get.put(DetailsController());
 

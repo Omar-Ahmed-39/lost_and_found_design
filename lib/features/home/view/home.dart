@@ -79,9 +79,12 @@ class Homepage extends StatelessWidget {
               final item = controller.items[index];
           
               return InkWell(
+                
                 onTap: () {
+          
                   Get.to(
                     () => DetailsPage(
+                      description: item.itemName,
                       reportId:item.id ,
                       title: item.itemName,
                       date: item.dateReported.toString(),
@@ -89,7 +92,7 @@ class Homepage extends StatelessWidget {
                       statusColor: item.reportType == 1
                           ? Colors.redAccent
                           : Colors.greenAccent,
-                      image: item.imagePath,
+                      image: "http://127.0.0.1:5000/${item.imagePath}",
                     ),
                   );
                 },
@@ -100,7 +103,7 @@ class Homepage extends StatelessWidget {
                   statusColor: item.reportType == 1
                       ? Colors.redAccent
                       : Colors.greenAccent,
-                  imageUrl: item.imagePath,
+                  imageUrl:"http://127.0.0.1:5000/${item.imagePath}",
                 ),
               );
             },
