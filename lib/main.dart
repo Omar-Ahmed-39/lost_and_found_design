@@ -15,10 +15,26 @@ import 'package:lostandfound/features/auth/view/sign.dart';
 import 'package:lostandfound/features/auth/view/signin.dart';
 import 'package:lostandfound/features/auth/view/signup.dart';
 import 'package:lostandfound/features/home/view/home_screen.dart';
+import 'package:lostandfound/features/notification/controller/notification_controller.dart';
+import 'package:lostandfound/features/notification/services.dart';
 import 'package:lostandfound/features/profile/view/chang_password.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+ print("=============================================");
+ print("background");
+ 
+}
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+     await Firebase.initializeApp();
+       FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+         Get.put(NotificationController());
+
+
+
   setupLocator();
 
   await CacheHelper().init();

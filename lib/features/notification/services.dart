@@ -1,150 +1,225 @@
-// import 'package:firebase_messaging/firebase_messaging.dart';
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:flutter/foundation.dart';
+import 'dart:async';
 
-// // ---------------------------------------------------------------------------
-// // دالة الاستماع للإشعارات في الخلفية (يجب أن تكون خارج الكلاس أو Top-Level)
-// // ---------------------------------------------------------------------------
-// @pragma('vm:entry-point')
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   debugPrint("تم استلام رسالة في الخلفية: ${message.messageId}");
-// }
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-// class FcmService {
-//   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-//   final FlutterLocalNotificationsPlugin _localNotifications = FlutterLocalNotificationsPlugin();
+@pragma('vm:entry-point')
+Future<void> firebaseMessagingBackgroundHandler( RemoteMessage message) async {
+  await Firebase.initializeApp();
 
-//   // ==========================================
-//   // 1. دالة التهيئة الأساسية (تستدعى بعد أخذ نسخة من الكلاس)
-//   // ==========================================
-//   Future<void> init() async {
-//     // 1. طلب الصلاحيات
-//     await requestPermission();
+  print('=== BACKGROUND MESSAGE ===');
+  print('Title: ${message.notification?.title}');
+  print('Body : ${message.notification?.body}');
+  print('Data : ${message.data}');
+}
 
-//     // 2. تهيئة استقبال الرسائل والتطبيق مغلق أو في الخلفية
-//     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+class NotificationService {
+  NotificationService._();
 
-//     // 3. إعداد الإشعارات المحلية
-//     await _setupLocalNotifications();
+  static final NotificationService instance = NotificationService._();
 
-//     // 4. الاستماع للرسائل والتطبيق مفتوح
-//     _listenToForegroundMessages();
+  final FirebaseMessaging _messaging = FirebaseMessaging.instance;
 
-//     // 5. الاستماع لحدث الضغط على الإشعار
-//     _setupInteractedMessage();
-//   }
+  StreamSubscription<RemoteMessage>? _foregroundSubscription;
+  StreamSubscription<RemoteMessage>? _tapSubscription;
+  StreamSubscription<String>? _tokenRefreshSubscription;
 
-//   // ==========================================
-//   // 2. إدارة الصلاحيات والتوكن (Token)
-//   // ==========================================
-  
-//   Future<void> requestPermission() async {
-//     NotificationSettings settings = await _fcm.requestPermission(
-//       alert: true,
-//       badge: true,
-//       sound: true,
-//       provisional: false,
-//     );
-//     debugPrint('حالة الصلاحية: ${settings.authorizationStatus}');
-//   }
+  /// ============================
+  /// INITIALIZATION
+  /// ============================
 
-//   Future<String?> getToken() async {
-//     try {
-//       String? token = await _fcm.getToken();
-//       debugPrint("FCM Token: $token");
-//       return token;
-//     } catch (e) {
-//       debugPrint("خطأ في جلب التوكن: $e");
-//       return null;
-//     }
-//   }
+  Future<void> initialize() async {
+    await Firebase.initializeApp();
 
-//   Stream<String> get onTokenRefresh => _fcm.onTokenRefresh;
+    FirebaseMessaging.onBackgroundMessage(
+      firebaseMessagingBackgroundHandler,
+    );
 
-//   // ==========================================
-//   // 3. إدارة المواضيع (Topics)
-//   // ==========================================
+    await requestPermission();
 
-//   Future<void> subscribeToTopic(String topic) async {
-//     await _fcm.subscribeToTopic(topic);
-//     debugPrint("تم الاشتراك في الموضوع: $topic");
-//   }
+    await setupTokenRefreshListener();
 
-//   Future<void> unsubscribeFromTopic(String topic) async {
-//     await _fcm.unsubscribeFromTopic(topic);
-//     debugPrint("تم إلغاء الاشتراك من الموضوع: $topic");
-//   }
+    await _handleInitialMessage();
 
-//   // ==========================================
-//   // 4. دوال مساعدة داخلية (Private Methods)
-//   // ==========================================
+    _listenForegroundMessages();
 
-//   Future<void> _setupLocalNotifications() async {
-//     const AndroidInitializationSettings androidInitSettings =
-//         AndroidInitializationSettings('@mipmap/ic_launcher');
+    _listenNotificationTap();
+  }
 
-//     const DarwinInitializationSettings iosInitSettings = DarwinInitializationSettings();
+  /// ============================
+  /// PERMISSION
+  /// ============================
 
-//     const InitializationSettings initSettings = InitializationSettings(
-//       android: androidInitSettings,
-//       iOS: iosInitSettings,
-//     );
+  Future<NotificationSettings> requestPermission() async {
+    final settings = await _messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+      provisional: false,
+      announcement: false,
+      criticalAlert: false,
+      carPlay: false,
+    );
 
-//     await _localNotifications.initialize(initSettings);
+    print(
+      'Notification Permission: ${settings.authorizationStatus}',
+    );
 
-//     if (defaultTargetPlatform == TargetPlatform.android) {
-//       const AndroidNotificationChannel channel = AndroidNotificationChannel(
-//         'high_importance_channel',
-//         'High Importance Notifications',
-//         description: 'هذه القناة مخصصة للإشعارات المهمة.',
-//         importance: Importance.max,
-//       );
+    return settings;
+  }
 
-//       await _localNotifications
-//           .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-//           ?.createNotificationChannel(channel);
-//     }
-//   }
+  /// ============================
+  /// TOKEN
+  /// ============================
 
-//   void _listenToForegroundMessages() {
-//     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-//       RemoteNotification? notification = message.notification;
-//       AndroidNotification? android = message.notification?.android;
+  Future<String?> getToken() async {
+    return await _messaging.getToken();
+  }
 
-//       if (notification != null && android != null) {
-//         _localNotifications.show(
-//           notification.hashCode,
-//           notification.title,
-//           notification.body,
-//           const NotificationDetails(
-//             android: AndroidNotificationDetails(
-//               'high_importance_channel',
-//               'High Importance Notifications',
-//               importance: Importance.max,
-//               priority: Priority.high,
-//               icon: '@mipmap/ic_launcher',
-//             ),
-//           ),
-//         );
-//       }
-//     });
-//   }
+  Future<void> deleteToken() async {
+    await _messaging.deleteToken();
+  }
 
-//   Future<void> _setupInteractedMessage() async {
-//     RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
-//     if (initialMessage != null) {
-//       _handleMessageOpen(initialMessage);
-//     }
+  Future<void> refreshToken() async {
+    await _messaging.deleteToken();
 
-//     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessageOpen);
-//   }
+    final newToken = await _messaging.getToken();
 
-//   void _handleMessageOpen(RemoteMessage message) {
-//     debugPrint("تم الضغط على الإشعار! البيانات: ${message.data}");
-    
-//     // التعامل مع التوجيه باستخدام GetX كمثال:
-//     // if (message.data['route'] != null) {
-//     //   Get.toNamed(message.data['route']);
-//     // }
-//   }
-// }
+    print('New Token: $newToken');
+  }
+
+  Future<void> setupTokenRefreshListener({
+    Future<void> Function(String token)? onRefresh,
+  }) async {
+    _tokenRefreshSubscription?.cancel();
+
+    _tokenRefreshSubscription =
+        FirebaseMessaging.instance.onTokenRefresh.listen(
+      (token) async {
+        print('FCM Token Refreshed: $token');
+
+        if (onRefresh != null) {
+          await onRefresh(token);
+        }
+      },
+    );
+  }
+
+  /// ============================
+  /// TOPICS
+  /// ============================
+
+  Future<void> subscribeToTopic(String topic) async {
+    await _messaging.subscribeToTopic(topic);
+  }
+
+  Future<void> unsubscribeFromTopic(String topic) async {
+    await _messaging.unsubscribeFromTopic(topic);
+  }
+
+  /// ============================
+  /// FOREGROUND
+  /// ============================
+
+  void _listenForegroundMessages() {
+    _foregroundSubscription?.cancel();
+
+    _foregroundSubscription =
+        FirebaseMessaging.onMessage.listen((message) {
+      print('=== FOREGROUND MESSAGE ===');
+
+      print('Title: ${message.notification?.title}');
+      print('Body : ${message.notification?.body}');
+      print('Data : ${message.data}');
+    });
+  }
+
+  /// إذا أردت التعامل مع الرسالة بنفسك
+  Stream<RemoteMessage> get onForegroundMessage =>
+      FirebaseMessaging.onMessage;
+
+  /// ============================
+  /// NOTIFICATION TAP
+  /// ============================
+
+  void _listenNotificationTap() {
+    _tapSubscription?.cancel();
+
+    _tapSubscription =
+        FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      print('=== NOTIFICATION TAPPED ===');
+
+      print(message.data);
+    });
+  }
+
+  /// إذا أردت الاستماع بنفسك
+  Stream<RemoteMessage> get onNotificationTap =>
+      FirebaseMessaging.onMessageOpenedApp;
+
+  /// ============================
+  /// APP CLOSED
+  /// ============================
+
+  Future<RemoteMessage?> getInitialMessage() async {
+    return await _messaging.getInitialMessage();
+  }
+
+  Future<void> _handleInitialMessage() async {
+    final message = await getInitialMessage();
+
+    if (message != null) {
+      print('=== APP OPENED FROM TERMINATED ===');
+
+      print(message.data);
+    }
+  }
+
+  /// ============================
+  /// UTILITIES
+  /// ============================
+
+  Future<bool> isPermissionGranted() async {
+    final settings = await _messaging.getNotificationSettings();
+
+    return settings.authorizationStatus ==
+        AuthorizationStatus.authorized;
+  }
+
+  Future<NotificationSettings> getNotificationSettings() async {
+    return await _messaging.getNotificationSettings();
+  }
+
+  Future<void> setForegroundPresentationOptions() async {
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+  }
+
+  /// ============================
+  /// BACKEND
+  /// ============================
+
+  Future<void> syncTokenWithBackend(
+    Future<void> Function(String token) uploader,
+  ) async {
+    final token = await getToken();
+
+    if (token != null) {
+      await uploader(token);
+    }
+  }
+
+  /// ============================
+  /// DISPOSE
+  /// ============================
+
+  Future<void> dispose() async {
+    await _foregroundSubscription?.cancel();
+    await _tapSubscription?.cancel();
+    await _tokenRefreshSubscription?.cancel();
+  }
+}
