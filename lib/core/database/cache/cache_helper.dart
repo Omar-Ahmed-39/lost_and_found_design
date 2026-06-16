@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
@@ -68,4 +70,32 @@ class CacheHelper {
       return await sharedPreferences.setInt(key, value);
     }
   }
+
+
+
+  //! حفظ List<Map>
+static Future<bool> saveListMap({
+  required String key,
+  required List<Map<String, dynamic>> value,
+}) async {
+  return await sharedPreferences.setString(
+    key,
+    jsonEncode(value),
+  );
+}
+
+//! جلب List<Map>
+static List<Map<String, dynamic>> getListMap({
+  required String key,
+}) {
+  final data = sharedPreferences.getString(key);
+
+  if (data == null) {
+    return [];
+  }
+
+  return List<Map<String, dynamic>>.from(
+    jsonDecode(data),
+  );
+}
 }

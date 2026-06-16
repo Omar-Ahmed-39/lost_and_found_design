@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/features/home/controller/home_controller.dart';
@@ -13,9 +14,7 @@ class Homepage extends StatelessWidget {
       init: HomeController(),
       builder: (controller) {
         return Scaffold(
-          // إضافة RefreshIndicator للسماح بالتحديث عند السحب لأسفل
           body: RefreshIndicator(
-            
             onRefresh: () => controller.getItems(),
             child: Column(
               children: [
@@ -28,7 +27,7 @@ class Homepage extends StatelessWidget {
                     child: _buildBody(controller),
                   ),
                 ),
-                // مؤشر تحميل صغير يظهر في الأسفل عند جلب بيانات إضافية
+
                 if (controller.isPaginating)
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
@@ -60,16 +59,16 @@ class Homepage extends StatelessWidget {
 
       case HomeState.success:
         return Scrollbar(
-           controller: controller.scrollController,
-    interactive: true,
-    thickness: 4,
-    radius: const Radius.circular(10),
+          controller: controller.scrollController,
+          interactive: true,
+          thickness: 4,
+          radius: const Radius.circular(10),
           child: GridView.builder(
-            controller: controller.scrollController, // ربط متحكم التمرير هنا
-            // لضمان إمكانية السحب لأسفل حتى لو كانت القائمة فارغة أو قصيرة
+            controller: controller.scrollController,
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: controller.items.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate:
+                const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 14,
               mainAxisSpacing: 14,
@@ -77,33 +76,37 @@ class Homepage extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               final item = controller.items[index];
-          
+
               return InkWell(
-                
                 onTap: () {
-          
                   Get.to(
                     () => DetailsPage(
-                      description: item.itemName,
-                      reportId:item.id ,
                       title: item.itemName,
-                      date: item.dateReported.toString(),
+                      description: item.itemName,
+                      reportId: item.id,
+                      date: item.dateReported?.toString() ?? "",
                       status: item.reportType,
-                      statusColor: item.reportType == 1
-                          ? Colors.redAccent
-                          : Colors.greenAccent,
-                      image: "http://127.0.0.1:5000/${item.imagePath}",
+                      statusColor:
+                          item.reportType.toLowerCase() == "lost"
+                              ? Colors.redAccent
+                              : Colors.greenAccent,
+                      image:
+                          "http://127.0.0.1:5000/${item.imagePath}",
+                      location: item.locationName,
+                      reporterName: item.reporterName,
                     ),
                   );
                 },
                 child: OfferCard(
                   title: item.itemName,
-                  date: item.dateReported.toString(),
+                  date: item.dateReported?.toString() ?? "",
                   status: item.reportType,
-                  statusColor: item.reportType == 1
-                      ? Colors.redAccent
-                      : Colors.greenAccent,
-                  imageUrl:"http://127.0.0.1:5000/${item.imagePath}",
+                  statusColor:
+                      item.reportType.toLowerCase() == "lost"
+                          ? Colors.redAccent
+                          : Colors.greenAccent,
+                  imageUrl:
+                      "http://127.0.0.1:5000/${item.imagePath}",
                 ),
               );
             },
@@ -112,7 +115,6 @@ class Homepage extends StatelessWidget {
     }
   }
 
-  // ويدجت الحالة الفارغة
   Widget _buildEmptyState() {
     return Center(
       child: Column(
@@ -136,7 +138,6 @@ class Homepage extends StatelessWidget {
     );
   }
 
-  // ويدجت حالة الخطأ
   Widget _buildErrorState(HomeController controller) {
     return Center(
       child: Column(
@@ -153,9 +154,13 @@ class Homepage extends StatelessWidget {
             },
           ),
           const SizedBox(height: 10),
-           Text("Click to retry".tr, style: TextStyle(color: Colors.grey)),
+          Text(
+            "Click to retry".tr,
+            style: const TextStyle(color: Colors.grey),
+          ),
         ],
       ),
     );
   }
 }
+

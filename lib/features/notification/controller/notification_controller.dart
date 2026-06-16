@@ -1,13 +1,40 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
+import 'package:lostandfound/core/database/cache/cache_helper.dart';
 
 class NotificationController extends GetxController{
-  
+  List<Map<String, dynamic>> notifications = [];
+  void loadNotifications() {
+  notifications = CacheHelper.getListMap(
+    key: "notifications",
+  );
 
+  update();
+}
+
+void saveNotification({
+  required String title,
+  required String body,
+}) {
+  notifications.insert(0, {
+    "title": title,
+    "body": body,
+  });
+
+  CacheHelper.saveListMap(
+    key: "notifications",
+    value: notifications,
+  );
+
+  update();
+}
 
     @override
   void onInit() {
     super.onInit();
+
+      loadNotifications();
+
 
     myPermissionMessage();
     getToken();
@@ -56,8 +83,10 @@ if (settings.authorizationStatus == AuthorizationStatus.authorized) {
  ifAppIsOpen(){
     FirebaseMessaging.onMessage.listen((RemoteMessage  message) {// تشتغل في حالة كان التطبيق   مفتوح
       if(message.notification!=null){
-      //  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${message.data["ola"]}")));
-     
+saveNotification(
+    title: message.notification!.title ?? "No Title",
+    body: message.notification!.body ?? "",
+  );     
       }
       
     },);

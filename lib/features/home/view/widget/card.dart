@@ -1,15 +1,16 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lostandfound/core/constsnt/image_constant.dart';
 
 class OfferCard extends StatelessWidget {
   final String title;
   final String date;
-  final int status;
+  final String status;
   final Color statusColor;
   final String imageUrl;
 
   const OfferCard({
+    super.key,
     required this.title,
     required this.date,
     required this.status,
@@ -34,18 +35,26 @@ class OfferCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          // الصورة
+          /// الصورة
           Positioned.fill(
             child: Image.network(
               imageUrl,
               fit: BoxFit.cover,
-              errorBuilder:  (context, error, stackTrace) =>
-                   Container(color: Get.theme.cardColor,
-                   child: Icon(Icons.image_outlined,size: 40,),)
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Get.theme.cardColor,
+                  child: const Center(
+                    child: Icon(
+                      Icons.image_outlined,
+                      size: 40,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
 
-          // تدرج خفيف أسفل
+          /// التدرج السفلي
           Positioned(
             left: 0,
             right: 0,
@@ -65,18 +74,23 @@ class OfferCard extends StatelessWidget {
             ),
           ),
 
-          // الحالة (مفقود/موجود)
+          /// حالة البلاغ
           Positioned(
             top: 10,
             right: 10,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 6,
+              ),
               decoration: BoxDecoration(
                 color: statusColor,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Text(
-                status==1?"lost".tr:"found".tr,
+                status.toLowerCase() == "lost"
+                    ? "lost".tr
+                    : "found".tr,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
@@ -87,78 +101,78 @@ class OfferCard extends StatelessWidget {
             ),
           ),
 
-          // النصوص أسفل
+          /// النصوص السفلية
           Positioned(
             left: 12,
             right: 12,
             bottom: 12,
-            child:Column(
-  crossAxisAlignment: CrossAxisAlignment.end,
-  mainAxisSize: MainAxisSize.min,
-  children: [
-    Text(
-      title,
-      textAlign: TextAlign.right,
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
-      style: const TextStyle(
-        color:  Colors.white,
-        fontSize: 15,
-        fontWeight: FontWeight.w500,
-      ),
-    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  title,
+                  textAlign: TextAlign.right,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
 
-    const SizedBox(height: 6),
+                const SizedBox(height: 6),
 
-   Row(
-  children: [
-    Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: 4,
-        ),
-        decoration: BoxDecoration(
-          color: const Color(0x66FFFFFF),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Text(
-          date,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.right,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-    ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0x66FFFFFF),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          date,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.right,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
 
-    const SizedBox(width: 6),
+                    const SizedBox(width: 6),
 
-    Container(
-      width: 26,
-      height: 26,
-      decoration: BoxDecoration(
-        color: const Color(0x66FFFFFF),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: const Icon(
-        Icons.calendar_month,
-        color: Colors.white,
-        size: 14,
-      ),
-    ),
-  ],
-),
-  ],
-)
-
+                    Container(
+                      width: 26,
+                      height: 26,
+                      decoration: BoxDecoration(
+                        color: const Color(0x66FFFFFF),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Icon(
+                        Icons.calendar_month,
+                        color: Colors.white,
+                        size: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 }
+

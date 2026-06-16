@@ -29,15 +29,16 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+    await CacheHelper().init();
+
      await Firebase.initializeApp();
        FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-         Get.put(NotificationController());
+         Get.put(NotificationController(),permanent: true);
 
 
 
   setupLocator();
 
-  await CacheHelper().init();
 
   runApp(const MyApp());
 }

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
+import 'package:lostandfound/core/database/cache/cache_helper.dart';
 
    PreferredSize MyAppbar(){
 
  return PreferredSize(
   preferredSize: const Size.fromHeight(110),
-  child: Container(
+  child: Container(width: double.infinity,
     decoration: BoxDecoration(
+      
       borderRadius: const BorderRadius.only(
         bottomLeft: Radius.circular(22),
         bottomRight: Radius.circular(22),
@@ -26,14 +28,17 @@ import 'package:lostandfound/core/constsnt/image_constant.dart';
         bottomRight: Radius.circular(22),
       ),
       child: AppBar(
+        
         elevation: 0,
         centerTitle: false,
         toolbarHeight: 110,
-        title:Image.asset(
-            MyAppImage.logoImage,
-            width: 140,
-          ),
-    
+        title: Transform.translate(
+  offset: const Offset(-27, 5),
+  child: Image.asset(
+    MyAppImage.logoImage,
+    width: 250,
+  ),
+),
         actions: [
           Padding(
             padding: const EdgeInsets.only( right: 12),
@@ -54,7 +59,8 @@ import 'package:lostandfound/core/constsnt/image_constant.dart';
                     ),
                     SizedBox(height: 2),
                     Text(
-                     'علي بن سميدع', // غيّر الاسم هنا
+                      
+                     '${CacheHelper.getData(key: "name")}', // غيّر الاسم هنا
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,

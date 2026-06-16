@@ -59,7 +59,8 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 14),
 
             Text(
-              'علي بن سميدع',
+           
+              '${CacheHelper.getData(key: "name")}',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
@@ -68,7 +69,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 6),
             Text(
-              'alibnsomida826@gmail.com',
+                
+              ' ${CacheHelper.getData(key: "email")}',
               style: TextStyle(fontSize: 14, color: AppTheme.textGrey),
             ),
             const SizedBox(height: 15),

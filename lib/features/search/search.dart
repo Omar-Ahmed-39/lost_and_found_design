@@ -22,8 +22,7 @@ class SearchPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.all(20),
             child: Column(
-              mainAxisSize:
-                  MainAxisSize.min, // تم التعديل هنا لضمان عدم التمدد اللانهائي
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
                   children: [
@@ -58,12 +57,14 @@ class SearchPage extends StatelessWidget {
                   onRemove: (filter) => controller.removeFilter(filter),
                 ),
 
-                // تم تغيير Expanded إلى Flexible لحل مشكلة الـ unbounded height
                 Flexible(
                   child: RefreshIndicator(
                     onRefresh: () => controller.getItems(),
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 0, top: 5),
+                      padding: const EdgeInsets.only(
+                        bottom: 0,
+                        top: 5,
+                      ),
                       child: _buildBody(controller),
                     ),
                   ),
@@ -73,7 +74,9 @@ class SearchPage extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Center(
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                      ),
                     ),
                   ),
               ],
@@ -84,19 +87,24 @@ class SearchPage extends StatelessWidget {
     );
   }
 
-  void _showFilterBottomSheet(SearchPageController controller) {
+  void _showFilterBottomSheet(
+    SearchPageController controller,
+  ) {
     Get.bottomSheet(
       Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Get.theme.scaffoldBackgroundColor,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(20),
+          ),
         ),
         child: GetBuilder<SearchPageController>(
           builder: (controller) {
             return Column(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment:
+                  CrossAxisAlignment.stretch,
               children: [
                 Center(
                   child: Container(
@@ -104,7 +112,8 @@ class SearchPage extends StatelessWidget {
                     height: 5,
                     decoration: BoxDecoration(
                       color: Get.theme.cardColor,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius:
+                          BorderRadius.circular(10),
                     ),
                   ),
                 ),
@@ -116,7 +125,8 @@ class SearchPage extends StatelessWidget {
                     "search filter".tr,
                     style: const TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                      fontWeight:
+                          FontWeight.bold,
                     ),
                   ),
                 ),
@@ -128,28 +138,36 @@ class SearchPage extends StatelessWidget {
                   textAlign: TextAlign.right,
                   style: const TextStyle(
                     fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                    fontWeight:
+                        FontWeight.w600,
                   ),
                 ),
 
                 const SizedBox(height: 14),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceEvenly,
                   children: [
                     MyTypeCard(
                       color: Colors.red,
                       text: "lost".tr,
                       icon: Icons.search,
-                      isselected: controller.tempIsClickLost,
-                      ontap: () => controller.toggleType("lost"),
+                      isselected:
+                          controller.tempIsClickLost,
+                      ontap: () => controller
+                          .toggleType("lost"),
                     ),
+
                     MyTypeCard(
                       color: Colors.green,
                       text: "found".tr,
-                      icon: Icons.add_box_outlined,
-                      isselected: controller.tempIsClickFound,
-                      ontap: () => controller.toggleType("found"),
+                      icon:
+                          Icons.add_box_outlined,
+                      isselected:
+                          controller.tempIsClickFound,
+                      ontap: () => controller
+                          .toggleType("found"),
                     ),
                   ],
                 ),
@@ -157,11 +175,17 @@ class SearchPage extends StatelessWidget {
                 const SizedBox(height: 17),
 
                 MyDropdownList(
-                  selectedCategory: controller.tempSelectedCategory,
+                  selectedCategory:
+                      controller
+                          .tempSelectedCategory,
                   text: "category".tr,
                   hint: "choose from list".tr,
                   items: controller.dropdownItems,
-                  onChanged: (value) => controller.updateTempCategory(value),
+                  onChanged: (value) =>
+                      controller
+                          .updateTempCategory(
+                    value,
+                  ),
                 ),
 
                 const SizedBox(height: 22),
@@ -169,14 +193,17 @@ class SearchPage extends StatelessWidget {
                 Mybutton(
                   text: "apply filter".tr,
                   onTap: () {
-                    if (controller.tempIsClickFound ||
-                        controller.tempIsClickLost ||
-                        controller.tempSelectedCategory != null) {
+                    if (controller
+                            .tempIsClickFound ||
+                        controller
+                            .tempIsClickLost ||
+                        controller
+                                .tempSelectedCategory !=
+                            null) {
                       controller.applyFilters();
-                      Get.back();
-                    } else {
-                      Get.back();
                     }
+
+                    Get.back();
                   },
                 ),
 
@@ -191,37 +218,53 @@ class SearchPage extends StatelessWidget {
   }
 }
 
-Widget _buildBody(SearchPageController controller) {
+Widget _buildBody(
+  SearchPageController controller,
+) {
   switch (controller.state) {
     case HomeState.initial:
       return ListView(
-        shrinkWrap: true, // تم الإضافة هنا
-        physics: const AlwaysScrollableScrollPhysics(),
-        children: const [SizedBox(height: 200)],
+        shrinkWrap: true,
+        physics:
+            const AlwaysScrollableScrollPhysics(),
+        children: const [
+          SizedBox(height: 200),
+        ],
       );
 
     case HomeState.loading:
       return ListView(
-        shrinkWrap: true, // تم الإضافة هنا
-        physics: const AlwaysScrollableScrollPhysics(),
+        shrinkWrap: true,
+        physics:
+            const AlwaysScrollableScrollPhysics(),
         children: const [
           SizedBox(height: 200),
-          Center(child: CircularProgressIndicator()),
+          Center(
+            child: CircularProgressIndicator(),
+          ),
         ],
       );
 
     case HomeState.empty:
       return ListView(
-        shrinkWrap: true, // تم الإضافة هنا
-        physics: const AlwaysScrollableScrollPhysics(),
-        children: [const SizedBox(height: 200), _buildEmptyState()],
+        shrinkWrap: true,
+        physics:
+            const AlwaysScrollableScrollPhysics(),
+        children: [
+          const SizedBox(height: 200),
+          _buildEmptyState(),
+        ],
       );
 
     case HomeState.error:
       return ListView(
-        shrinkWrap: true, // تم الإضافة هنا
-        physics: const AlwaysScrollableScrollPhysics(),
-        children: [const SizedBox(height: 200), _buildErrorState(controller)],
+        shrinkWrap: true,
+        physics:
+            const AlwaysScrollableScrollPhysics(),
+        children: [
+          const SizedBox(height: 200),
+          _buildErrorState(controller),
+        ],
       );
 
     case HomeState.success:
@@ -232,43 +275,67 @@ Widget _buildBody(SearchPageController controller) {
         radius: const Radius.circular(10),
         child: GridView.builder(
           padding: EdgeInsets.zero,
-          shrinkWrap: true, // مهم جداً لحل مشكلة الأبعاد
+          shrinkWrap: true,
           controller: controller.scrollController,
-          physics: const AlwaysScrollableScrollPhysics(),
+          physics:
+              const AlwaysScrollableScrollPhysics(),
           itemCount: controller.items.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate:
+              const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 14,
             mainAxisSpacing: 14,
             childAspectRatio: 0.92,
           ),
           itemBuilder: (context, index) {
-            final item = controller.items[index];
+            final item =
+                controller.items[index];
 
             return InkWell(
               onTap: () {
                 Get.to(
                   () => DetailsPage(
-                    description: item.itemName,
-                    reportId: item.id,
                     title: item.itemName,
-                    date: item.dateReported.toString(),
-                    status: item.reportType,
-                    statusColor: item.reportType == 1
+                    description:
+                        item.itemName,
+                    reportId: item.id,
+                    date: item
+                            .dateReported
+                            ?.toString() ??
+                        "",
+                    status:
+                        item.reportType,
+                    statusColor: item
+                                .reportType
+                                .toLowerCase() ==
+                            "lost"
                         ? Colors.redAccent
                         : Colors.greenAccent,
-                    image: item.imagePath,
+                    image:
+                        "http://127.0.0.1:5000/${item.imagePath}",
+                    location:
+                        item.locationName,
+                    reporterName:
+                        item.reporterName,
                   ),
                 );
               },
               child: OfferCard(
                 title: item.itemName,
-                date: item.dateReported.toString(),
-                status: item.reportType,
-                statusColor: item.reportType == 1
+                date: item
+                        .dateReported
+                        ?.toString() ??
+                    "",
+                status:
+                    item.reportType,
+                statusColor: item
+                            .reportType
+                            .toLowerCase() ==
+                        "lost"
                     ? Colors.redAccent
                     : Colors.greenAccent,
-                imageUrl: item.imagePath,
+                imageUrl:
+                    "http://127.0.0.1:5000/${item.imagePath}",
               ),
             );
           },
@@ -277,27 +344,38 @@ Widget _buildBody(SearchPageController controller) {
   }
 }
 
-// الدوال الفرعية _buildEmptyState و _buildErrorState تبقى كما هي دون تغيير
 Widget _buildEmptyState() {
   return Center(
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment:
+          MainAxisAlignment.center,
       children: [
-        const Icon(Icons.inbox_outlined, size: 70, color: Colors.grey),
+        const Icon(
+          Icons.inbox_outlined,
+          size: 70,
+          color: Colors.grey,
+        ),
         const SizedBox(height: 12),
         Text(
-          "there are not post at the moment".tr,
-          style: const TextStyle(fontSize: 16, color: Colors.grey),
+          "there are not post at the moment"
+              .tr,
+          style: const TextStyle(
+            fontSize: 16,
+            color: Colors.grey,
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget _buildErrorState(SearchPageController controller) {
+Widget _buildErrorState(
+  SearchPageController controller,
+) {
   return Center(
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment:
+          MainAxisAlignment.center,
       children: [
         IconButton(
           icon: const Icon(
@@ -310,8 +388,14 @@ Widget _buildErrorState(SearchPageController controller) {
           },
         ),
         const SizedBox(height: 10),
-        Text("Click to retry".tr, style: const TextStyle(color: Colors.grey)),
+        Text(
+          "Click to retry".tr,
+          style: const TextStyle(
+            color: Colors.grey,
+          ),
+        ),
       ],
     ),
   );
 }
+

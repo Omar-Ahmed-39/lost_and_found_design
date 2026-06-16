@@ -9,6 +9,8 @@ class EndPoint {
   static String changePassword = "auth/change-password";
   static String support = "feedbacks";
   static String locations = "locations";
+  static String profile = "profile/me";
+
 
 
   static String reports = "reports";

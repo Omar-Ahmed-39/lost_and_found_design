@@ -32,7 +32,9 @@ class ItemsResponse {
               json['data'].map((item) => ItemData.fromJson(item)),
             )
           : [],
-      errors: json['errors'] != null ? List<String>.from(json['errors']) : null,
+      errors: json['errors'] != null
+          ? List<String>.from(json['errors'])
+          : null,
     );
   }
 }
@@ -40,11 +42,13 @@ class ItemsResponse {
 class ItemData {
   final int id;
   final String itemName;
- // final String description;
-
   final String imagePath;
   final DateTime? dateReported;
-  final int reportType;
+
+  final String reportType;
+  final String status;
+  final String locationName;
+  final String reporterName;
 
   ItemData({
     required this.id,
@@ -52,7 +56,9 @@ class ItemData {
     required this.imagePath,
     required this.dateReported,
     required this.reportType,
-    // required this.description,
+    required this.status,
+    required this.locationName,
+    required this.reporterName,
   });
 
   factory ItemData.fromJson(Map<String, dynamic> json) {
@@ -60,11 +66,15 @@ class ItemData {
       id: json['id'] ?? 0,
       itemName: json['itemName'] ?? '',
       imagePath: json['imagePath'] ?? '',
-    //  description:json[]
+
       dateReported: json['dateReported'] != null
           ? DateTime.parse(json['dateReported'])
           : null,
-      reportType: json['reportType'] ?? 0,
+
+      reportType: json['reportType'] ?? '',
+      status: json['status'] ?? '',
+      locationName: json['locationName'] ?? '',
+      reporterName: json['reporterName'] ?? '',
     );
   }
 }

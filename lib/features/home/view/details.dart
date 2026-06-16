@@ -1,35 +1,40 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lostandfound/core/constsnt/image_constant.dart';
 import 'package:lostandfound/core/shared/form.dart';
 import 'package:lostandfound/features/home/controller/details_controller.dart';
-import 'package:lostandfound/features/home/view/done.dart';
 
 class DetailsPage extends StatelessWidget {
   final String title;
   final String description;
-
   final int reportId;
 
   final String date;
-  final int status;
+  final String status;
   final Color statusColor;
   final String image;
 
-   DetailsPage({
+  final String location;
+  final String reporterName;
+
+  DetailsPage({
     super.key,
     required this.title,
+    required this.description,
+    required this.reportId,
     required this.date,
     required this.status,
     required this.statusColor,
-    required this.image, required this.reportId, required this.description,
+    required this.image,
+    required this.location,
+    required this.reporterName,
   });
-    DetailsController detailsController=Get.put(DetailsController());
 
+  final DetailsController detailsController =
+      Get.put(DetailsController());
 
   @override
   Widget build(BuildContext context) {
-    // حساب ارتفاع الصورة ليكون 2 من 5 من ارتفاع الشاشة
     final double screenHeight = MediaQuery.of(context).size.height;
     final double appBarHeight = screenHeight * (2 / 5);
 
@@ -39,43 +44,49 @@ class DetailsPage extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: CustomScrollView(
           slivers: [
-            // الأبار المرن مع صورتك الديناميكية
             SliverAppBar(
               expandedHeight: appBarHeight,
               pinned: true,
               elevation: 0,
               backgroundColor: Colors.white,
-              // زر الرجوع باستخدام GetX
               leading: _buildCircleButton(
                 context,
                 Icons.arrow_back_ios_new,
                 () => Get.back(),
               ),
               actions: [
-                _buildCircleButton(context, Icons.share, () {
-                  // منطق المشاركة هنا
-                }),
+                _buildCircleButton(
+                  context,
+                  Icons.share,
+                  () {},
+                ),
                 const SizedBox(width: 16),
               ],
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.network(
                   image,
                   fit: BoxFit.cover,
-                  // معالجة الخطأ في تحميل الصورة
-                  errorBuilder: (context, error, stackTrace) =>
-                     Container(color: Get.theme.cardColor,
-                   child: Icon(Icons.image_outlined,size: 80,),),
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Get.theme.cardColor,
+                      child: const Center(
+                        child: Icon(
+                          Icons.image_outlined,
+                          size: 80,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
 
-            // محتوى التفاصيل
             SliverToBoxAdapter(
               child: Container(
-                padding:  EdgeInsets.all(24.0),
-                decoration:  BoxDecoration(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
                   color: Get.theme.cardColor,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
                   ),
@@ -83,9 +94,10 @@ class DetailsPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // العنوان والحالة مفقود/موجود
+                    /// العنوان والحالة
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
                           child: Text(
@@ -96,34 +108,58 @@ class DetailsPage extends StatelessWidget {
                             ),
                           ),
                         ),
+
                         Container(
-                          padding: const EdgeInsets.symmetric(
+                          padding:
+                              const EdgeInsets.symmetric(
                             horizontal: 12,
                             vertical: 6,
                           ),
                           decoration: BoxDecoration(
                             color: statusColor.withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius:
+                                BorderRadius.circular(10),
                           ),
                           child: Text(
-                            status==1?"lost".tr:"found".tr,
+                            status.toLowerCase() == "lost"
+                                ? "lost".tr
+                                : "found".tr,
                             style: TextStyle(
                               color: statusColor,
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                                  FontWeight.bold,
                             ),
                           ),
                         ),
                       ],
                     ),
+
                     const SizedBox(height: 25),
 
-                    // شبكة المعلومات المنظمة بناءً على بياناتك
-                    _buildDetailItem(Icons.info_outline, "status".tr, status==1?"lost".tr:"found".tr),
-                    _buildDetailItem(Icons.calendar_month_outlined, "date".tr, date),
+                    _buildDetailItem(
+                      Icons.info_outline,
+                      "status".tr,
+                      status.toLowerCase() == "lost"
+                          ? "lost".tr
+                          : "found".tr,
+                    ),
+
+                    _buildDetailItem(
+                      Icons.calendar_month_outlined,
+                      "date".tr,
+                      date,
+                    ),
+
                     _buildDetailItem(
                       Icons.location_on_outlined,
                       "location".tr,
-                      "location will be determined later".tr,
+                      location,
+                    ),
+
+                    _buildDetailItem(
+                      Icons.person_outline,
+                      "المعلن",
+                      reporterName,
                     ),
 
                     const Divider(height: 40),
@@ -132,29 +168,34 @@ class DetailsPage extends StatelessWidget {
                       "item description".tr,
                       style: const TextStyle(
                         fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        fontWeight:
+                            FontWeight.bold,
                       ),
                     ),
+
                     const SizedBox(height: 10),
+
                     Text(
-                      "item registered description",
+                      description,
                       style: const TextStyle(
                         color: Colors.grey,
                         height: 1.6,
                         fontSize: 16,
                       ),
                     ),
-                                        const SizedBox(height: 30),
 
-                    Container(
+                    const SizedBox(height: 30),
+
+                    SizedBox(
                       width: double.infinity,
                       child: Mybutton(
-                                text: "claim".tr,
-                                onTap: () {
-                                  detailsController.claim(reportId);
-                                  
-                                },
-                              ),
+                        text: "claim".tr,
+                        onTap: () {
+                          detailsController.claim(
+                            reportId,
+                          );
+                        },
+                      ),
                     ),
 
                     const SizedBox(height: 10),
@@ -165,38 +206,54 @@ class DetailsPage extends StatelessWidget {
           ],
         ),
       ),
-
-    
     );
   }
 
-  // ودجت لعرض تفاصيل المعلومات بشكل منظم
-  Widget _buildDetailItem(IconData icon, String title, String value) {
+  Widget _buildDetailItem(
+    IconData icon,
+    String title,
+    String value,
+  ) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding:
+          const EdgeInsets.only(bottom: 20),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Colors.blueAccent.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
+              color: Colors.blueAccent
+                  .withOpacity(0.1),
+              borderRadius:
+                  BorderRadius.circular(12),
             ),
-            child: Icon(icon, color: Colors.blueAccent, size: 24),
+            child: Icon(
+              icon,
+              color: Colors.blueAccent,
+              size: 24,
+            ),
           ),
+
           const SizedBox(width: 15),
+
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment:
+                CrossAxisAlignment.start,
             children: [
               Text(
                 title,
-                style: const TextStyle(color: Colors.grey, fontSize: 13),
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 13,
+                ),
               ),
+
               Text(
                 value,
                 style: const TextStyle(
                   fontSize: 15,
-                  fontWeight: FontWeight.w600,
+                  fontWeight:
+                      FontWeight.w600,
                 ),
               ),
             ],
@@ -206,7 +263,6 @@ class DetailsPage extends StatelessWidget {
     );
   }
 
-  // ودجت الأزرار الدائرية الشفافة في الأعلى
   Widget _buildCircleButton(
     BuildContext context,
     IconData icon,
@@ -216,120 +272,25 @@ class DetailsPage extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8),
-          padding: const EdgeInsets.all(8),
+          margin:
+              const EdgeInsets.symmetric(
+            horizontal: 8,
+          ),
+          padding:
+              const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.3),
+            color: Colors.black
+                .withOpacity(0.3),
             shape: BoxShape.circle,
           ),
-          child: Icon(icon, size: 20, color: Colors.white),
+          child: Icon(
+            icon,
+            size: 20,
+            color: Colors.white,
+          ),
         ),
       ),
     );
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:lostandfound/core/constsnt/image_constant.dart';
-// import 'package:lostandfound/core/shared/appbar.dart';
-// import 'package:lostandfound/core/shared/form.dart';
-// import 'package:lostandfound/core/shared/navigation_bottom_bar.dart';
-// import 'package:lostandfound/core/theme/app_theme.dart';
-// import 'package:lostandfound/features/home/claim.dart';
-// import 'package:lostandfound/features/home/done.dart';
-
-// class DetailsPage extends StatelessWidget {
-//   final String title;
-//   final String date;
-//   final String status;
-//   final Color statusColor;
-//   final String image;
-
-//   const DetailsPage({super.key, required this.title, required this.date, required this.status, required this.statusColor, required this.image});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: MyAppbarWithoutdetails(title),
-//        body: Container(
-//         margin: EdgeInsets.symmetric(horizontal: 10),
-//          child: ListView(children: [
-//           const SizedBox(height: 10,),
-//           ClipRRect(
-//             borderRadius:BorderRadius.all(Radius.circular(19)) ,
-//             child: Stack(children: [Container(width: double.infinity,
-//              child: Image.network(image,fit: BoxFit.cover,errorBuilder: (context, error, stackTrace) =>
-//                    Image.asset(MyAppImage.imagebroken,fit: BoxFit.cover) ,)),
-//               Positioned(
-//               top: 10,
-//               right: 10,
-//               child: Container(
-//                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//                 decoration: BoxDecoration(
-//                   color: statusColor,
-//                   borderRadius: BorderRadius.circular(14),
-//                 ),
-//                 child: Text(
-//                   status,
-//                   maxLines: 1,
-//                   overflow: TextOverflow.ellipsis,
-//                   style: const TextStyle(
-//                     color: Colors.white,
-//                     fontWeight: FontWeight.w700,
-//                   ),
-//                 ),
-//               ),
-//             ),
-//              ])),
-           
-//            SizedBox(height: 10,),
-//            ClipRRect(
-//                borderRadius:BorderRadius.all(Radius.circular(19)) ,
-//             child: Container(
-//               padding: EdgeInsets.all(10),
-//               color: Colors.white,
-//               child: Column(children: [
-//               Text("تفاصيل الغرض",style: MyTextStyle.meduimtitle(),),
-//              Align(
-//               alignment: Alignment.centerRight,
-//                child: Column(mainAxisAlignment: MainAxisAlignment.end,children: [
-//                  Text("الحالة: $status",style: MyTextStyle.subtitel(),),
-//                  Text("التاريخ: $date",style: MyTextStyle.subtitel(),),
-//                  Text("العنوان: $status",style: MyTextStyle.subtitel(),),
-                 
-
-//                ],),
-//              ),
-   
-         
-//             ],),)),
-//               SizedBox(height: 20,),
-//              Mybutton(text:"مطالبة",onTap: () {
-//                 // Navigator.of(context).pushAndRemoveUntil(
-//                 //           MaterialPageRoute(
-//                 //             builder: (context) =>DonePage() ),(route) => false,);
-//                 Navigator.of(context).push(MaterialPageRoute(builder: (context) =>ClaimPage() ,));
-                      
-//              },),
-//          SizedBox(height: 50,)
-//          ],),
-//        )
-
-//     );
-//   }
-// }
