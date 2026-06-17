@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
+import 'package:lostandfound/features/profile/controller/profile_controller.dart';
 
    PreferredSize MyAppbar(){
 
@@ -71,14 +72,77 @@ import 'package:lostandfound/core/database/cache/cache_helper.dart';
                   ],
                 ),
                 const SizedBox(width: 10),
-                ClipOval(
-                  child: Image.asset(
-                    MyAppImage.profileImage, 
-                    width: 38,
-                    height: 38,
-                    fit: BoxFit.cover,
-                  ),
+            GetBuilder<ProfileController>(
+              init:ProfileController() ,
+              
+              builder: (controller) {
+            return  GestureDetector(
+  onTap: () {
+    controller.updateImageProfile();
+   
+  },
+  child: Container(
+    width: 50,
+    height: 50,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: Colors.white,
+      border: Border.all(
+        color: Colors.white,
+        width: 2,
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.08),
+          blurRadius: 14,
+          offset: const Offset(0, 6),
+        ),
+      ],
+    ),
+    child: ClipOval(
+      child: Builder(
+        builder: (context) {
+          final imageUrl =
+              CacheHelper.getData(key: "avatarUrl");
+
+          // لا يوجد صورة
+          if (imageUrl == null ||
+              imageUrl.toString().isEmpty) {
+            return Container(
+              color: Colors.grey.shade200,
+              child: const Icon(
+                Icons.person,
+                size: 20,
+                color: Colors.grey,
+              ),
+            );
+          }
+
+          // يوجد صورة
+          return Image.network(
+            "http://127.0.0.1:5000/$imageUrl",
+            fit: BoxFit.cover,
+            errorBuilder: (
+              context,
+              error,
+              stackTrace,
+            ) {
+              return Container(
+                color: Colors.grey.shade200,
+                child: const Icon(
+                  Icons.person,
+                  size: 20,
+                  color: Colors.grey,
                 ),
+              );
+            },
+          );
+        },
+      ),
+    ),
+  ),
+);
+            },),
               ],
             ),
           ),

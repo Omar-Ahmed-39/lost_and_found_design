@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
+import 'package:lostandfound/core/function/imagepick.dart';
 import 'package:lostandfound/core/local/local_controller.dart';
 import 'package:lostandfound/core/shared/appbar.dart';
 import 'package:lostandfound/core/shared/form.dart';
@@ -13,6 +14,7 @@ import 'package:lostandfound/features/profile/controller/profile_controller.dart
 import 'package:lostandfound/features/profile/view/TermsAndConditionsPage.dart';
 import 'package:lostandfound/features/profile/view/about_app.dart';
 import 'package:lostandfound/features/profile/view/suport.dart';
+import 'package:lostandfound/features/profile/view/update_profile.dart';
 import 'package:lostandfound/features/profile/view/widget/section_card.dart';
 import 'package:lostandfound/main.dart';
 
@@ -36,26 +38,101 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 170),
 
             // Profile image
-            Container(
-              width: 110,
-              height: 110,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-                border: Border.all(color: Colors.white, width: 4),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.08),
-                    blurRadius: 14,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
-                image: DecorationImage(
-                  image: AssetImage(MyAppImage.sanker),
-                  fit: BoxFit.cover,
-                ),
+            // Container(
+            //   width: 110,
+            //   height: 110,
+            //   decoration: BoxDecoration(
+            //     shape: BoxShape.circle,
+            //     color: Colors.white,
+            //     border: Border.all(color: Colors.white, width: 4),
+            //     boxShadow: [
+            //       BoxShadow(
+            //         color: Colors.black.withValues(alpha: 0.08),
+            //         blurRadius: 14,
+            //         offset: const Offset(0, 6),
+            //       ),
+            //     ],
+            //     image: DecorationImage(
+            //       image: AssetImage(MyAppImage.sanker),
+            //       fit: BoxFit.cover,
+            //     ),
+            //   ),
+            // ),
+
+            GetBuilder<ProfileController>(
+              
+              builder: (controller) {
+            return  GestureDetector(
+  onTap: () {
+    profileController.updateImageProfile();
+   
+  },
+  child: Container(
+    width: 110,
+    height: 110,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: Colors.white,
+      border: Border.all(
+        color: Colors.white,
+        width: 4,
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.08),
+          blurRadius: 14,
+          offset: const Offset(0, 6),
+        ),
+      ],
+    ),
+    child: ClipOval(
+      child: Builder(
+        builder: (context) {
+          final imageUrl =
+              CacheHelper.getData(key: "avatarUrl");
+
+          // لا يوجد صورة
+          if (imageUrl == null ||
+              imageUrl.toString().isEmpty) {
+            return Container(
+              color: Colors.grey.shade200,
+              child: const Icon(
+                Icons.person,
+                size: 55,
+                color: Colors.grey,
               ),
-            ),
+            );
+          }
+
+          // يوجد صورة
+          return Image.network(
+            "http://127.0.0.1:5000/$imageUrl",
+            fit: BoxFit.cover,
+            errorBuilder: (
+              context,
+              error,
+              stackTrace,
+            ) {
+              return Container(
+                color: Colors.grey.shade200,
+                child: const Icon(
+                  Icons.person,
+                  size: 55,
+                  color: Colors.grey,
+                ),
+              );
+            },
+          );
+        },
+      ),
+    ),
+  ),
+);
+            },),
+
+           
+
+
             const SizedBox(height: 14),
 
             Text(
@@ -84,7 +161,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     subtitle: "update profile".tr,
                     iconBg: Get.theme.colorScheme.primary,
                     iconColor: AppTheme.primaryBlue,
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(()=>UpdateProfilePage());
+                    },
                   ),
                   ProfileOptionTile(
                     icon: Icons.lock_outline_rounded,
@@ -173,15 +252,15 @@ Get.find<MyLocalController>().changeLang();                    },
               ),
             ),
 
-            const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              child: Mybutton(
-                text: "delete account".tr,
-                color:AppTheme.danger,
-                onTap: () {},
-              ),
-            ),
+            // const SizedBox(height: 12),
+            // SizedBox(
+            //   width: double.infinity,
+            //   child: Mybutton(
+            //     text: "delete account".tr,
+            //     color:AppTheme.danger,
+            //     onTap: () {},
+            //   ),
+            // ),
             const SizedBox(height: 125),
           ],
         ),

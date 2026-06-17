@@ -180,6 +180,8 @@ class MyLocal extends Translations {
       "search filter": "فلترة البحث",
       "choose type": "اختر النوع",
       "apply filter": "تطبيق الفلتر",
+      "name":"الاسم",
+      "save changes":"حفظ التغيرات"
     },
 
     "en": {
@@ -357,6 +359,8 @@ class MyLocal extends Translations {
       "write time": "Enter time",
       "lost time": "Lost Time",
       "add image": "Add Image",
+      "name":"name",
+      "save changes":"save changes",
 
       // search folder
       "search filter": "Search Filter",
