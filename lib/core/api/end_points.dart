@@ -10,6 +10,9 @@ class EndPoint {
   static String support = "feedbacks";
   static String locations = "locations";
   static String profile = "profile/me";
+   static String getReportById(id) {
+    return "reports/$id";
+  }
 
 
 

@@ -3,11 +3,27 @@ import 'package:get/get.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
 
 class NotificationController extends GetxController{
+  bool hasUnreadNotifications = false;
   List<Map<String, dynamic>> notifications = [];
   void loadNotifications() {
   notifications = CacheHelper.getListMap(
     key: "notifications",
   );
+
+  update();
+}
+void markNotificationsAsRead() {
+  hasUnreadNotifications = false;
+  update();
+}
+Future<void> clearNotifications() async {
+  notifications.clear();
+
+  await CacheHelper.removeData(
+    key: "notifications",
+  );
+
+  hasUnreadNotifications = false;
 
   update();
 }
@@ -20,6 +36,8 @@ void saveNotification({
     "title": title,
     "body": body,
   });
+
+  hasUnreadNotifications = true;
 
   CacheHelper.saveListMap(
     key: "notifications",

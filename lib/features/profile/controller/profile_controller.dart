@@ -110,6 +110,7 @@ Future<void> updateProfile({
       "Success",
       "Profile updated successfully",
     );
+    Get.back();
   } on ServerException catch (e) {
     Get.snackbar(
       e.erorrModel.title,

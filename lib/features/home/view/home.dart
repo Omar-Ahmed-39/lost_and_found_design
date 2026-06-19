@@ -79,6 +79,7 @@ class Homepage extends StatelessWidget {
 
               return InkWell(
                 onTap: () {
+                  
                   Get.to(
                     () => DetailsPage(
                       title: item.itemName,

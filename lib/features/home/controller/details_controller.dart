@@ -5,10 +5,12 @@ import 'package:lostandfound/core/api/dio_consumer.dart';
 import 'package:lostandfound/core/api/end_points.dart';
 import 'package:lostandfound/core/error/exception.dart';
 import 'package:lostandfound/core/services/get_it_services.dart';
+import 'package:lostandfound/features/home/model/details_model.dart';
 import 'package:lostandfound/features/home/view/done.dart';
 
 class DetailsController extends GetxController {
   ApiConsumer api =getIt<ApiConsumer>();
+  String description="";
 
   Future<void> claim(int reportId  ) async {
     try {
@@ -18,6 +20,27 @@ class DetailsController extends GetxController {
       });
       Get.to(() =>  DonePage(text: "claim received for review".tr,));
       
+    } on ServerException catch (e) {
+      Get.snackbar(
+        e.erorrModel.title,
+        e.erorrModel.erorrmessage,
+        animationDuration: Duration(seconds: 3),
+      );
+    }
+
+   
+  }
+  Future<void> getReportById(int reportId  ) async {
+    try {
+      final response= await api.get(EndPoint.getReportById(reportId),
+      data: {
+         "id": reportId
+      });
+
+      ReportDetailsResponse reportDetailsResponse=ReportDetailsResponse.fromJson(response);
+      description=reportDetailsResponse.data!.description;
+      
+      update();
     } on ServerException catch (e) {
       Get.snackbar(
         e.erorrModel.title,

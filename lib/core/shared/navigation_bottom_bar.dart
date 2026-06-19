@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/features/home/controller/home_screen_controller.dart';
+import 'package:lostandfound/features/notification/controller/notification_controller.dart';
 import 'package:lostandfound/features/report/view/report.dart';
 
 class MyNavigationBottomBar extends StatelessWidget {
@@ -8,7 +9,6 @@ class MyNavigationBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // الوصول للكنترولر الموجود في الذاكرة
     final controller = Get.find<NavigationController>();
 
     return Padding(
@@ -19,7 +19,6 @@ class MyNavigationBottomBar extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           clipBehavior: Clip.none,
           children: [
-            // خلفية الـ Bottom Bar مع الظل
             Container(
               height: 80,
               decoration: BoxDecoration(
@@ -38,7 +37,6 @@ class MyNavigationBottomBar extends StatelessWidget {
               ),
             ),
 
-            // الأيقونات والتنقل
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -48,19 +46,28 @@ class MyNavigationBottomBar extends StatelessWidget {
                   label: "profile".tr,
                   onTap: () => controller.changeIndex(3),
                 ),
+
                 BottomNavItem(
                   itemIndex: 2,
                   icon: Icons.notifications_none,
                   label: "notifications".tr,
-                  onTap: () => controller.changeIndex(2),
+                  onTap: () {
+                    controller.changeIndex(2);
+
+                    Get.find<NotificationController>()
+                        .markNotificationsAsRead();
+                  },
                 ),
+
                 const SizedBox(width: 60),
+
                 BottomNavItem(
                   itemIndex: 1,
                   icon: Icons.search,
                   label: "search".tr,
                   onTap: () => controller.changeIndex(1),
                 ),
+
                 BottomNavItem(
                   itemIndex: 0,
                   icon: Icons.home_outlined,
@@ -70,7 +77,6 @@ class MyNavigationBottomBar extends StatelessWidget {
               ],
             ),
 
-            // الزر الأوسط إضافة بلاغ
             Positioned(
               bottom: 80 - 28,
               child: InkWell(
@@ -128,50 +134,80 @@ class BottomNavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // نستخدم GetBuilder هنا فقط للأجزاء التي تتغير ألوانها
-    return GetBuilder<NavigationController>(
-      builder: (controller) {
-        final bool isActive = controller.currentIndex == itemIndex;
+    return GetBuilder<NotificationController>(
+      builder: (notificationController) {
+        return GetBuilder<NavigationController>(
+          builder: (controller) {
+            final bool isActive =
+                controller.currentIndex == itemIndex;
 
-        return InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(16),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 160),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: isActive
-                        ? activeColor.withOpacity(0.25)
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Icon(
-                    icon,
-                    size: 28,
-                    color: isActive ? activeColor : Theme.of(context).hintColor,
-                  ),
+            return InkWell(
+              onTap: onTap,
+              borderRadius: BorderRadius.circular(16),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 160),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isActive
+                            ? activeColor.withOpacity(0.25)
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Icon(
+                            icon,
+                            size: 28,
+                            color: isActive
+                                ? activeColor
+                                : Theme.of(context).hintColor,
+                          ),
+
+                          if (itemIndex == 2 &&
+                              notificationController
+                                  .hasUnreadNotifications)
+                            Positioned(
+                              right: -2,
+                              top: -2,
+                              child: Container(
+                                width: 10,
+                                height: 10,
+                                decoration: const BoxDecoration(
+                                  color: Colors.red,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      label,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: isActive
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        color: isActive
+                            ? activeColor
+                            : Theme.of(context).hintColor,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight:
-                        isActive ? FontWeight.bold : FontWeight.normal,
-                    color: isActive ? activeColor :Theme.of(context).hintColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
       },
     );
