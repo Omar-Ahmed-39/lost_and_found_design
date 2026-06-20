@@ -22,14 +22,35 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
- print("=============================================");
- print("background");
- 
+Future<void> _firebaseMessagingBackgroundHandler(
+  RemoteMessage message,
+) async {
+
+  List<Map<String, dynamic>> notifications =
+      CacheHelper.getListMap(
+    key: "notifications",
+  );
+
+  notifications.insert(0, {
+    "title":
+        message.notification?.title ?? "",
+    "body":
+        message.notification?.body ?? "",
+    "matchId":
+        message.data["matchId"],
+  });
+
+  await CacheHelper.saveListMap(
+    key: "notifications",
+    value: notifications,
+  );
+
+  print("background notification saved");
 }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
     await CacheHelper().init();
+      setupLocator();
 
      await Firebase.initializeApp();
        FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -37,7 +58,7 @@ void main() async {
 
 
 
-  setupLocator();
+
 
 
   runApp(const MyApp());

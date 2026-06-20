@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lostandfound/features/home/model/details_model.dart';
+import 'package:lostandfound/features/home/view/details.dart';
+import 'package:lostandfound/features/home/view/widget/card.dart';
 import 'package:lostandfound/features/notification/controller/notification_controller.dart';
 
 class NotificationPage extends StatelessWidget {
@@ -70,45 +73,144 @@ class NotificationPage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final notification =
                               controller.notifications[index];
+                              final matchId = notification["matchId"];
+                              print(notification);
 
-                          return Card(
-                            margin: const EdgeInsets.only(bottom: 12),
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: ListTile(
-                              contentPadding:
-                                  const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 12,
-                              ),
-                              leading: CircleAvatar(
-                                backgroundColor:
-                                    Colors.blueAccent.withOpacity(0.1),
-                                child: const Icon(
-                                  Icons.notifications,
-                                  color: Colors.blueAccent,
-                                ),
-                              ),
-                              title: Text(
-                                notification["title"] ?? "",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.only(top: 6),
-                                child: Text(
-                                  notification["body"] ?? "",
-                                  style: TextStyle(
-                                    color: Get.theme.hintColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
+                         if (matchId == null) {
+  return Card(
+    margin: const EdgeInsets.only(bottom: 12),
+    child: ListTile(
+      title: Text(notification["title"] ?? ""),
+      subtitle: Text(notification["body"] ?? ""),
+    ),
+  );
+}
+
+return Card(
+  margin: const EdgeInsets.only(bottom: 12),
+  elevation: 2,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(16),
+  ),
+  child: Padding(
+    padding: const EdgeInsets.all(16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          notification["title"] ?? "",
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+
+        const SizedBox(height: 8),
+
+        Text(
+          notification["body"] ?? "",
+        ),
+
+        const SizedBox(height: 16),
+
+        FutureBuilder(
+          future: controller.getMatchReports(
+            int.parse(matchId.toString()),
+          ),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+
+            final reports = snapshot.data!;
+
+            final lostReport =
+                reports["lost"] as ReportDetailsData?;
+
+            final foundReport =
+                reports["found"] as ReportDetailsData?;
+
+            return GridView.count(
+              shrinkWrap: true,
+              physics:
+                  const NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 0.7,
+              children: [
+                if (lostReport != null)
+                  InkWell(
+  onTap: () {
+    Get.to(
+      () => DetailsPage(
+        reportId: lostReport.id,
+        title: lostReport.itemName,
+        description: lostReport.description,
+        date: lostReport.dateReported?.toString() ?? "",
+        status: lostReport.reportType,
+        statusColor: Colors.redAccent,
+        image: lostReport.images.isNotEmpty
+            ? "http://127.0.0.1:5000/${lostReport.images.first.path}"
+            : "",
+        location: lostReport.locationName,
+        reporterName: "",
+      ),
+    );
+  },
+  child: OfferCard(
+    title: lostReport.itemName,
+    date: lostReport.dateReported?.toString() ?? "",
+    status: lostReport.reportType,
+    statusColor: Colors.redAccent,
+    imageUrl: lostReport.images.isNotEmpty
+        ? "http://127.0.0.1:5000/${lostReport.images.first.path}"
+        : "",
+  ),
+),
+
+                if (foundReport != null)
+                InkWell(
+  onTap: () {
+    Get.to(
+      () => DetailsPage(
+        reportId: foundReport.id,
+        title: foundReport.itemName,
+        description: foundReport.description,
+        date: foundReport.dateReported?.toString() ?? "",
+        status: foundReport.reportType,
+        statusColor: Colors.greenAccent,
+        image: foundReport.images.isNotEmpty
+            ? "http://127.0.0.1:5000/${foundReport.images.first.path}"
+            : "",
+        location: foundReport.locationName,
+        reporterName: "",
+      ),
+    );
+  },
+  child: OfferCard(
+    title: foundReport.itemName,
+    date: foundReport.dateReported?.toString() ?? "",
+    status: foundReport.reportType,
+    statusColor: Colors.greenAccent,
+    imageUrl: foundReport.images.isNotEmpty
+        ? "http://127.0.0.1:5000/${foundReport.images.first.path}"
+        : "",
+  ),
+)
+              ],
+            );
+          },
+        ),
+      ],
+    ),
+  ),
+);
                         },
                       ),
                     ),

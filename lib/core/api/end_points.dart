@@ -13,6 +13,9 @@ class EndPoint {
    static String getReportById(id) {
     return "reports/$id";
   }
+  static String getMatchById(id) {
+  return "matches/$id";
+}
 
 
 

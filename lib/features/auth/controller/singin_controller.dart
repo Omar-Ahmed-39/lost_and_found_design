@@ -8,12 +8,15 @@ import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/error/exception.dart';
 import 'package:lostandfound/core/services/get_it_services.dart';
 import 'package:lostandfound/features/auth/model/signin_model.dart';
+import 'package:lostandfound/features/notification/controller/notification_controller.dart';
 import 'package:lostandfound/features/profile/model/profile_model.dart';
 
 class SinginController extends GetxController {
  late GlobalKey<FormState> formstate;
   late TextEditingController emailController;
   late TextEditingController passwordController;
+  final NotificationController notificationController = Get.find<NotificationController>();
+
    bool obscure =true;
 
   bool isloading = false;
@@ -29,9 +32,12 @@ class SinginController extends GetxController {
   isloading = true;
   update();
   try {
+   String? fcmtoken = await notificationController.getToken();
     var responce = await api.post(
       EndPoint.signIn,
-      data: {ApiKey.email: emailController.text.trim(), ApiKey.password: passwordController.text.trim()},
+      data: {ApiKey.email: emailController.text.trim(),
+       ApiKey.password: passwordController.text.trim()
+       ,"fcmToken":fcmtoken},
     );
     SignInModel user = SignInModel.fromJson(responce);
     CacheHelper.saveData(key: "token", value: user.dataSignin.token);

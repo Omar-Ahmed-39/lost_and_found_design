@@ -71,7 +71,7 @@ class HomeController extends GetxController {
     );
   } catch (e) {
     state = HomeState.error;
-    Get.snackbar("خطأ غير متوقع", "حدث خلل أثناء معالجة البيانات");
+    Get.snackbar("خطأ غير متوقع", "${e}");
   }
   
   update();

@@ -37,7 +37,8 @@ import 'package:lostandfound/features/profile/controller/profile_controller.dart
   offset: const Offset(-27, 5),
   child: Image.asset(
     MyAppImage.logoImage,
-    width: 250,
+    width: 270,
+    height: 290,
   ),
 ),
         actions: [
@@ -63,7 +64,7 @@ import 'package:lostandfound/features/profile/controller/profile_controller.dart
                       
                      '${CacheHelper.getData(key: "name")}', // غيّر الاسم هنا
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 11,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
                         height: 1.1,
