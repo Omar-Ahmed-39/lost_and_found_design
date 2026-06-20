@@ -110,6 +110,15 @@ Future<Map<String, dynamic>?> getMatchReports(
     required String body,
     String? matchId,
   }) {
+    final exists = notifications.any(
+  (e) => e["matchId"] == matchId,
+);
+
+if (exists) {
+  return;
+}
+    print("SAVE NOTIFICATION");
+print("matchId = $matchId");
     notifications.insert(0, {
       "title": title,
       "body": body,

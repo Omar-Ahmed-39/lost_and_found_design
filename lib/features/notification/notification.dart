@@ -68,7 +68,12 @@ class NotificationPage extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.only(top: 150),
                       child: ListView.builder(
-                        padding: const EdgeInsets.all(16),
+                         padding: const EdgeInsets.fromLTRB(
+    16,
+    16,
+    16,
+    120,
+  ),
                         itemCount: controller.notifications.length,
                         itemBuilder: (context, index) {
                           final notification = controller.notifications[index];
@@ -106,8 +111,10 @@ class NotificationPage extends StatelessWidget {
 
                                   const SizedBox(height: 8),
 
-                                  Text("تم العثور على عنصر موجود مطابق لعنصؤك المفقود"),
-
+                                  Text(
+                                    "تم العثور على عنصر موجود مطابق لعنصؤك المفقود",
+                                  ),
+ const SizedBox(height: 8),
                                   FutureBuilder(
                                     future: controller.getMatchReports(
                                       int.parse(matchId.toString()),
@@ -131,24 +138,44 @@ class NotificationPage extends StatelessWidget {
                                           reports["found"]
                                               as ReportDetailsData?;
 
-                                      return GridView.count(
-                                        shrinkWrap: true,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 10,
-                                        mainAxisSpacing: 10,
-                                        childAspectRatio: 0.7,
-                                        children: [
-                                          if (lostReport != null)
-                                            InkWell(
-                                              onTap: () {
-                                                Get.to(
-                                                  () => DetailsPage(
-                                                    reportId: lostReport.id,
+                                      return SizedBox(
+                                        height: 220,
+                                        child: Row(
+                                          children: [
+                                            if (lostReport != null)
+                                              Expanded(
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Get.to(
+                                                      () => DetailsPage(
+                                                        reportId: lostReport.id,
+                                                        title:
+                                                            lostReport.itemName,
+                                                        description: lostReport
+                                                            .description,
+                                                        date:
+                                                            lostReport
+                                                                .dateReported
+                                                                ?.toString() ??
+                                                            "",
+                                                        status: lostReport
+                                                            .reportType,
+                                                        statusColor:
+                                                            Colors.redAccent,
+                                                        image:
+                                                            lostReport
+                                                                .images
+                                                                .isNotEmpty
+                                                            ? "http://127.0.0.1:5000/${lostReport.images.first.path}"
+                                                            : "",
+                                                        location: lostReport
+                                                            .locationName,
+                                                        reporterName: "",
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: OfferCard(
                                                     title: lostReport.itemName,
-                                                    description:
-                                                        lostReport.description,
                                                     date:
                                                         lostReport.dateReported
                                                             ?.toString() ??
@@ -157,42 +184,55 @@ class NotificationPage extends StatelessWidget {
                                                         lostReport.reportType,
                                                     statusColor:
                                                         Colors.redAccent,
-                                                    image:
+                                                    imageUrl:
                                                         lostReport
                                                             .images
                                                             .isNotEmpty
                                                         ? "http://127.0.0.1:5000/${lostReport.images.first.path}"
                                                         : "",
-                                                    location:
-                                                        lostReport.locationName,
-                                                    reporterName: "",
                                                   ),
-                                                );
-                                              },
-                                              child: OfferCard(
-                                                title: lostReport.itemName,
-                                                date:
-                                                    lostReport.dateReported
-                                                        ?.toString() ??
-                                                    "",
-                                                status: lostReport.reportType,
-                                                statusColor: Colors.redAccent,
-                                                imageUrl:
-                                                    lostReport.images.isNotEmpty
-                                                    ? "http://127.0.0.1:5000/${lostReport.images.first.path}"
-                                                    : "",
+                                                ),
                                               ),
-                                            ),
 
-                                          if (foundReport != null)
-                                            InkWell(
-                                              onTap: () {
-                                                Get.to(
-                                                  () => DetailsPage(
-                                                    reportId: foundReport.id,
+                                            if (lostReport != null &&
+                                                foundReport != null)
+                                              const SizedBox(width: 10),
+
+                                            if (foundReport != null)
+                                              Expanded(
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Get.to(
+                                                      () => DetailsPage(
+                                                        reportId:
+                                                            foundReport.id,
+                                                        title: foundReport
+                                                            .itemName,
+                                                        description: foundReport
+                                                            .description,
+                                                        date:
+                                                            foundReport
+                                                                .dateReported
+                                                                ?.toString() ??
+                                                            "",
+                                                        status: foundReport
+                                                            .reportType,
+                                                        statusColor:
+                                                            Colors.greenAccent,
+                                                        image:
+                                                            foundReport
+                                                                .images
+                                                                .isNotEmpty
+                                                            ? "http://127.0.0.1:5000/${foundReport.images.first.path}"
+                                                            : "",
+                                                        location: foundReport
+                                                            .locationName,
+                                                        reporterName: "",
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: OfferCard(
                                                     title: foundReport.itemName,
-                                                    description:
-                                                        foundReport.description,
                                                     date:
                                                         foundReport.dateReported
                                                             ?.toString() ??
@@ -201,35 +241,17 @@ class NotificationPage extends StatelessWidget {
                                                         foundReport.reportType,
                                                     statusColor:
                                                         Colors.greenAccent,
-                                                    image:
+                                                    imageUrl:
                                                         foundReport
                                                             .images
                                                             .isNotEmpty
                                                         ? "http://127.0.0.1:5000/${foundReport.images.first.path}"
                                                         : "",
-                                                    location: foundReport
-                                                        .locationName,
-                                                    reporterName: "",
                                                   ),
-                                                );
-                                              },
-                                              child: OfferCard(
-                                                title: foundReport.itemName,
-                                                date:
-                                                    foundReport.dateReported
-                                                        ?.toString() ??
-                                                    "",
-                                                status: foundReport.reportType,
-                                                statusColor: Colors.greenAccent,
-                                                imageUrl:
-                                                    foundReport
-                                                        .images
-                                                        .isNotEmpty
-                                                    ? "http://127.0.0.1:5000/${foundReport.images.first.path}"
-                                                    : "",
+                                                ),
                                               ),
-                                            ),
-                                        ],
+                                          ],
+                                        ),
                                       );
                                     },
                                   ),
@@ -247,8 +269,8 @@ class NotificationPage extends StatelessWidget {
                 left: 20,
                 bottom: 100,
                 child: FloatingActionButton(
-                  heroTag: "delete_notifications",
-                  backgroundColor: Colors.red,
+                  heroTag: "حذف الاشعارات",
+                  backgroundColor: Colors.blue.withOpacity(0.7),
                   child: const Icon(Icons.delete),
                   onPressed: () {
                     Get.dialog(
@@ -283,7 +305,7 @@ class NotificationPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 20),
                               const Text(
-                                "Delete Notifications",
+                                "حذف الاشعارات",
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -291,7 +313,7 @@ class NotificationPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                "All notifications will be permanently deleted.",
+                                "سيتم حذف جميع الاشعارات",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Get.theme.hintColor,
@@ -302,11 +324,17 @@ class NotificationPage extends StatelessWidget {
                               Row(
                                 children: [
                                   Expanded(
-                                    child: OutlinedButton(
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.grey[200],
+                                      ),
                                       onPressed: () {
                                         Get.back();
                                       },
-                                      child: const Text("Cancel"),
+                                      child: const Text(
+                                        "تراجع",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(width: 12),
@@ -320,7 +348,7 @@ class NotificationPage extends StatelessWidget {
                                         Get.back();
                                       },
                                       child: const Text(
-                                        "Delete",
+                                        "حذف",
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     ),
