@@ -11,6 +11,12 @@ import 'package:lostandfound/features/home/view/done.dart';
 class DetailsController extends GetxController {
   ApiConsumer api =getIt<ApiConsumer>();
   String description="";
+  List<ReportImage> images = [];
+  int currentImageIndex = 0;
+  void changeImage(int index) {
+  currentImageIndex = index;
+  update();
+}
 
   Future<void> claim(int reportId  ) async {
     try {
@@ -39,6 +45,7 @@ class DetailsController extends GetxController {
 
       ReportDetailsResponse reportDetailsResponse=ReportDetailsResponse.fromJson(response);
       description=reportDetailsResponse.data!.description;
+      images = reportDetailsResponse.data?.images ?? [];
       
       update();
     } on ServerException catch (e) {

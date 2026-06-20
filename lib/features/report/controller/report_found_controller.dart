@@ -31,8 +31,7 @@ class ReportFoundController extends GetxController {
   int? selectedLocationId;
 
   /// Selected Image
-  File? file;
-
+List<File> files = [];
   /// Form Key
   final GlobalKey<FormState> formstate = GlobalKey<FormState>();
 
@@ -146,12 +145,10 @@ class ReportFoundController extends GetxController {
     update();
   }
 
-  /// Pick Image
-  Future<void> pickImage() async {
-    file = await MyImagePicker();
-    update();
-  }
-
+ Future<void> pickImages() async {
+  files = await MyMultiImagePicker();
+  update();
+}
   /// Submit Form
 Future<void> submitReport() async {
   if (!formstate.currentState!.validate()) {
@@ -181,11 +178,13 @@ Future<void> submitReport() async {
 
         "CategoryId": selectedCategoryId,
 
-        "Images": file != null
-            ? [
-                await uploadImageToAPI(file!),
-              ]
-            : [],
+        "Images": files.isNotEmpty
+    ? await Future.wait(
+        files.map(
+          (file) => uploadImageToAPI(file),
+        ),
+      )
+    : [],
       },
     );
 

@@ -24,8 +24,7 @@ class ReportLostController extends GetxController {
 
   int? selectedLocationId;
 
-  File? file;
-
+List<File> files = [];
   final GlobalKey<FormState> formstate = GlobalKey<FormState>();
 
   late TextEditingController nameController;
@@ -131,10 +130,10 @@ class ReportLostController extends GetxController {
     update();
   }
 
-  Future<void> pickImage() async {
-    file = await MyImagePicker();
-    update();
-  }
+  Future<void> pickImages() async {
+  files = await MyMultiImagePicker();
+  update();
+}
 
   Future<void> submitReport() async {
     if (!formstate.currentState!.validate()) {
@@ -163,11 +162,13 @@ class ReportLostController extends GetxController {
 
           "CategoryId": selectedCategoryId,
 
-          "Images": file != null
-              ? [
-                  await uploadImageToAPI(file!),
-                ]
-              : [],
+          "Images": files.isNotEmpty
+    ? await Future.wait(
+        files.map(
+          (file) => uploadImageToAPI(file),
+        ),
+      )
+    : [],
         },
       );
 

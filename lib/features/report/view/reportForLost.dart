@@ -129,12 +129,78 @@ class ReportLostPage extends StatelessWidget {
 
                 /// Image Picker
                 GetBuilder<ReportLostController>(
-                  builder: (controller) => ImagePickerCard(
-                    title: "add image".tr,
-                    file: controller.file,
-                    onTap: controller.pickImage,
+  builder: (controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+
+      controller.files.isEmpty
+    ? ImagePickerCard(
+        title: "add image".tr,
+        file: null,
+        onTap: controller.pickImages,
+      )
+    : InkWell(
+        onTap: controller.pickImages,
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 10,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.blue.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: Colors.blue,
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.add_photo_alternate_outlined),
+                const SizedBox(width: 8),
+                Text(
+                  "اختر صور اخرى",
+                  style: TextStyle(
+                    color: Colors.blue.shade700,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
+              ],
+            ),
+          ),
+        ),
+      ), 
+
+        const SizedBox(height: 10),
+
+        if (controller.files.isNotEmpty)
+          SizedBox(
+            height: 100,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: controller.files.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  width: 100,
+                  margin: const EdgeInsets.only(right: 10),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.file(
+                      controller.files[index],
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+      ],
+    );
+  },
+),
 
                 const SizedBox(height: 35),
 

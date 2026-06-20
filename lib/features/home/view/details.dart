@@ -69,19 +69,90 @@ class _DetailsPageState extends State<DetailsPage> {
                 const SizedBox(width: 16),
               ],
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.network(
-                  widget.image,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: Get.theme.cardColor,
-                      child: const Center(
-                        child: Icon(Icons.image_outlined, size: 80),
-                      ),
-                    );
-                  },
+  background: GetBuilder<DetailsController>(
+    builder: (controller) {
+      if (controller.images.isEmpty) {
+        return Image.network(
+          widget.image,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return Container(
+              color: Get.theme.cardColor,
+              child: const Center(
+                child: Icon(
+                  Icons.image_outlined,
+                  size: 80,
                 ),
               ),
+            );
+          },
+        );
+      }
+
+      return Stack(
+  alignment: Alignment.bottomCenter,
+  children: [
+
+    PageView.builder(
+      onPageChanged: controller.changeImage,
+      itemCount: controller.images.length,
+      itemBuilder: (context, index) {
+        return Image.network(
+          "http://127.0.0.1:5000/${controller.images[index].path}",
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return Container(
+              color: Get.theme.cardColor,
+              child: const Center(
+                child: Icon(
+                  Icons.image_outlined,
+                  size: 80,
+                ),
+              ),
+            );
+          },
+        );
+      },
+    ),
+
+    Positioned(
+      bottom: 20,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 6,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.black54,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(
+            controller.images.length,
+            (index) => AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              width: controller.currentImageIndex == index
+                  ? 18
+                  : 8,
+              height: 8,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: controller.currentImageIndex == index
+                    ? Colors.white
+                    : Colors.white54,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  ],
+);
+    },
+  ),
+),
             ),
 
             SliverToBoxAdapter(

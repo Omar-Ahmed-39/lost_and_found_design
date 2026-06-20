@@ -57,10 +57,6 @@ void main() async {
          Get.put(NotificationController(),permanent: true);
 
 
-
-
-
-
   runApp(const MyApp());
 }
 
