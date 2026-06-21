@@ -20,12 +20,21 @@ class ReportFoundController extends GetxController {
 
   /// Categories List
   List<Category> categories = [];
+  List<ConditionType> conditionTypes = [
+    ConditionType.fromJson({'id':1,"name":"شبه جديد"}),
+    ConditionType.fromJson({'id':2,"name":"جديد"}),
+    ConditionType.fromJson({'id':3,"name":"قديم"}),
+    ];
+    
+
 
   /// Locations List
   List<LocationModel> locations = [];
 
   /// Selected Category Id
   int? selectedCategoryId;
+
+  int? selectedConditionTypeId;
 
   /// Selected Location Id
   int? selectedLocationId;
@@ -48,6 +57,14 @@ List<File> files = [];
       return DropdownMenuItem<int>(
         value: category.id,
         child: Text(category.name),
+      );
+    }).toList();
+  }
+  List<DropdownMenuItem<int>> get conditionTypesItems {
+    return conditionTypes.map((conditionTypes) {
+      return DropdownMenuItem<int>(
+        value: conditionTypes.id,
+        child: Text(conditionTypes.name),
       );
     }).toList();
   }
@@ -144,6 +161,10 @@ List<File> files = [];
     selectedLocationId = value;
     update();
   }
+  void changeConditionType(int? value) {
+    selectedConditionTypeId = value;
+    update();
+  }
 
  Future<void> pickImages() async {
   files = await MyMultiImagePicker();
@@ -162,7 +183,7 @@ Future<void> submitReport() async {
       data: {
         "ReportType": 2,
         "ItemName": nameController.text.trim(),
-        "ConditionType": 1,
+        "ConditionType": selectedConditionTypeId,
         "DateReported": DateTime.now().toIso8601String(),
 
         // Optional Fields

@@ -19,7 +19,7 @@ class MySearchFilde extends StatelessWidget {
       onFieldSubmitted:submitted ,
     
       decoration: InputDecoration(
-        hintText: "البحث",
+        hintText: "search".tr,
         hintStyle: TextStyle(fontWeight: FontWeight.w200),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5), // الاستدارة

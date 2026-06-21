@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/core/theme/app_theme.dart';
+import 'package:get/get.dart';
+
 
 class ImagePickerCard extends StatelessWidget {
   final String title;
@@ -51,12 +53,12 @@ class ImagePickerCard extends StatelessWidget {
                       width: double.infinity,
                       height: double.infinity,
                     )
-                  : const Center(
+                  :  Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.camera_alt_outlined, size: 30),
-                          Text('ارفع صورة'),
+                          Text("upload image".tr),
                         ],
                       ),
                     ),

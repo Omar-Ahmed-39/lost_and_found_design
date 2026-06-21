@@ -27,6 +27,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
           ProfileController profileController=Get.put(ProfileController());
+            final navigationController = Get.find<NavigationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -228,8 +229,11 @@ Get.find<MyLocalController>().changeLang();                    },
                     subtitle: "change appearance".tr,
                     iconBg: Get.theme.colorScheme.primary,
                     iconColor: AppTheme.primaryBlue,
-                    onTap: () {
+                    onTap: () async{
                       Get.find<ThemeController>().changeTheme();
+                      await waitTwoSeconds() ;
+
+                      navigationController.changeIndex(3);
                     },
                   ),
                 ],
@@ -267,4 +271,7 @@ Get.find<MyLocalController>().changeLang();                    },
       ),
     );
   }
+}
+Future<void> waitTwoSeconds() async {
+  await Future.delayed(const Duration(seconds: 1));
 }

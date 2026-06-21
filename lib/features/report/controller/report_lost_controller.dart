@@ -19,6 +19,12 @@ class ReportLostController extends GetxController {
   List<Category> categories = [];
 
   List<LocationModel> locations = [];
+   List<ConditionType> conditionTypes = [
+    ConditionType.fromJson({'id':1,"name":"شبه جديد"}),
+    ConditionType.fromJson({'id':2,"name":"جديد"}),
+    ConditionType.fromJson({'id':3,"name":"قديم"}),
+    ];
+  int? selectedConditionTypeId;
 
   int? selectedCategoryId;
 
@@ -38,6 +44,14 @@ List<File> files = [];
       return DropdownMenuItem<int>(
         value: category.id,
         child: Text(category.name),
+      );
+    }).toList();
+  }
+   List<DropdownMenuItem<int>> get conditionTypesItems {
+    return conditionTypes.map((conditionTypes) {
+      return DropdownMenuItem<int>(
+        value: conditionTypes.id,
+        child: Text(conditionTypes.name),
       );
     }).toList();
   }
@@ -129,6 +143,10 @@ List<File> files = [];
     selectedLocationId = value;
     update();
   }
+   void changeConditionType(int? value) {
+    selectedConditionTypeId = value;
+    update();
+  }
 
   Future<void> pickImages() async {
   files = await MyMultiImagePicker();
@@ -147,7 +165,7 @@ List<File> files = [];
         data: {
           "ReportType": 1,
           "ItemName": nameController.text.trim(),
-          "ConditionType": 1,
+          "ConditionType": selectedConditionTypeId,
           "DateReported": DateTime.now().toIso8601String(),
 
           "Color": brandController.text.trim().isEmpty

@@ -49,6 +49,14 @@ class MyLocal extends Translations {
       "home": "الرئيسية",
       "there are not post at the moment": "لا توجد منشورات حالياً",
       // notification folder
+        "possible_match_found": "توجد عملية تطابق محتملة",
+"matching_found_item": "تم العثور على عنصر موجود مطابق لعنصرك المفقود",
+
+"delete_notifications": "حذف الإشعارات",
+"all_notifications_will_be_deleted": "سيتم حذف جميع الإشعارات",
+
+"cancel": "تراجع",
+"delete": "حذف",
       "no notifications currently": "لا توجد إشعارات حالياً",
       // profile folder
       "terms and conditions": "الشروط والأحكام",
@@ -176,12 +184,17 @@ class MyLocal extends Translations {
       "write time": "اكتب الوقت",
       "lost time": "وقت الفقد",
       "add image": "اضف صورة",
+      "conditionType":"اختر حالة الغرض",
       //search folder
       "search filter": "فلترة البحث",
       "choose type": "اختر النوع",
       "apply filter": "تطبيق الفلتر",
       "name":"الاسم",
-      "save changes":"حفظ التغيرات"
+      "save changes":"حفظ التغيرات",
+      "upload image":"ارفع صورة",
+      "chose another images":"ارفع صور اخرى",
+      "chose condition Type":"اختر حالة الغرض", 
+    
     },
 
     "en": {
@@ -232,6 +245,14 @@ class MyLocal extends Translations {
       "there are not post at the moment":
           "There are no posts at the moment", // أضفنا هذا المفتاح
       // notification folder
+      "possible_match_found": "Potential Match Found",
+"matching_found_item": "A found item matching your lost item has been detected",
+
+"delete_notifications": "Delete Notifications",
+"all_notifications_will_be_deleted": "All notifications will be deleted",
+
+"cancel": "Cancel",
+"delete": "Delete",
       "no notifications currently": "No notifications currently",
 
       // profile folder
@@ -361,11 +382,17 @@ class MyLocal extends Translations {
       "add image": "Add Image",
       "name":"name",
       "save changes":"save changes",
+      "conditionType":"chose condition Type",
+      "upload image":"upload image",
+      "chose another images":"chose another images",
+      "chose condition Type":"chose condition Type",
 
       // search folder
       "search filter": "Search Filter",
       "choose type": "Choose Type",
       "apply filter": "Apply Filter",
+
+      
     },
   };
 }

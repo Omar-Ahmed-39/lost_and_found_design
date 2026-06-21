@@ -1,9 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lostandfound/core/Middleware/middlewares.dart';
-import 'package:lostandfound/core/api/api_consumer.dart';
-import 'package:lostandfound/core/api/dio_consumer.dart';
 import 'package:lostandfound/core/binding/binding.dart';
 import 'package:lostandfound/core/database/cache/cache_helper.dart';
 import 'package:lostandfound/core/local/local.dart';
@@ -16,15 +13,15 @@ import 'package:lostandfound/features/auth/view/signin.dart';
 import 'package:lostandfound/features/auth/view/signup.dart';
 import 'package:lostandfound/features/home/view/home_screen.dart';
 import 'package:lostandfound/features/notification/controller/notification_controller.dart';
-import 'package:lostandfound/features/notification/services.dart';
 import 'package:lostandfound/features/profile/view/chang_password.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(
   RemoteMessage message,
 ) async {
+    await Firebase.initializeApp();
+
 
   List<Map<String, dynamic>> notifications =
       CacheHelper.getListMap(
@@ -54,7 +51,6 @@ void main() async {
 
      await Firebase.initializeApp();
        FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-         Get.put(NotificationController(),permanent: true);
 
 
   runApp(const MyApp());

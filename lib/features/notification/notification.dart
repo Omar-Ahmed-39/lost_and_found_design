@@ -102,7 +102,7 @@ class NotificationPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "توجد عملية تطابق محتملة",
+                                    "possible_match_found".tr,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
@@ -112,7 +112,7 @@ class NotificationPage extends StatelessWidget {
                                   const SizedBox(height: 8),
 
                                   Text(
-                                    "تم العثور على عنصر موجود مطابق لعنصؤك المفقود",
+                               "matching_found_item".tr,
                                   ),
  const SizedBox(height: 8),
                                   FutureBuilder(
@@ -269,7 +269,7 @@ class NotificationPage extends StatelessWidget {
                 left: 20,
                 bottom: 100,
                 child: FloatingActionButton(
-                  heroTag: "حذف الاشعارات",
+                  heroTag:  "delete_notifications".tr,
                   backgroundColor: Colors.blue.withOpacity(0.7),
                   child: const Icon(Icons.delete),
                   onPressed: () {
@@ -304,8 +304,8 @@ class NotificationPage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              const Text(
-                                "حذف الاشعارات",
+                               Text(
+                                 "delete_notifications".tr,
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -313,7 +313,7 @@ class NotificationPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                "سيتم حذف جميع الاشعارات",
+                                 "all_notifications_will_be_deleted".tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Get.theme.hintColor,
@@ -331,8 +331,8 @@ class NotificationPage extends StatelessWidget {
                                       onPressed: () {
                                         Get.back();
                                       },
-                                      child: const Text(
-                                        "تراجع",
+                                      child:  Text(
+                                        "cancel".tr,
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     ),
@@ -347,8 +347,8 @@ class NotificationPage extends StatelessWidget {
                                         controller.clearNotifications();
                                         Get.back();
                                       },
-                                      child: const Text(
-                                        "حذف",
+                                      child:  Text(
+                                        "delete".tr,
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     ),

@@ -96,13 +96,22 @@ class ReportFoundPage extends StatelessWidget {
 
                 const SizedBox(height: 15),
 
-                /// Lost Time
-                MyInputField(
-                  hint: "write time".tr,
-                  title: "lost time".tr,
-                  controller: controller.timeController,
-                  val: (val) =>
-                      MyValidators.validateRequired(val),
+             /// Location Dropdown
+                GetBuilder<ReportFoundController>(
+                  builder: (controller) => MyDropdownList<int>(
+                    validator: (val) {
+                      if (val == null) {
+                        return "chose condition Type".tr;
+                      }
+                      return null;
+                    },
+                    selectedCategory:
+                        controller.selectedConditionTypeId,
+                    text: "conditionType".tr,
+                    hint: "choose from list".tr,
+                    items: controller.conditionTypesItems,
+                    onChanged: controller.changeConditionType,
+                  ),
                 ),
 
                 const SizedBox(height: 15),
@@ -162,7 +171,7 @@ class ReportFoundPage extends StatelessWidget {
                 const Icon(Icons.add_photo_alternate_outlined),
                 const SizedBox(width: 8),
                 Text(
-                  "اختر صور اخرى",
+                  "chose another images".tr,
                   style: TextStyle(
                     color: Colors.blue.shade700,
                     fontWeight: FontWeight.w600,
