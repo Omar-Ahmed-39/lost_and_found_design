@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:lostandfound/features/auth/view/sign.dart';
 import 'package:lostandfound/core/constsnt/image_constant.dart';
 
@@ -61,16 +63,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     if (!mounted) return;
 
-    Navigator.of(context).pushAndRemoveUntil(
-      PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 800),
-        pageBuilder: (context, animation, secondaryAnimation) => const Sign(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(opacity: animation, child: child);
-        },
-      ),
-      (route) => false,
-    );
+  Get.offAllNamed("/Sign");
   }
 
   @override
@@ -141,8 +134,8 @@ class _SplashScreenState extends State<SplashScreen>
                   child: ScaleTransition(
                     scale: _centerScale,
                     child: Container(
-                      width: 250,
-                      height: 250,
+                      width: 350,
+                      height: 350,
                       child: Image.asset(
                         MyAppImage.logoImage, // <-- نفس المسار
                         fit: BoxFit.contain,

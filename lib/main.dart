@@ -16,6 +16,7 @@ import 'package:lostandfound/features/notification/controller/notification_contr
 import 'package:lostandfound/features/profile/view/chang_password.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:lostandfound/features/splash/splash_screen.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(
   RemoteMessage message,
@@ -82,8 +83,12 @@ class MyApp extends StatelessWidget {
 
       initialRoute: "/",
       getPages: [
-        GetPage(
+         GetPage(
           name: "/",
+          page: () => const SplashScreen(),
+        ),
+        GetPage(
+          name: "/Sign",
           page: () => const Sign(),
            middlewares: [AuthMiddlewares()]
         ),

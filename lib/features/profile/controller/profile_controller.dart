@@ -19,7 +19,7 @@ class ProfileController extends GetxController {
     try {
       await api.post(EndPoint.logout);
       CacheHelper.clearData();
-       Get.offAllNamed("/");
+       Get.offAllNamed("/Sign");
     } on ServerException catch (e) {
       Get.snackbar(
         e.erorrModel.title,
